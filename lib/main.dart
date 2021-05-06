@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontWeight: FontWeight.bold)),
         child: Row (mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("Sign up    ",style: TextStyle(fontSize: 20)),
+            Text("Sign up  ",style: TextStyle(fontSize: 20)),
             Icon(Icons.arrow_forward,
               color: Colors.black,
               size: 30.0,),
