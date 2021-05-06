@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'signin.dart';
+import 'signup.dart';
 
 class StartScreen extends StatefulWidget {
   StartScreen({Key key, this.title}) : super(key: key);
@@ -73,8 +74,8 @@ class   _StartScreenState extends State<StartScreen> {
                     left: 15.0, right: 15.0, top: 15, bottom: 20),
                 //padding: EdgeInsets.symmetric(horizontal: 15),
                 child: ElevatedButton(
-                  onPressed: () {  //Navigator.push(
-                    // context, MaterialPageRoute(builder: (_) => SignUp()));
+                  onPressed: () {  Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => SignUp()));
                   },
                   style: ElevatedButton.styleFrom(
                       primary: Colors.green,

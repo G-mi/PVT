@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LogIn extends StatelessWidget {
+class SignUp extends StatelessWidget {
 
 
   @override
