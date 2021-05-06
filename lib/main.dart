@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text("Sign in  ",style: TextStyle(fontSize: 20)),
             Icon(Icons.arrow_forward,
-              color: Colors.black,
+              color: Colors.white,
               size: 30.0,),
           ],
         ),)
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text("Sign up  ",style: TextStyle(fontSize: 20)),
             Icon(Icons.arrow_forward,
-              color: Colors.black,
+              color: Colors.white,
               size: 30.0,),
           ],
         ),)
