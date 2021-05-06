@@ -40,4 +40,10 @@ public class MainController {
     public String helloCon(@RequestParam(value = "name", defaultValue = "controller") String name) {
         return String.format("Hello %s" , name);
     }
+
+    @GetMapping("/helloController")
+    public String hello(@RequestParam (value = "hi", defaultValue = "Wow") String name) {
+
+        return String.format("Hi %s", name);
+    }
 }
