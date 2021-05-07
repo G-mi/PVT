@@ -7,8 +7,10 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+        backgroundColor: Colors.white,
       appBar: AppBar(centerTitle: true,
         title: Text('Sign in'),
+        backgroundColor: Colors.red,
         actions: <Widget>
       [IconButton(icon: Icon(Icons.arrow_back,
           color: Colors.white,),
@@ -18,9 +20,23 @@ class SignIn extends StatelessWidget {
             )
         ],
       ),
+      body: Center(
+        child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 60.0),
+                child: Center(
+                  child: Container(
+                      width: 100,
+                      height: 200,
+                      child: Image.asset('images/tennisball.png')),
+                ),
+              ),
+      ])
+      )
     );
 
-    // TODO: implement build
-    throw UnimplementedError();
+
   }
 }
