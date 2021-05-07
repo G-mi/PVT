@@ -70,7 +70,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>src.main.java.tennisPartner.accessingdatamysql</mainClass>
+					<mainClass>tennisPartner.accessingdatamysql</mainClass>
 				</configuration>
 			</plugin>
 
