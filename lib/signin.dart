@@ -20,7 +20,7 @@ class SignIn extends StatelessWidget {
             )
         ],
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -31,8 +31,16 @@ class SignIn extends StatelessWidget {
                       width: 100,
                       height: 200,
                       child: Image.asset('images/tennisball.png')),
+
                 ),
               ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Username'),
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Password'),
+              ),
+
       ])
       )
     );
