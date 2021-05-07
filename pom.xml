@@ -17,9 +17,6 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-
-		<start-class>tennisPartner.accessingdatamysql</start-class>
-
 	</properties>
 
 	<dependencies>
@@ -68,6 +65,15 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>src.main.java.tennisPartner.accessingdatamysql</mainClass>
+				</configuration>
+			</plugin>
+
 		</plugins>
 		<!-- Git -->
 		<extensions>
