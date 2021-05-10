@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Buttons.dart';
+import 'package:frontend/signup.dart';
 
 class SignIn extends StatelessWidget {
 
@@ -44,7 +46,7 @@ class SignIn extends StatelessWidget {
 
                 ),
               ), Padding(
-               padding: EdgeInsets.only(bottom: 60.0),
+               padding: EdgeInsets.only(bottom: 40.0),
               child: Container(
 
                 width: 400,
@@ -55,7 +57,9 @@ class SignIn extends StatelessWidget {
               ),
                 ),
               ),
-              Container(
+                Padding(
+                padding: EdgeInsets.only(bottom: 40.0),
+              child: Container(
                 width: 400,
                 height:70,
                 color: Colors.white,
@@ -63,8 +67,19 @@ class SignIn extends StatelessWidget {
                   decoration: const InputDecoration(labelText: ' Password'),
                 ),
               ),
+                ),
+              Container(
+                  width: 400,
+                  height:70,
+                  color: Colors.transparent,
+              child: SignInButton( onPressed: () {  Navigator.push(
+    context, MaterialPageRoute(builder: (_) => SignUp()));
+    },
+    ),
 
-      ])
+              )
+            ]
+        )
       )
     )
     ]
