@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'signin.dart';
 import 'signup.dart';
 
+
 class StartScreen extends StatefulWidget {
   StartScreen({Key key, this.title}) : super(key: key);
 
@@ -33,7 +34,13 @@ class   _StartScreenState extends State<StartScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
 
-      body: SingleChildScrollView(
+      body:  Container(
+    decoration: BoxDecoration(
+    image: DecorationImage(
+        image: AssetImage('images/background.jpg'),
+    fit: BoxFit.cover,
+    ),
+    ),
         child: Column(
           children: <Widget>[
             Padding(
@@ -54,7 +61,7 @@ class   _StartScreenState extends State<StartScreen> {
                      context, MaterialPageRoute(builder: (_) => SignIn()));
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.red,
+                      primary: Colors.deepOrange,
                       padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                       textStyle: TextStyle(
                           fontSize: 30,
@@ -98,3 +105,5 @@ class   _StartScreenState extends State<StartScreen> {
     );
   }
 }
+
+

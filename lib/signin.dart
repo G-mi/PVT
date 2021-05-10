@@ -6,11 +6,21 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-        backgroundColor: Colors.white,
+    return Stack(
+        children: [
+    Container(
+    decoration: BoxDecoration(
+    image: DecorationImage(
+        image: AssetImage('images/background.jpg'),
+    fit: BoxFit.cover,
+    ),
+    ),
+    ),
+      Scaffold(
+        backgroundColor: Colors.transparent,
       appBar: AppBar(centerTitle: true,
         title: Text('Sign in'),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.deepOrange,
         actions: <Widget>
       [IconButton(icon: Icon(Icons.arrow_back,
           color: Colors.white,),
@@ -33,16 +43,31 @@ class SignIn extends StatelessWidget {
                       child: Image.asset('images/tennisball.png')),
 
                 ),
+              ), Padding(
+               padding: EdgeInsets.only(bottom: 60.0),
+              child: Container(
+
+                width: 400,
+                height:70,
+                color: Colors.white,
+               child: TextFormField(
+                decoration: const InputDecoration(labelText: ' Username/E-mail'),
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Username'),
+                ),
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Password'),
+              Container(
+                width: 400,
+                height:70,
+                color: Colors.white,
+                child: TextFormField(
+                  decoration: const InputDecoration(labelText: ' Password'),
+                ),
               ),
 
       ])
       )
+    )
+    ]
     );
 
 
