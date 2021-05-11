@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/signin.dart';
-//to reuse buttons. To be fixed to be more generic.
+
+
 class CustomIconButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String title;
   final Color color;
 
   const CustomIconButton({Key key, this.onPressed, this.title, this.color}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {

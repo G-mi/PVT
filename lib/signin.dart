@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Buttons.dart';
+import 'package:frontend/Homescreen.dart';
 import 'package:frontend/signup.dart';
 
 class SignIn extends StatelessWidget {
@@ -24,15 +25,7 @@ class SignIn extends StatelessWidget {
       appBar: AppBar(centerTitle: true,
         title: Text('Sign in'),
         backgroundColor: Colors.deepOrange,
-        actions: <Widget>
-      [IconButton(icon: Icon(Icons.arrow_back,
-          color: Colors.white,),
-            onPressed: () {
-           Navigator.pop(context);
-            }
-            )
-        ],
-      ),
+    ),
       body: SingleChildScrollView(
         child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -69,20 +62,18 @@ class SignIn extends StatelessWidget {
                 ),
               ),
                 ),
-              Container(
+              Container( //Sign in button
                   width: 400,
                   height:70,
                   color: Colors.transparent,
               child: CustomIconButton( onPressed: () {  Navigator.push(
-    context, MaterialPageRoute(builder: (_) => SignUp()));
+    context, MaterialPageRoute(builder: (_) => HomeScreen()));
     },
         title: text = 'Sign in',
         color: Colors.deepOrange,
-
     ),
-
               ),
-              Container(
+              Container( //Continue with google button
                 width: 400,
                 height:70,
                 color: Colors.transparent,
@@ -91,9 +82,24 @@ class SignIn extends StatelessWidget {
                 },
                   title: text = 'Continue with Google',
                   color: Colors.green,
-
                 ),
 
+              ),
+              TextButton //No account dialog?
+                (onPressed:  () {  Navigator.push(
+    context, MaterialPageRoute(builder: (_) => SignUp()));
+    },   style: TextButton.styleFrom(
+                primary: Colors.black,
+              ),
+                child: Text('Dont have an account? Sign up'),
+              ),
+              TextButton //reset password
+                (onPressed:  () {  Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => ResetPassword()));
+              },   style: TextButton.styleFrom(
+                primary: Colors.black,
+              ),
+                child: Text('forgot password?'),
               )
             ]
         )
@@ -105,3 +111,39 @@ class SignIn extends StatelessWidget {
 
   }
 }
+
+//Todo:: Implement.
+class ResetPassword extends StatefulWidget {
+  ResetPassword({Key key}) : super(key:key);
+
+  @override
+  _ResetPasswordState createState() => _ResetPasswordState();
+}
+
+class _ResetPasswordState extends State<ResetPassword> {
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Reset password?'),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: <Widget>[
+            Text('This is a demo alert dialog.'),
+            Text('Would you like to approve of this message?'),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: Text('Send'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+}
+
+
