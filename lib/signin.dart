@@ -8,6 +8,7 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    String text;
     return Stack(
         children: [
     Container(
@@ -72,10 +73,26 @@ class SignIn extends StatelessWidget {
                   width: 400,
                   height:70,
                   color: Colors.transparent,
-              child: SignInButton( onPressed: () {  Navigator.push(
+              child: CustomIconButton( onPressed: () {  Navigator.push(
     context, MaterialPageRoute(builder: (_) => SignUp()));
     },
+        title: text = 'Sign in',
+        color: Colors.deepOrange,
+
     ),
+
+              ),
+              Container(
+                width: 400,
+                height:70,
+                color: Colors.transparent,
+                child: CustomIconButton( onPressed: () {  Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => SignUp()));
+                },
+                  title: text = 'Continue with Google',
+                  color: Colors.green,
+
+                ),
 
               )
             ]
