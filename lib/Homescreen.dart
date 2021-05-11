@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Buttons.dart';
+import 'package:frontend/Plannedmatches.dart';
 
 class HomeScreen extends StatefulWidget{
   HomeScreen({Key key}) : super(key:key);
@@ -48,6 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: Icon(Icons.sports_tennis),
               title: Text('Planned matches'),
+              onTap: () { Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => PlannedMatches()));
+              },
             ),
             ListTile(
               leading: Icon(Icons.chat),
