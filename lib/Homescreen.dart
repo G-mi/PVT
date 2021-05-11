@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/Buttons.dart';
 
 class HomeScreen extends StatefulWidget{
   HomeScreen({Key key}) : super(key:key);
@@ -9,7 +10,7 @@ class HomeScreen extends StatefulWidget{
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
+  String text;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,10 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const <Widget>[
+          children:  <Widget>[
+            //Todo: image, fullname, username
+            //Todo: implement screens and link
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.deepOrange,
+                color: Colors.green,
               ),
               child: Text(
                 'Menu',
@@ -35,21 +38,38 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.message),
-              title: Text('Messages'),
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
             ),
             ListTile(
               leading: Icon(Icons.account_circle),
               title: Text('Profile'),
             ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
+              leading: Icon(Icons.sports_tennis),
+              title: Text('Planned matches'),
             ),
+            ListTile(
+              leading: Icon(Icons.chat),
+              title: Text('Chat'),
+            ),
+            ListTile(
+              leading: Icon(Icons.people),
+              title: Text('Friends'),
+            ),
+             //todo: implement sign out, move to bottom of screen.
+             CustomIconButton(onPressed: () {  Navigator.pop(context);
+             },
+               title: text = 'Sign out',
+               color: Colors.deepOrange,)
           ],
+          ),
         ),
-      ),
+
       drawerEnableOpenDragGesture: true,
-    );
+      );
+
+
+
   }
 }
