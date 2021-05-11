@@ -56,6 +56,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+
+			<!-- Adding this experimentally -->
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+
 		</dependency>
 	</dependencies>
 
@@ -66,6 +75,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
+			<!--
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -73,6 +83,7 @@
 					<mainClass>tennisPartner.accessingdatamysql</mainClass>
 				</configuration>
 			</plugin>
+			-->
 
 		</plugins>
 		<!-- Git -->
