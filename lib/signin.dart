@@ -112,7 +112,7 @@ class SignIn extends StatelessWidget {
   }
 }
 
-//Todo:: Implement.
+//Todo:: Implement. Verify email, send mail
 class ResetPassword extends StatefulWidget {
   ResetPassword({Key key}) : super(key:key);
 
@@ -129,8 +129,8 @@ class _ResetPasswordState extends State<ResetPassword> {
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
-            Text('This is a demo alert dialog.'),
-            Text('Would you like to approve of this message?'),
+            Text('Please enter your e-mail address.'),
+            TextFormField(),
           ],
         ),
       ),
