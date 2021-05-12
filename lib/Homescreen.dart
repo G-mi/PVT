@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Buttons.dart';
 import 'package:frontend/Plannedmatches.dart';
+import 'package:frontend/Settings.dart';
 
 class HomeScreen extends StatefulWidget{
   HomeScreen({Key key}) : super(key:key);
@@ -41,6 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Settings'),
+              onTap: () { Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => Settings()));
+              },
             ),
             ListTile(
               leading: Icon(Icons.account_circle),
