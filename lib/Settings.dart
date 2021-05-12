@@ -47,10 +47,13 @@ class _SettingsState extends State<Settings> {
                         child: Container(
                             color: Color.fromRGBO(0, 255, 0, 0.5),
                             //Todo: add list of matches.
+                          child: Container(
+                              width: 100,
+                              height: 200,
+                              child: Image.asset('images/tennisball.png')),
 
                         ),
                     ),
-
                  FractionallySizedBox(
                       widthFactor: 0.9,
                       heightFactor: 0.9,
@@ -59,6 +62,7 @@ class _SettingsState extends State<Settings> {
                           //Todo: add list of matches.
 
                       ),
+
                   ),
               ],
           ),
