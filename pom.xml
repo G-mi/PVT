@@ -1,113 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.6.RELEASE</version>
-        <relativePath /> <!-- lookup parent from repository -->
-    </parent>
-    <groupId>com.example</groupId>
-    <artifactId>accessing-data-mysql</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
-    <name>accessing-data-mysql</name>
-    <description>Demo project for Spring Boot</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.6.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>tennisPartner</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>tennisPartner</name>
+	<description>Tennis partner application PVT</description>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 
-    <dependencies>
-        <!-- Spring data JPA -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <!-- Spring web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!-- MySQL driver -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- Jenkins core -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
+	<dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-        <!-- Git -->
-        <extensions>
-            <extension>
-                <groupId>ar.com.synergian</groupId>
-                <artifactId>wagon-git</artifactId>
-                <version>0.2.5</version>
-            </extension>
-        </extensions>
-    </build>
+		<!-- Spring Data JPA -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 
-    <!-- Repositories -->
-    <repositories>
-        <repository>
-            <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-releases</id>
-            <url>https://repo.spring.io/libs-release</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>synergian-repo</id>
-            <url>https://raw.github.com/synergian/wagon-git/releases</url>
-        </pluginRepository>
-    </pluginRepositories>
+		<!-- Spring Web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 
-    <distributionManagement>
-        <repository>
-            <id>internal.repo</id>
-            <name>Internal repo</name>
-            <url>git@github.com/RazanJaber/Pvt_SqlProject.git</url>
-        </repository>
-    </distributionManagement>
+		<!-- MySQL Driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
+		<!-- Jenkins core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
-    <!--
-Razan's version
--->
+		<!-- Test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>tennisPartner.accessingdatamysql</mainClass>
+				</configuration>
+			</plugin>
+
+		</plugins>
+		<!-- Git -->
+		<extensions>
+			<extension>
+				<groupId>ar.com.synergian</groupId>
+				<artifactId>wagon-git</artifactId>
+				<version>0.2.5</version>
+			</extension>
+		</extensions>
+
+	</build>
+
+	<repositories>
+		<repository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-releases</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>synergian-repo</id>
+			<url>https://raw.github.com/synergian/wagon-git/releases</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 
+	<distributionManagement>
+		<repository>
+			<id>internal.repo</id>
+			<name>Internal repo</name>
+			<url>git@github.com/G-mi/PVT.git</url>
+		</repository>
+	</distributionManagement>
 
 </project>
