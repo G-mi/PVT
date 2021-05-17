@@ -42,7 +42,6 @@ class SignIn extends StatelessWidget {
               ), Padding(
                padding: EdgeInsets.only(bottom: 40.0),
               child: Container(
-
                 width: 400,
                 height:70,
                 color: Colors.white,

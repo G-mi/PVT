@@ -13,7 +13,6 @@ class PlannedMatches extends StatefulWidget{
 
 class _PlannedMatchesState extends State<PlannedMatches> {
 
-
   @override
   Widget build(BuildContext context) {
     return Stack(
