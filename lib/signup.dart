@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Buttons.dart';
 
 class SignUp extends StatefulWidget{
   SignUp ({Key key}) : super(key:key);
@@ -38,6 +39,9 @@ class _SignUpState extends State<SignUp> {
                     heightFactor: 0.7,
                     child: Container(
                       color: Color.fromRGBO(255, 255, 255, 0.5),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15.0, right: 15.0, top: 15, bottom: 20),
                         child:
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,15 +83,16 @@ class _SignUpState extends State<SignUp> {
                             Row( mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Container(
-                                  width: 100,
+                                  width: 400,
                                   height:40,
                                   color: Colors.white,
                                   child: TextFormField(
                                     decoration: const InputDecoration(labelText: ' First name '),
                                   ),
                                 ),
+                                Expanded( child: SizedBox(height: 50,)),
                                 Container(
-                                  width: 100,
+                                  width: 400,
                                   height:40,
                                   color: Colors.white,
                                   child: TextFormField(
@@ -98,8 +103,6 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Expanded( child: SizedBox(height: 50,)),
                             Container(
-                              width: 400,
-                              height:70,
                               color: Colors.white,
                               child: TextFormField(
                                 decoration: const InputDecoration(labelText: ' User Name '),
@@ -108,8 +111,7 @@ class _SignUpState extends State<SignUp> {
                             Expanded( child: SizedBox(height: 50,)),
 
                             Container(
-                              width: 400,
-                              height:70,
+
                               color: Colors.white,
                               child: TextFormField(
                                 decoration: const InputDecoration(labelText: ' Email '),
@@ -118,8 +120,7 @@ class _SignUpState extends State<SignUp> {
                             Expanded( child: SizedBox(height: 50,)),
 
                             Container(
-                              width: 400,
-                              height:70,
+
                               color: Colors.white,
                               child: TextFormField(
                                 decoration: const InputDecoration(labelText: ' Password'),
@@ -127,27 +128,38 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Expanded( child: SizedBox(height: 50,)),
                             Container(
-                              width: 400,
-                              height:70,
                               color: Colors.white,
+
                               child: TextFormField(
                                 decoration: const InputDecoration(labelText: ' Confirm password '),
                               ),
                             ),
+
                             Expanded( child: SizedBox(height: 50,)),
                           ],
                         ),
-
                     ),
                   ),
-
-              ],
+                  ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 15.0, right: 15.0, top: 15, bottom: 20),
+                  child: CustomIconButton(onPressed: _handleSignUp, title: 'Continue',)
+                ),
+                ),
+                ],
 
     ),
           ),
           ),
               ],
             );
+
+  }
+
+  void _handleSignUp() async {
 
   }
 }
