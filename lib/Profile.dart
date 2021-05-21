@@ -27,6 +27,15 @@ class _ProfileState extends State<Profile>{
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: buildAppBar(context),
+          body: Center(
+            child: FractionallySizedBox(
+              widthFactor: 0.9,
+              heightFactor: 0.9,
+              child: Container(
+                color: Color.fromRGBO(255, 255, 255, 0.5),
+              )
+            )
+          )
         ),
       ],
     );
