@@ -37,4 +37,12 @@ class User {
     new Friend(userName: 'Sara'),
     new Friend(userName: 'Monica')
   ];
+
+    //TODO: Complete with all data that is to be loaded
+  factory User.fromJson(Map<String, dynamic> json){
+    return User(
+        json['firstName'],
+        json['lastName'],
+        json['userName']);
+  }
 }
