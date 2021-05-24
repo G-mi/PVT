@@ -8,10 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tennisPartner.accessingdatamysql.security.MessageResponse;
 import tennisPartner.accessingdatamysql.User;
 import tennisPartner.accessingdatamysql.repository.UserRepository;
@@ -20,20 +17,14 @@ import tennisPartner.accessingdatamysql.security.*;
 
 @RestController
 @RequestMapping("/user")
-
 public class UserController {
 
     @Autowired
     AuthenticationManager authenticationManager;
-
     @Autowired
     UserRepository userRepository;
-
-
-
     @Autowired
     PasswordEncoder encoder;
-
     @Autowired
     JwtUtils jwtUtils;
 
@@ -45,9 +36,7 @@ public class UserController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
-
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-
 
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getUsername(),
@@ -81,6 +70,36 @@ public class UserController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
+    @GetMapping("/userdata")
+    public ResponseEntity<?> getUserDataByEmail(@RequestParam String email) {
+
+        if (!userRepository.existsByEmail(email)) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: No such user"));
+        } else {
+            User user = userRepository.findByEmail(email);
+            //todo: return user info
+           return ResponseEntity.ok(user.getName());
+        }
+    }
+
+
+    @GetMapping("/userinfo")
+    public ResponseEntity<?> getUserDataByName(@RequestParam String name) {
+
+        if (!userRepository.existsByName(name)) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: No such user"));
+        } else {
+            User user = userRepository.findByName(name);
+            //todo: return user info
+            return ResponseEntity.ok(user.getName());
+        }
+    }
 }
+
 
 
