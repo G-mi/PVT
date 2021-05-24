@@ -15,4 +15,14 @@ Future<User> fetchUser() async {
   }
 }
 
+//TODO: Implement with proper password safety
+  /*Future<http.Response> createUser(PasswordInfo pass) async {
+    var res = await http.post(
+      Uri.https(_baseUrl,'/create'),
+      body: pass,
+    );
+    print(res.statusCode);
+    print(res.body);
+  }*/
+
 }

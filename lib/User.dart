@@ -1,24 +1,30 @@
 import 'Friend.dart';
 
 class User {
-    String firstName;
-    String lastName;
-    String userName;
-    //String email;
-    //String aboutInfo;
-    //String profilePicturePath;
-    //String gender;
-    //int skillLevel;
-    //int age;
-    List<Friend> friends;
-    List<Match> plannedMatches;
+  String firstName;
+  String lastName;
+  String userName;
 
-    User(
-        this.firstName,
-        this.lastName,
-        this.userName){
-        getFriends();
-    }
+  //String email;
+  //String aboutInfo;
+  //String profilePicturePath;
+  //String gender;
+  //int skillLevel;
+  int age;
+  List<Friend> friends;
+  List<Match> plannedMatches;
+
+  User(this.firstName,
+      this.lastName,
+      this.userName) {
+    getFriends();
+  }
+
+  User.namesOnly(
+      this.firstName,
+      this.lastName,
+      this.userName,
+      this.age);
 
   void getFriends(){
     this.friends = debugFriends; //Debug test
