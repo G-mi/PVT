@@ -14,7 +14,6 @@ import tennisPartner.accessingdatamysql.User;
 import tennisPartner.accessingdatamysql.repository.UserRepository;
 import tennisPartner.accessingdatamysql.security.*;
 
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -37,7 +36,7 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-
+        //todo: send correct info
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getUsername(),
                 userDetails.getEmail()
