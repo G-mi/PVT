@@ -1,5 +1,4 @@
 package tennisPartner.accessingdatamysql;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +15,8 @@ public class User implements Serializable{
     private String password;
     private String firstname;
     private String lastname;
-
+    private int age;
+    private String gender;
 
 
     public User() {
@@ -61,5 +61,19 @@ public class User implements Serializable{
         this.password = password;
     }
 
+    public String getFirstname() { return firstname; }
 
+    public void setFirstname(String firstname) {this.firstname = firstname; }
+
+    public String getLastname() { return lastname; }
+
+    public void setLastname(String lastname) { this.lastname = lastname; }
+
+    public int getAge() {  return age;  }
+
+    public void setAge(int age) { this.age = age; }
+
+    public String getGender() {  return gender;  }
+
+    public void setGender(String gender) { this.gender = gender; }
 }

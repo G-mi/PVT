@@ -58,15 +58,11 @@ public class UserController {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        // Create new user's account
-
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
         userRepository.save(user);
-
-
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
@@ -98,6 +94,21 @@ public class UserController {
             //todo: return user info
             return ResponseEntity.ok(user.getName());
         }
+    }
+
+    @DeleteMapping("/deleteuser")
+        public ResponseEntity<?> deleteUser(@RequestParam String name) {
+        User user = userRepository.findByName(name);
+        userRepository.delete(user);
+
+        return ResponseEntity.ok().body(new MessageResponse("User deleted"));
+
+    }
+    //to clean up all test users.
+    @DeleteMapping("/deleteAll")
+    public String deleteUsers() {
+        userRepository.deleteAll();
+        return "Deleted";
     }
 }
 

@@ -24,11 +24,8 @@ public class MainController  {
         User n = new User();
         n.setName(name);
         n.setEmail(email);
-
         userRepository.save(n);
         return "Saved";
-
-
     }
 
     @GetMapping(path="/all")
@@ -38,12 +35,7 @@ public class MainController  {
     }
 
 
-    //to clean up all test users.
-    @DeleteMapping("/deleteAll")
-    public String deleteUsers() {
-        userRepository.deleteAll();
-        return "Deleted";
-    }
+
 
 
     @GetMapping("/controller")
