@@ -28,8 +28,9 @@ public class UserController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @CrossOrigin(origins = "http://localhost:60134")
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -94,7 +95,7 @@ public class UserController {
         } else {
             User user = userRepository.findByName(name);
             //todo: return user info
-            return ResponseEntity.ok(user.getName());
+            return ResponseEntity.ok(user);
         }
     }
 
