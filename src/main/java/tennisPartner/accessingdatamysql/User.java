@@ -17,6 +17,7 @@ public class User implements Serializable{
     private String lastname;
     private int age;
     private String gender;
+    private int skillevel;
 
 
     public User() {
@@ -76,4 +77,9 @@ public class User implements Serializable{
     public String getGender() {  return gender;  }
 
     public void setGender(String gender) { this.gender = gender; }
+
+    public int getSkillevel() { return skillevel; }
+
+    public void setSkillevel(int skillevel) { this.skillevel = skillevel; }
+
 }
