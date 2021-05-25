@@ -2,12 +2,11 @@ package tennisPartner.accessingdatamysql.security;
 
 
 
-    import java.util.List;
+
 
     public class JwtResponse {
         private String token;
         private String type = "Bearer";
-
         private String username;
         private String email;
 
@@ -16,6 +15,7 @@ package tennisPartner.accessingdatamysql.security;
             this.token = accessToken;
             this.username = username;
             this.email = email;
+
 
         }
 

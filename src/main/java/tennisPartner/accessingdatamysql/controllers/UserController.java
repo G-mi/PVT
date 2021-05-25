@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import tennisPartner.accessingdatamysql.security.MessageResponse;
@@ -36,10 +37,12 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+
         //todo: send correct info
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getUsername(),
                 userDetails.getEmail()
+
                 ));
     }
 
@@ -59,7 +62,7 @@ public class UserController {
 
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()));
+                encoder.encode(signUpRequest.getPassword()), signUpRequest.getFirstname(), signUpRequest.getLastname(), signUpRequest.getAge(), signUpRequest.getGender(), signUpRequest.getAge());
 
         userRepository.save(user);
 

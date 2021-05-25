@@ -18,15 +18,22 @@ public class User implements Serializable{
     private int age;
     private String gender;
     private int skillevel;
+    private boolean isEnabled;
+
 
 
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, String firstname, String lastname, int age, String gender, int skillevel) {
         this.name = username;
         this.email = email;
         this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.age = age;
+        this.gender = gender;
+        this.skillevel = skillevel;
     }
 
 
@@ -82,4 +89,7 @@ public class User implements Serializable{
 
     public void setSkillevel(int skillevel) { this.skillevel = skillevel; }
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
 }

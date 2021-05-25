@@ -17,6 +17,7 @@ private String username;
 
 private String email;
 
+
 @JsonIgnore
 private String password;
 
@@ -29,6 +30,7 @@ public CustomUserDetails(int id, String username, String email, String password
         this.email = email;
         this.password = password;
 
+
         }
 
 public static CustomUserDetails build(User user) {
@@ -38,6 +40,7 @@ public static CustomUserDetails build(User user) {
         user.getName(),
         user.getEmail(),
         user.getPassword())
+
 
        ;
         }
@@ -65,7 +68,9 @@ public String getUsername() {
         return username;
         }
 
-@Override
+
+
+  @Override
 public boolean isAccountNonExpired() {
         return true;
         }
