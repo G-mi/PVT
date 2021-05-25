@@ -17,6 +17,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
@@ -136,21 +137,18 @@ class _SignInState extends State<SignIn> {
 
 
   signin(String email, password) async {
-    var data;
-    User user;
+
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-    Map send = { 'username': email, 'password': password};
+
     var res = await http.post(
         Uri.parse("http://localhost:8080/user/signin"), body:
         {'username': email, 'password': password});
-    debugPrint(email);
-    debugPrint(password);
-    debugPrintThrottled(res.statusCode.toString());
 
     if (res.statusCode == 200) {
-      data = json.decode(res.body);
+
       debugPrint(res.body);
+
 
 
       sharedPreferences.setString('name', res.body[1]);
@@ -159,14 +157,41 @@ class _SignInState extends State<SignIn> {
       //sharedPreferences.setString('firstName', user.firstName);
       //todo: save in safe storage.
 
+      getUserdata(email);
 
-      Navigator.push(context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          ));
-    }
+          }
     else displayDialog(context, "Something went wrong",
         "No account was found matching that username and password");
+  }
+
+  getUserdata(String email) async{
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    //get data for current user
+    //change url later
+    var userdata = await http.get(
+        Uri.http("localhost:8080","/user/currentuserinfo",
+            {"name": email }));
+
+    sharedPreferences.setString('email', userdata.body[3]);
+    sharedPreferences.setString('firstname', userdata.body[5]);
+    sharedPreferences.setString('lastname', userdata.body[6]);
+    sharedPreferences.setString('age', userdata.body[7]);
+    sharedPreferences.setString('Skillevel', userdata.body[9]);
+
+    var data = json.decode(userdata.body);
+    User user = User.fromJson(data);
+
+
+
+    Navigator.push(context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ));
+
+
+
   }
 
 
