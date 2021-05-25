@@ -9,11 +9,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import tennisPartner.accessingdatamysql.security.MessageResponse;
 import tennisPartner.accessingdatamysql.User;
 import tennisPartner.accessingdatamysql.repository.UserRepository;
 import tennisPartner.accessingdatamysql.security.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -28,12 +31,14 @@ public class UserController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @CrossOrigin(origins = "http://localhost:60134")
+    @CrossOrigin(origins = "http://localhost:50996")
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@RequestParam Map loginRequest) {
+        String username = (String) loginRequest.get("username");
+        String password = (String) loginRequest.get("password");
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(username, password));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -43,7 +48,6 @@ public class UserController {
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getUsername(),
                 userDetails.getEmail()
-
                 ));
     }
 
@@ -70,6 +74,7 @@ public class UserController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
+
     @GetMapping("/userdata")
     public ResponseEntity<?> getUserDataByEmail(@RequestParam String email) {
 
@@ -83,20 +88,16 @@ public class UserController {
            return ResponseEntity.ok(user.getName());
         }
     }
+    @CrossOrigin(origins = "http://localhost:50996")
+  //todo: send less info.
+    @GetMapping("/currentuserinfo")
+    public ResponseEntity<?> getUserDataByName(@RequestParam Map nameMap) {
 
-
-    @GetMapping("/userinfo")
-    public ResponseEntity<?> getUserDataByName(@RequestParam String name) {
-
-        if (!userRepository.existsByName(name)) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: No such user"));
-        } else {
-            User user = userRepository.findByName(name);
+            String username = (String) nameMap.get("name");
+            User user = userRepository.findByName(username);
             //todo: return user info
-            return ResponseEntity.ok(user);
-        }
+            return ResponseEntity.ok().body(user);
+
     }
 
     @DeleteMapping("/deleteuser")

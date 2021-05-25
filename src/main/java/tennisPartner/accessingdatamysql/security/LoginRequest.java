@@ -2,7 +2,7 @@ package tennisPartner.accessingdatamysql.security;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-public class LoginRequest implements Serializable {
+public class LoginRequest  {
     @NotBlank
     private String username;
 
