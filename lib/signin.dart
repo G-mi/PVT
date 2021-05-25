@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Buttons.dart';
 import 'package:frontend/Homescreen.dart';
@@ -84,8 +85,9 @@ class _SignInState extends State<SignIn> {
                           width: 400,
                           height: 70,
                           color: Colors.transparent,
-                          child: CustomIconButton(onPressed: signin(
-                              passwordController.text, emailController.text),
+                          child: CustomIconButton(
+
+                            onPressed: () => signin(emailController.text, passwordController.text) ,
                             title: text = 'Sign in',
                             color: Colors.deepOrange,
                           ),
@@ -137,21 +139,26 @@ class _SignInState extends State<SignIn> {
     var data;
     User user;
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    Map send = { 'username': email, 'password': password};
     var res = await http.post(
         Uri.parse("http://localhost:8080/user/signin"), body:
-        json.encode({'email': email, 'password': password}));
-
+        {'username': email, 'password': password});
+    debugPrint(email);
+    debugPrint(password);
+    debugPrintThrottled(res.statusCode.toString());
 
     if (res.statusCode == 200) {
       data = json.decode(res.body);
+      debugPrint(res.body);
 
-      user = new User.fromJson(data);
 
-      sharedPreferences.setString('name', user.userName);
-      sharedPreferences.setString('lastName', user.lastName);
-      sharedPreferences.setString('firstName', user.firstName);
+      sharedPreferences.setString('name', res.body[1]);
+      sharedPreferences.setString("token", res.body[4]);
+      //sharedPreferences.setString('lastName', user.lastName);
+      //sharedPreferences.setString('firstName', user.firstName);
       //todo: save in safe storage.
-      sharedPreferences.setString("token", data['token']);
+
 
       Navigator.push(context,
           MaterialPageRoute(
