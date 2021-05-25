@@ -19,6 +19,7 @@ public class Match {
     private Integer numberOfPlayers;
     private OffsetDateTime startTime;
     private OffsetDateTime endTime;
+    private String tennisCourt;
 
 
 

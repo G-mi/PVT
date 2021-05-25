@@ -17,7 +17,7 @@ import tennisPartner.accessingdatamysql.repository.UserRepository;
 import tennisPartner.accessingdatamysql.security.*;
 
 import java.util.Map;
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -31,7 +31,7 @@ public class UserController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @CrossOrigin(origins = "http://localhost:50996")
+    //@CrossOrigin(origins = "http://localhost:50996")
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestParam Map loginRequest) {
         String username = (String) loginRequest.get("username");
@@ -88,7 +88,7 @@ public class UserController {
            return ResponseEntity.ok(user.getName());
         }
     }
-    @CrossOrigin(origins = "http://localhost:50996")
+    //@CrossOrigin(origins = "http://localhost:50996")
   //todo: send less info.
     @GetMapping("/currentuserinfo")
     public ResponseEntity<?> getUserDataByName(@RequestParam Map nameMap) {
