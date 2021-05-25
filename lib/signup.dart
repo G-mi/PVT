@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Buttons.dart';
 
@@ -26,6 +27,7 @@ class _SignUpState extends State<SignUp> {
           ),
           Scaffold(
             backgroundColor: Colors.transparent,
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               centerTitle: true,
               title: Text('Sign up'),
@@ -33,15 +35,16 @@ class _SignUpState extends State<SignUp> {
             ),
             body: Center(
               child: Stack(
+                alignment: Alignment(0.0,-0.95),
                 children: [
                   FractionallySizedBox(
                     widthFactor: 0.9,
-                    heightFactor: 0.7,
+                    heightFactor: 0.5,
                     child: Container(
                       color: Color.fromRGBO(255, 255, 255, 0.5),
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            left: 15.0, right: 15.0, top: 15, bottom: 20),
+                            left: 15.0, right: 15.0, top: 0, bottom: 0),
                         child:
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,6 +79,8 @@ class _SignUpState extends State<SignUp> {
                                       _currentSlideValue = value;
                                     });
                                   },
+                                    activeColor: Colors.green,
+                                  inactiveColor: Colors.lightGreen,
                                 ),
                               ],
                             ),
@@ -83,17 +88,19 @@ class _SignUpState extends State<SignUp> {
                             Row( mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Container(
-                                  width: 400,
-                                  height:40,
+                                  width: 150,
+                                  height: 50,
+                                  padding: const EdgeInsets.only(
+                                      left: 5.0, right: 5.0, top: 0, bottom: 0),
                                   color: Colors.white,
                                   child: TextFormField(
-                                    decoration: const InputDecoration(labelText: ' First name '),
+                                   decoration: const InputDecoration(labelText: ' First name '),
                                   ),
                                 ),
-                                Expanded( child: SizedBox(height: 50,)),
+                                Expanded( child: SizedBox(height: 40,)),
                                 Container(
-                                  width: 400,
-                                  height:40,
+                                  width: 150,
+                                  height:50,
                                   color: Colors.white,
                                   child: TextFormField(
                                     decoration: const InputDecoration(labelText: ' Last name '),
@@ -101,41 +108,48 @@ class _SignUpState extends State<SignUp> {
                                 ),
                               ],
                             ),
-                            Expanded( child: SizedBox(height: 50,)),
+                            Expanded( child: SizedBox(height: 40,)),
                             Container(
                               color: Colors.white,
+                              height: 50,
                               child: TextFormField(
                                 decoration: const InputDecoration(labelText: ' User Name '),
                               ),
                             ),
-                            Expanded( child: SizedBox(height: 50,)),
+                            Expanded( child: SizedBox(height: 40,)),
 
                             Container(
 
                               color: Colors.white,
+                              height: 50,
                               child: TextFormField(
                                 decoration: const InputDecoration(labelText: ' Email '),
                               ),
                             ),
-                            Expanded( child: SizedBox(height: 50,)),
+                            Expanded( child: SizedBox(height: 40,)),
 
                             Container(
 
                               color: Colors.white,
+                              height: 50,
                               child: TextFormField(
                                 decoration: const InputDecoration(labelText: ' Password'),
+                                obscureText: true,
+                                obscuringCharacter: "*",
                               ),
                             ),
-                            Expanded( child: SizedBox(height: 50,)),
+                            Expanded( child: SizedBox(height: 40,)),
                             Container(
                               color: Colors.white,
-
+                              height: 50,
                               child: TextFormField(
                                 decoration: const InputDecoration(labelText: ' Confirm password '),
+                                obscureText: true,
+                                obscuringCharacter: "*",
                               ),
                             ),
 
-                            Expanded( child: SizedBox(height: 50,)),
+                            Expanded( child: SizedBox(height: 0,)),
                           ],
                         ),
                     ),
@@ -145,8 +159,8 @@ class _SignUpState extends State<SignUp> {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                       padding: const EdgeInsets.only(
-                          left: 15.0, right: 15.0, top: 15, bottom: 20),
-                  child: CustomIconButton(onPressed: _handleSignUp, title: 'Continue',)
+                          left: 15.0, right: 15.0, top: 100, bottom: 260),
+                  child: CustomIconButton(onPressed: _handleSignUp, title: 'Continue',color:Colors.green)
                 ),
                 ),
                 ],
