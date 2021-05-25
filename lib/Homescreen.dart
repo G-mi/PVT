@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Buttons.dart';
 import 'package:frontend/Plannedmatches.dart';
 import 'package:frontend/Settings.dart';
 import 'package:frontend/Profile.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeScreen extends StatefulWidget{
   HomeScreen({Key key}) : super(key:key);
@@ -12,8 +15,23 @@ class HomeScreen extends StatefulWidget{
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+
+
 class _HomeScreenState extends State<HomeScreen> {
   String text;
+  Completer<GoogleMapController> _controller = Completer();
+  static const  LatLng _center = const LatLng(59.286621, 18.088187);
+  LatLng _lastMapPosition = _center;
+  MapType _currentMapType = MapType.normal;
+
+  _onMapCreated(GoogleMapController controller){
+    _controller.complete(controller);
+  }
+
+  _onCameraMove(CameraPosition position){
+    _lastMapPosition = position.target;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +96,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
           ),
         ),
+      body: Stack(
+        children: <Widget>[
+          GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: CameraPosition(
+              target:_center, zoom:12.5),
+            mapType: _currentMapType,
+            //markers: _markers,
+            onCameraMove: _onCameraMove,
+            )
+        ]
+      ),
 
       drawerEnableOpenDragGesture: true,
       );
