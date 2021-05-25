@@ -140,21 +140,13 @@ class _SignInState extends State<SignIn> {
 
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-
-    var res = await http.post(
+       var res = await http.post(
         Uri.parse("http://localhost:8080/user/signin"), body:
         {'username': email, 'password': password});
 
     if (res.statusCode == 200) {
-
-      debugPrint(res.body);
-
-
-
       sharedPreferences.setString('name', res.body[1]);
       sharedPreferences.setString("token", res.body[4]);
-      //sharedPreferences.setString('lastName', user.lastName);
-      //sharedPreferences.setString('firstName', user.firstName);
       //todo: save in safe storage.
 
       getUserdata(email);
@@ -182,8 +174,6 @@ class _SignInState extends State<SignIn> {
 
     var data = json.decode(userdata.body);
     User user = User.fromJson(data);
-
-
 
     Navigator.push(context,
         MaterialPageRoute(
