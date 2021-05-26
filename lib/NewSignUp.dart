@@ -62,7 +62,9 @@ class _NewSignUpState extends State<NewSignUp> {
                                 Expanded(
                                   child: Column(
                                     children: <Widget>[
-                                      Text('Write a few words about yourself. This will be visible to other users on your profile:'),
+                                      SizedBox(
+                                          child: Text(
+                                              'Write a few words about yourself. This will be visible to other users on your profile:')),
                                       Divider(color: Colors.black),
                                       Container(
                                         width: 323.2,
@@ -83,7 +85,6 @@ class _NewSignUpState extends State<NewSignUp> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text('Skill level (NPTR) :'),
-                              //https://www.usta.com/content/dam/usta/pdfs/10013_experience_player_ntrp_guidelines.pdf
                               Slider(
                                 value: _currentSlideValue,
                                 min: 0.0,

@@ -49,146 +49,157 @@ class _SignUpState extends State<SignUp> {
                   heightFactor: 0.5,
                   child: Container(
                     color: Color.fromRGBO(255, 255, 255, 0.6),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 15.0, right: 15.0, top: 0, bottom: 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              DropdownButton(
-                                hint: Text('Gender'),
-                                value: _gender,
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    _gender = newValue;
-                                  });
-                                },
-                                items: <String>[
-                                  'Male',
-                                  'Female',
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
-                              ),
-                              Text('Age:     '),
-                              Slider(
-                                value: _currentSlideValue,
-                                min: 16.0,
-                                max: 100.0,
-                                divisions: 100,
-                                label: _currentSlideValue.round().toString(),
-                                onChanged: (double value) {
-                                  setState(() {
-                                    _currentSlideValue = value;
-                                  });
-                                },
-                                activeColor: Colors.green,
-                                inactiveColor: Colors.lightGreen,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                width: 150,
-                                height: 50,
-                                padding: const EdgeInsets.only(
-                                    left: 5.0, right: 5.0, top: 0, bottom: 0),
-                                color: Colors.white,
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                      labelText: ' First name '),
+                    child: Form(
+                      key: _formKey,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15.0, right: 15.0, top: 0, bottom: 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                DropdownButton(
+                                  hint: Text('Gender'),
+                                  value: _gender,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _gender = newValue;
+                                    });
+                                  },
+                                  items: <String>[
+                                    'Male',
+                                    'Female',
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
-                              ),
-                              Expanded(
-                                  child: SizedBox(
-                                height: 40,
-                              )),
-                              Container(
-                                width: 150,
-                                height: 50,
-                                padding: const EdgeInsets.only(
-                                    left: 5.0, right: 5.0, top: 0, bottom: 0),
-                                color: Colors.white,
-                                child: TextFormField(
-                                  decoration: const InputDecoration(
-                                      labelText: ' Last name '),
+                                Text('Age:     '),
+                                Slider(
+
+                                  value: _currentSlideValue,
+                                  min: 16.0,
+                                  max: 100.0,
+                                  divisions: 100,
+                                  label: _currentSlideValue.round().toString(),
+                                  onChanged: (double value) {
+                                    setState(() {
+                                      _currentSlideValue = value;
+                                    });
+                                  },
+                                  activeColor: Colors.green,
+                                  inactiveColor: Colors.lightGreen,
                                 ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  width: 150,
+                                  height: 50,
+                                  padding: const EdgeInsets.only(
+                                      left: 5.0, right: 5.0, top: 0, bottom: 0),
+                                  color: Colors.white,
+                                  child: TextFormField(
+                                    validator: (val) => val.isEmpty ? 'Enter your first name': null,
+                                    decoration: InputDecoration(
+                                        labelText: ' First name '),
+                                  ),
+                                ),
+                                Expanded(
+                                    child: SizedBox(
+                                  height: 40,
+                                )),
+                                Container(
+                                  width: 150,
+                                  height: 50,
+                                  padding: const EdgeInsets.only(
+                                      left: 5.0, right: 5.0, top: 0, bottom: 0),
+                                  color: Colors.white,
+                                  child: TextFormField(
+                                    validator: (val) => val.isEmpty ? 'Enter your last name': null,
+                                    decoration: const InputDecoration(
+                                        labelText: ' Last name '),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                                child: SizedBox(
+                              height: 40,
+                            )),
+                            Container(
+                              color: Colors.white,
+                              padding: const EdgeInsets.only(
+                                  left: 5.0, right: 5.0, top: 0, bottom: 0),
+                              height: 50,
+                              child: TextFormField(
+                                validator: (val) => val.isEmpty ? 'Enter a user name': null,
+                                decoration: const InputDecoration(
+                                    labelText: ' User Name '),
                               ),
-                            ],
-                          ),
-                          Expanded(
-                              child: SizedBox(
-                            height: 40,
-                          )),
-                          Container(
-                            color: Colors.white,
-                            padding: const EdgeInsets.only(
-                                left: 5.0, right: 5.0, top: 0, bottom: 0),
-                            height: 50,
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                  labelText: ' User Name '),
                             ),
-                          ),
-                          Expanded(
-                              child: SizedBox(
-                            height: 40,
-                          )),
-                          Container(
-                            color: Colors.white,
-                            padding: const EdgeInsets.only(
-                                left: 5.0, right: 5.0, top: 0, bottom: 0),
-                            height: 50,
-                            child: TextFormField(
-                              decoration:
-                                  const InputDecoration(labelText: ' Email '),
+                            Expanded(
+                                child: SizedBox(
+                              height: 40,
+                            )),
+                            Container(
+                              color: Colors.white,
+                              padding: const EdgeInsets.only(
+                                  left: 5.0, right: 5.0, top: 0, bottom: 0),
+                              height: 50,
+                              child: TextFormField(
+                                validator: (val) => val.isEmpty ? 'Enter your email adress': null,
+                                decoration:
+                                    const InputDecoration(labelText: ' Email '),
+                              ),
                             ),
-                          ),
-                          Expanded(
-                              child: SizedBox(
-                            height: 40,
-                          )),
-                          Container(
-                            color: Colors.white,
-                            padding: const EdgeInsets.only(
-                                left: 5.0, right: 5.0, top: 0, bottom: 0),
-                            height: 50,
-                            child: TextFormField(
-                              decoration:
-                                  const InputDecoration(labelText: ' Password'),
-                              obscureText: true,
-                              obscuringCharacter: "*",
+                            Expanded(
+                                child: SizedBox(
+                              height: 40,
+                            )),
+                            Container(
+                              color: Colors.white,
+                              padding: const EdgeInsets.only(
+                                  left: 5.0, right: 5.0, top: 0, bottom: 0),
+                              height: 50,
+                              child: TextFormField(
+                                validator: (val) => val.isEmpty ? 'Enter a password': null,
+                                decoration: const InputDecoration(
+                                    labelText: ' Password'),
+                                obscureText: true,
+                                obscuringCharacter: "*",
+                              ),
                             ),
-                          ),
-                          Expanded(
-                              child: SizedBox(
-                            height: 40,
-                          )),
-                          Container(
-                            color: Colors.white,
-                            padding: const EdgeInsets.only(
-                                left: 5.0, right: 5.0, top: 0, bottom: 0),
-                            height: 50,
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                  labelText: ' Confirm password '),
-                              obscureText: true,
-                              obscuringCharacter: "*",
+                            Expanded(
+                                child: SizedBox(
+                              height: 40,
+                            )),
+                            Container(
+                              color: Colors.white,
+                              padding: const EdgeInsets.only(
+                                  left: 5.0, right: 5.0, top: 0, bottom: 0),
+                              height: 50,
+                              child: TextFormField(
+                                validator: (val) => val.isEmpty ? 'Enter a password': null,
+                                decoration: const InputDecoration(
+                                    labelText: ' Confirm password '),
+                                obscureText: true,
+                                obscuringCharacter: "*",
+                              ),
                             ),
-                          ),
-                          Expanded(
-                              child: SizedBox(
-                            height: 0,
-                          )),
-                        ],
+                            Expanded(
+                                child: SizedBox(
+                              height: 0,
+                            )),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -200,8 +211,13 @@ class _SignUpState extends State<SignUp> {
                           left: 15.0, right: 15.0, top: 100, bottom: 260),
                       child: CustomIconButton(
                           onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (_) => NewSignUp()));
+                            if (_formKey.currentState.validate()) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => NewSignUp()));
+                            }
+                            print(_gender);
                           },
                           title: 'Continue',
                           color: Colors.green)),
