@@ -1,9 +1,7 @@
 package tennisPartner.accessingdatamysql;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User implements Serializable{
@@ -18,6 +16,8 @@ public class User implements Serializable{
     private int age;
     private String gender;
     private int skillLevel;
+    @OneToMany(cascade=CascadeType.ALL,fetch= FetchType.LAZY,mappedBy = "user")
+    private List<Match> plannedMatches;
     private boolean isEnabled; //remove from database
 
 
