@@ -37,7 +37,7 @@ class _SignUpState extends State<SignUp> {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             centerTitle: true,
-            title: Text('Sign up'),
+            title: Text('Sign up 1/2'),
             backgroundColor: Colors.green,
           ),
           body: Center(
