@@ -19,7 +19,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController userNameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
 
 
@@ -62,9 +62,9 @@ class _SignInState extends State<SignIn> {
                             height: 70,
                             color: Colors.white,
                             child: TextFormField(
-                              controller: emailController,
+                              controller: userNameController,
                               decoration: const InputDecoration(
-                                  labelText: ' Username/E-mail'),
+                                  labelText: ' Username'),
 
                             ),
                           ),
@@ -87,7 +87,7 @@ class _SignInState extends State<SignIn> {
                           height: 70,
                           color: Colors.transparent,
                           child: CustomIconButton(
-                            onPressed: () => signin(emailController.text, passwordController.text) ,
+                            onPressed: () => signin(userNameController.text, passwordController.text) ,
                             title: text = 'Sign in',
                             color: Colors.deepOrange,
                           ),
@@ -135,13 +135,13 @@ class _SignInState extends State<SignIn> {
   }
 
 
-  signin(String email, password) async {
+  signin(String username, password) async {
 
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
        var res = await http.post(
         Uri.parse("http://localhost:8080/user/signin"), body:
-        {'username': email, 'password': password});
+        {'username': username, 'password': password});
 
     if (res.statusCode == 200) {
       Map data = json.decode(res.body) as Map;
@@ -149,7 +149,7 @@ class _SignInState extends State<SignIn> {
       sharedPreferences.setString('username', data['username']);
       sharedPreferences.setString("token", data['accessToken']);
       //todo: save in safe storage.
-      getUserdata(email);
+      getUserdata(username);
           }
 
     else displayDialog(context, "Something went wrong",
