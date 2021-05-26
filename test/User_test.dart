@@ -23,11 +23,11 @@ main(){
 
 
 List<Friend> debugFriends = [
-  new Friend(userName: 'Bengt'),
-  new Friend(userName: 'Sara'),
-  new Friend(userName: 'Monica')
+  new Friend('Bengt'),
+  new Friend('Sara'),
+  new Friend('Monica')
 ];
 
 User getTestUser(){
-  return new User('bo', 'olsson', 'bolo');
+  return new User.namesOnly('bo', 'olsson', 'bolo');
 }

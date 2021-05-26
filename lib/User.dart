@@ -50,9 +50,9 @@ class User {
   }
 
   final List<Friend> debugFriends = [
-    new Friend(userName: 'Bengt'),
-    new Friend(userName: 'Sara'),
-    new Friend(userName: 'Monica')
+    new Friend('Bengt'),
+    new Friend('Sara'),
+    new Friend('Monica')
   ];
 
     //TODO: Complete with all data that is to be loaded

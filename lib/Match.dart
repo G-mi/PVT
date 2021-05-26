@@ -2,6 +2,9 @@
 
 class Match{
   DateTime time;
+  String otherPlayer;
 
-  Match(this.time);
+  Match(
+      this.time,
+      this.otherPlayer);
 }

@@ -3,9 +3,14 @@
 class Friend {
   String userName;
 
-  Friend({
+  Friend(
     this.userName
-  });
+  );
+
+  factory Friend.fromJson(Map<String, dynamic> json){
+    return Friend(
+        json['userName']);
+  }
 
   @override
   bool operator ==(Object other) =>
