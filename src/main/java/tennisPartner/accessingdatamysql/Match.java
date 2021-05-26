@@ -20,9 +20,11 @@ public class Match {
     private java.sql.Time endTime;
     private java.sql.Date date;
     private String tennisCourt;
+    //private LatLng position;
+
     @ManyToOne
     private User user; //not sure this is correct
-    //private LatLng position;
+
 
 
     public User getUser() {

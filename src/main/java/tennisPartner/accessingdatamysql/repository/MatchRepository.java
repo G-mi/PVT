@@ -10,7 +10,7 @@ public interface MatchRepository extends CrudRepository<Match, Integer> {
 
     Match findAllByUserNotIn(User user);
 
-    Match findByUser_Gender(String gender);
+    Match findAllByUser_Gender(String gender);
 
     Match findAllByMaxSkillLevelAndMinSkillLevel();
 
