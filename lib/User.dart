@@ -67,7 +67,7 @@ class User {
     return User.full(
         json['firstName'],
         json['lastName'],
-        json['userName'],
+        json['name'],
         json['email'],
         json['age'],
         json['skillLevel']);

@@ -19,7 +19,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController userNameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
 
 
@@ -62,9 +62,9 @@ class _SignInState extends State<SignIn> {
                             height: 70,
                             color: Colors.white,
                             child: TextFormField(
-                              controller: emailController,
+                              controller: userNameController,
                               decoration: const InputDecoration(
-                                  labelText: ' Username/E-mail'),
+                                  labelText: ' Username'),
 
                             ),
                           ),
@@ -87,7 +87,7 @@ class _SignInState extends State<SignIn> {
                           height: 70,
                           color: Colors.transparent,
                           child: CustomIconButton(
-                            onPressed: () => signin(emailController.text, passwordController.text) ,
+                            onPressed: () => signin(userNameController.text, passwordController.text) ,
                             title: text = 'Sign in',
                             color: Colors.deepOrange,
                           ),
@@ -135,14 +135,13 @@ class _SignInState extends State<SignIn> {
   }
 
 
-  signin(String email, password) async {
+  signin(String username, password) async {
 
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
        var res = await http.post(
         Uri.parse("http://localhost:8080/user/signin"), body:
-        {'username': email, 'password': password});
-       debugPrint(res.body);
+        {'username': username, 'password': password});
 
     if (res.statusCode == 200) {
       Map data = json.decode(res.body) as Map;
@@ -150,11 +149,9 @@ class _SignInState extends State<SignIn> {
       sharedPreferences.setString('username', data['username']);
       sharedPreferences.setString("token", data['accessToken']);
       //todo: save in safe storage.
-      String mail = sharedPreferences.get('username');
-      debugPrint(mail);
-      getUserdata(email);
-
+      getUserdata(username);
           }
+
     else displayDialog(context, "Something went wrong",
         "No account was found matching that username and password");
   }
@@ -169,17 +166,14 @@ class _SignInState extends State<SignIn> {
         Uri.http("localhost:8080","/user/currentuserinfo",
             {"name": email }));
 
+    var data = json.decode(userdata.body);
+    User user = User.fromJsonFull(data);
 
-    Map data = json.decode(userdata.body) as Map;
-
-    //Is null, need to figure out why. Maybe because more data is sent from backend than is used to create user.
-    User user = User.fromJson(data);
-
-    sharedPreferences.setString('email', data['email']);
-    sharedPreferences.setString('email', data['firstname']);
-    sharedPreferences.setString('firstname', data['firstname']);
-    sharedPreferences.setString('lastname', data['lastname']);
-    sharedPreferences.setString('SkillLevel', data['skillLevel'].toString());
+    sharedPreferences.setString('email', user.email);
+    sharedPreferences.setString('firstname', user.firstName);
+    sharedPreferences.setString('lastname', user.lastName);
+    sharedPreferences.setString('age', user.age.toString());
+    sharedPreferences.setString('Skillevel', user.skillLevel.toString());
 
     Navigator.push(context,
         MaterialPageRoute(
