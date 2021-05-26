@@ -18,7 +18,7 @@ public class Match {
     private OffsetDateTime endTime;
     private String tennisCourt;
     @ManyToOne
-    private User user;
+    private User user; //not sure this is correct
     //private LatLng position;
 
 

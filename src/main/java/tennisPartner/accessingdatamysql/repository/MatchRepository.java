@@ -6,7 +6,21 @@ import tennisPartner.accessingdatamysql.User;
 
 public interface MatchRepository extends CrudRepository<Match, Integer> {
 
-    Match findByUserName(String username);
+    Match findAllByUser(User user);
+
+    Match findAllByUserNotIn(User user);
+
+    Match findByUser_Gender(String gender);
+
+    Match findAllByMaxSkillLevelAndMinSkillLevel();
+
+    Match findAllByTennisCourt(String tennisCourt);
+
+    Match findByUserAge(int age);
+
+
+
+
 
 
 
