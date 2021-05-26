@@ -1,28 +1,27 @@
-
-
-
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
   final String imagePath;
 
-  const ProfileWidget({Key key, this.imagePath}) : super(key: key);
+  ProfileWidget({Key key, @required this.imagePath,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: buildImage(),
+    return Stack(
+      children: [
+        buildImage(),
+      ],
     );
   }
 
-  Widget buildImage(){
-    if (imagePath.isEmpty){
+  Widget buildImage() {
+    if (imagePath.length == 0){
       return ClipOval(
         child: Material(
           color: Colors.transparent,
           child: Icon(
             Icons.account_circle,
-            color: Colors.white,
+            color: Colors.black,
             size: 128,
           ),
         ),
@@ -35,8 +34,8 @@ class ProfileWidget extends StatelessWidget {
           child: Ink.image(
             image: image,
             fit: BoxFit.cover,
-            width: 128,
-            height: 128,
+            width: 115,
+            height: 115,
           ),
         ),
       );
