@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/EditProfile.dart';
+import 'package:frontend/Homescreen.dart';
 import 'package:frontend/Widgets/profileWidget.dart';
-import 'Homescreen.dart';
+import 'package:frontend/Widgets/skillRatingWidget.dart';
 
 class Profile extends StatefulWidget{
   Profile({Key key}) : super(key:key);
@@ -12,13 +13,42 @@ class Profile extends StatefulWidget{
 }
 
 class _ProfileState extends State<Profile> {
-  bool _showFullName = true;
-  bool _showEmail = false;
-  bool _showAge = true;
-
+  final String fullName = 'Ruben Chamba';
+  final String userName = 'ruch99';
+  final int age = 21;
+  final int skillValue = 3;
+  final String email = 'rubenale@live.se';
+  final String aboutText = 'Random text about the user that is displayed to the public.';
+  final String imagePath = '';
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: buildAppBar(),
+      body: buildBody(),
+    );
+  }
+
+  Widget buildAppBar() {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(Icons.home),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => HomeScreen())
+          );
+        },
+      ),
+      backgroundColor: Colors.deepOrange,
+      centerTitle: true,
+      title: Text(
+          userName,
+      ),
+    );
+  }
+
+  Widget buildBody() {
     return Stack(
       children: [
         Container(
@@ -29,113 +59,157 @@ class _ProfileState extends State<Profile> {
               )
           ),
         ),
-        Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: buildAppBar(context),
-            body: Center(
-                child: Stack(
-                  children: [
-                    FractionallySizedBox(
-                      widthFactor: 0.9,
-                      heightFactor: 0.9,
-                      child: Container(
-                        color: Color.fromRGBO(255, 255, 255, 0.5),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              top: 20,
-                              left: 95,
-                              child: buildCircle(
-                                color: Colors.deepOrange,
-                                all: 3,
-                                child: ProfileWidget(
-                                  imagePath: 'https://icon-library.com/images/doge-icon/doge-icon-28.jpg',
-                                  // user.imagePath
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 5,
-                              left: 265,
-                              child: buildEditButton(),
-                            ),
-                            Positioned(
-                              top: 155,
-                              left: 107,
-                              child: buildName(),)
-                          ],
-                        ),
+        Center (
+          child: FractionallySizedBox(
+            widthFactor: 0.9,
+            heightFactor: 0.9,
+            child: Container(
+              color: Color.fromRGBO(255, 255, 255, 0.5),
+            ),
+          ),
+        ),
+        Stack(
+          children: [
+            Align(
+              alignment: Alignment(0.87, -0.88),
+              child: ClipOval(
+                child: Material(
+                  color: Colors.deepOrange,
+                  child: InkWell(
+                    splashColor: Colors.green,
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: Icon(
+                        Icons.edit,
+                        color: Colors.white,
                       ),
                     ),
-                  ],
-                )
-            )
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => EditProfile()));
+                    },
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment(0.0, -0.8),
+              child: ProfileWidget(
+                imagePath: imagePath,
+              ),
+            ),
+            Align(
+              alignment: Alignment(0.0, -0.30),
+              child: SizedBox(
+                width: 200,
+                height: 75,
+                child: buildUserinfo(),
+              ),
+            ),
+            Align(
+              alignment: Alignment(-0.7, -0.05),
+              child: SizedBox(
+                width: 93,
+                height: 16,
+                child: Text(
+                  email,
+                  style: TextStyle(color: Colors.deepOrange, fontWeight: FontWeight.normal, fontSize: 12),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment(0.0, 0.28),
+              child: buildAboutInfo(),
+            ),
+            Align(
+              alignment: Alignment(0.35, 0.65),
+              child: buildSkillRating(),
+            ),
+            Positioned(
+              top: 460,
+              left: 54,
+              child: Row(
+                children: [
+                  Text(
+                    'Beginner',
+                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 13),
+                  ),
+                  SizedBox(width: 145,),
+                  Text(
+                    'Advanced',
+                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 13),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );
   }
 
-
-  AppBar buildAppBar(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        icon: Icon(Icons.home),
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (_) => HomeScreen()));
-        },
+  Widget buildSkillRating() {
+    return SizedBox(
+      width: 280,
+      height: 80,
+      child: Container(
+        color: Colors.transparent,
+        child: IconTheme(
+          data: IconThemeData(
+            color: Colors.deepOrange,
+            size: 50,
+          ),
+          child: SkillRatingWidget(
+            skillValue: skillValue,
+            selectedBall: Icon(Icons.sports_baseball, color: Colors.deepOrange, size: 50,),
+            unSelectedBall: Icon(Icons.sports_baseball_outlined, color: Color.fromRGBO(255, 87, 34, 0.5), size: 50,),
+          ),
+        ),
       ),
-      backgroundColor: Colors.deepOrange,
-      centerTitle: true,
-      title: const Text('Username'), // user.userName
     );
   }
 
-  Widget buildEditButton() =>
-      buildCircle(
-        color: Colors.deepOrange,
-        all: 1,
-        child: IconButton(
-          icon: Icon(Icons.edit),
-          color: Colors.white,
-          iconSize: 35,
-          onPressed: () {},
+  Widget buildUserinfo() {
+    return Column(
+      children: [
+        Text(
+          fullName,
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 26),
         ),
-      );
+        Text(
+          userName,
+          style: TextStyle(color: Colors.deepOrange, fontWeight: FontWeight.normal, fontSize: 20),
+        ),
+        Text(
+          '${age}',
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
+        ),
+      ],
+    );
+  }
 
-  Widget buildCircle({
-    Widget child,
-    double all,
-    Color color,
-  }) =>
-      ClipOval(
-          child: Container(
-            padding: EdgeInsets.all(all),
-            color: color,
-            child: child,
-          )
-      );
-
-
-  Widget buildName() =>
-      Column(
-        children: [
-          if (_showFullName) ...[
-            Text(
-              'Full Name', //user.fullName
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 26),
-            ),
-          ],
-          Text(
-            'UserName', //user.userName
-            style: TextStyle(color: Colors.deepOrange, fontWeight: FontWeight.normal, fontSize: 20),
+  Widget buildAboutInfo() {
+    return SizedBox(
+      width: 280,
+      height: 120,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: 13,
+            vertical: 8
+        ),
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(255, 255, 255, 20),
+          border: Border.all(
+            color: Colors.black,
           ),
-          if (_showAge) ...[
-            Text(
-              '34', //user.age
-              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
-            ),
-          ],
-        ],
-      );
+          borderRadius: BorderRadius.circular(13.0),
+        ),
+        child: Text(
+          aboutText,
+        ),
+      ),
+    );
+  }
 }
