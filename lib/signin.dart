@@ -87,7 +87,6 @@ class _SignInState extends State<SignIn> {
                           height: 70,
                           color: Colors.transparent,
                           child: CustomIconButton(
-
                             onPressed: () => signin(emailController.text, passwordController.text) ,
                             title: text = 'Sign in',
                             color: Colors.deepOrange,
@@ -143,12 +142,16 @@ class _SignInState extends State<SignIn> {
        var res = await http.post(
         Uri.parse("http://localhost:8080/user/signin"), body:
         {'username': email, 'password': password});
+       debugPrint(res.body);
 
     if (res.statusCode == 200) {
-      sharedPreferences.setString('name', res.body[1]);
-      sharedPreferences.setString("token", res.body[4]);
-      //todo: save in safe storage.
+      Map data = json.decode(res.body) as Map;
 
+      sharedPreferences.setString('username', data['username']);
+      sharedPreferences.setString("token", data['accessToken']);
+      //todo: save in safe storage.
+      String mail = sharedPreferences.get('username');
+      debugPrint(mail);
       getUserdata(email);
 
           }
@@ -166,22 +169,22 @@ class _SignInState extends State<SignIn> {
         Uri.http("localhost:8080","/user/currentuserinfo",
             {"name": email }));
 
-    sharedPreferences.setString('email', userdata.body[3]);
-    sharedPreferences.setString('firstname', userdata.body[5]);
-    sharedPreferences.setString('lastname', userdata.body[6]);
-    sharedPreferences.setString('age', userdata.body[7]);
-    sharedPreferences.setString('Skillevel', userdata.body[9]);
 
-    var data = json.decode(userdata.body);
+    Map data = json.decode(userdata.body) as Map;
+
+    //Is null, need to figure out why. Maybe because more data is sent from backend than is used to create user.
     User user = User.fromJson(data);
+
+    sharedPreferences.setString('email', data['email']);
+    sharedPreferences.setString('email', data['firstname']);
+    sharedPreferences.setString('firstname', data['firstname']);
+    sharedPreferences.setString('lastname', data['lastname']);
+    sharedPreferences.setString('SkillLevel', data['skillLevel'].toString());
 
     Navigator.push(context,
         MaterialPageRoute(
           builder: (context) => HomeScreen(),
         ));
-
-
-
   }
 
 

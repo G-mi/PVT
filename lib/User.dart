@@ -70,6 +70,6 @@ class User {
         json['userName'],
         json['email'],
         json['age'],
-        json['skillevel']);
+        json['skillLevel']);
   }
 }
