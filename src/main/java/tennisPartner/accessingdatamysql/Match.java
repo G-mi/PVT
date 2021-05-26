@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Date;
 import java.time.OffsetDateTime;
+//import com.google.maps.model.LatLng;
 
 @Entity
 public class Match {
@@ -20,6 +21,7 @@ public class Match {
     private OffsetDateTime startTime;
     private OffsetDateTime endTime;
     private String tennisCourt;
+    //LatLng position;
 
 
 

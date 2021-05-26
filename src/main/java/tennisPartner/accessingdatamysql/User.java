@@ -13,27 +13,28 @@ public class User implements Serializable{
     private String name;
     private String email;
     private String password;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private int age;
     private String gender;
-    private int skillevel;
-    private boolean isEnabled;
+    private int skillLevel;
+    private boolean isEnabled; //remove from database
+
 
 
 
     public User() {
     }
 
-    public User(String username, String email, String password, String firstname, String lastname, int age, String gender, int skillevel) {
+    public User(String username, String email, String password, String firstname, String lastname, int age, String gender, int skillLevel) {
         this.name = username;
         this.email = email;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstname;
+        this.lastName = lastname;
         this.age = age;
         this.gender = gender;
-        this.skillevel = skillevel;
+        this.skillLevel = skillLevel;
     }
 
 
@@ -69,13 +70,13 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public String getFirstname() { return firstname; }
+    public String getFirstName() { return firstName; }
 
-    public void setFirstname(String firstname) {this.firstname = firstname; }
+    public void setFirstName(String firstname) {this.firstName = firstname; }
 
-    public String getLastname() { return lastname; }
+    public String getLastName() { return lastName; }
 
-    public void setLastname(String lastname) { this.lastname = lastname; }
+    public void setLastName(String lastname) { this.lastName = lastname; }
 
     public int getAge() {  return age;  }
 
@@ -85,9 +86,9 @@ public class User implements Serializable{
 
     public void setGender(String gender) { this.gender = gender; }
 
-    public int getSkillevel() { return skillevel; }
+    public int getSkillLevel() { return skillLevel; }
 
-    public void setSkillevel(int skillevel) { this.skillevel = skillevel; }
+    public void setSkillLevel(int skillevel) { this.skillLevel = skillevel; }
 
     public boolean isEnabled() {
         return isEnabled;

@@ -67,7 +67,7 @@ public class UserController {
 
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()), signUpRequest.getFirstname(), signUpRequest.getLastname(), signUpRequest.getAge(), signUpRequest.getGender(), signUpRequest.getAge());
+                encoder.encode(signUpRequest.getPassword()), signUpRequest.getFirstname(), signUpRequest.getLastname(), signUpRequest.getAge(), signUpRequest.getGender(), signUpRequest.getSkillevel());
 
         userRepository.save(user);
 
