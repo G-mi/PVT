@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/UserPreferences.dart';
 import 'package:frontend/Widgets/profileWidget.dart';
 import 'package:frontend/Widgets/textFieldWidget.dart';
 
@@ -12,9 +13,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  bool _showFullName = true;
-  bool _showAge = true;
-  bool _showEmail = true;
+  var user = UserPreferences.myUser;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
       backgroundColor: Colors.deepOrange,
       centerTitle: true,
       title: Text(
-        'Username', //user.username
+        user.userName,
       ),
     );
   }
@@ -72,31 +71,6 @@ class _EditProfileState extends State<EditProfile> {
                 children: [
                   Stack(
                     children: [
-                      Container(
-                        width: 325,
-                        height: 40,
-                        color: Colors.transparent,
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: ClipOval(
-                            child: Material(
-                              color: Colors.deepOrange,
-                              child: InkWell(
-                                splashColor: Colors.green,
-                                child: SizedBox(
-                                  width: 40,
-                                  height: 40,
-                                  child: Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                onTap: () {},
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                       Column(
                         children: [
                           Container(
@@ -108,7 +82,7 @@ class _EditProfileState extends State<EditProfile> {
                               child: Stack(
                                 children: [
                                   ProfileWidget(
-                                    imagePath: '',
+                                    imagePath: user.imagePath,
                                   ),
                                   Positioned(
                                     top: 80,
@@ -128,13 +102,19 @@ class _EditProfileState extends State<EditProfile> {
                               children: [
                                 TextFieldWidget(
                                   label: 'Full Name',
-                                  text: 'Full Name',  //user.fullName
-                                  onChanged: (name) {},
+                                  text: user.getFullName(),
+                                  onChanged: (name) {
+                                    var split = name.split(' ');
+                                    print(split[2]);
+                                    user = user.copy();
+                                  },
                                 ),
                                 TextFieldWidget(
-                                  label: 'Username',
-                                  text: 'username',  //user.fullName
-                                  onChanged: (userName) {},
+                                  label: 'Email',
+                                  text: user.email,
+                                  onChanged: (email) {
+                                    user = user.copy(email: email);
+                                  },
                                 ),
                               ],
                             ),
@@ -155,10 +135,10 @@ class _EditProfileState extends State<EditProfile> {
                                     children: [
                                       SizedBox(width: 20,),
                                       Checkbox(
-                                        value: _showFullName,
+                                        value: user.showFullName,
                                         onChanged: (value) {
                                           setState(() {
-                                            _showFullName = value;
+                                            user = user.copy(showFullName: value);
                                           });
                                         },
                                         activeColor: Colors.deepOrange,
@@ -166,10 +146,10 @@ class _EditProfileState extends State<EditProfile> {
                                       Text('Full Name'),
                                       SizedBox(width: 40,),
                                       Checkbox(
-                                        value: _showAge,
+                                        value: user.showAge,
                                         onChanged: (value) {
                                           setState(() {
-                                            _showAge = value;
+                                            user = user.copy(showAge: value);
                                           });
                                         },
                                         activeColor: Colors.deepOrange,
@@ -185,10 +165,10 @@ class _EditProfileState extends State<EditProfile> {
                                     children: [
                                       SizedBox(width: 20,),
                                       Checkbox(
-                                        value: _showEmail,
+                                        value: user.showEmail,
                                         onChanged: (value) {
                                           setState(() {
-                                            _showEmail = value;
+                                            user = user.copy(showEmail: value);
                                           });
                                         },
                                         activeColor: Colors.deepOrange,
@@ -202,22 +182,24 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                           Container(
                             width: 325,
-                            height: 112,
+                            height: 140,
                             color: Colors.transparent,
                             child: Column(
                               children: [
                                 TextFieldWidget(
                                   label: 'About',
-                                  height: 85,
+                                  height: 122,
                                   maxLines: 5,
-                                  text: 'Random text about the user that is displayed to the public.',  //user.fullName
-                                  onChanged: (about) {},
+                                  text: user.aboutInfo,
+                                  onChanged: (about) {
+                                    user = user.copy(aboutInfo: about);
+                                  },
                                 ),
                               ],
                             ),
                           ),
                           SkillRatingWidget(
-                            skillValue: 3,
+                            skillValue: user.skillLevel,
                             selectedBall: Icon(
                               Icons.sports_baseball,
                               color: Colors.deepOrange,
@@ -242,6 +224,33 @@ class _EditProfileState extends State<EditProfile> {
                             ],
                           ),
                         ],
+                      ),
+                      Container(
+                        width: 325,
+                        height: 40,
+                        color: Colors.transparent,
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: ClipOval(
+                            child: Material(
+                              color: Colors.deepOrange,
+                              child: SizedBox(
+                                width: 40,
+                                height: 40,
+                                child: IconButton(
+                                  icon: Icon(Icons.check),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    UserPreferences.setUser(user);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (_) => Profile()));
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),

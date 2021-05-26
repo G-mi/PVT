@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/EditProfile.dart';
 import 'package:frontend/Homescreen.dart';
+import 'package:frontend/UserPreferences.dart';
 import 'package:frontend/Widgets/profileWidget.dart';
 import 'package:frontend/Widgets/skillRatingWidget.dart';
 
@@ -13,13 +14,7 @@ class Profile extends StatefulWidget{
 }
 
 class _ProfileState extends State<Profile> {
-  final String fullName = 'Ruben Chamba';
-  final String userName = 'ruch99';
-  final int age = 21;
-  final int skillValue = 3;
-  final String email = 'rubenale@live.se';
-  final String aboutText = 'Random text about the user that is displayed to the public.';
-  final String imagePath = '';
+  final user = UserPreferences.getUser();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +38,7 @@ class _ProfileState extends State<Profile> {
       backgroundColor: Colors.deepOrange,
       centerTitle: true,
       title: Text(
-          userName,
+        user.userName,
       ),
     );
   }
@@ -75,21 +70,21 @@ class _ProfileState extends State<Profile> {
               child: ClipOval(
                 child: Material(
                   color: Colors.deepOrange,
-                  child: InkWell(
-                    splashColor: Colors.green,
-                    child: SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: Icon(
-                        Icons.edit,
-                        color: Colors.white,
-                      ),
+                  child: SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: IconButton(
+                      icon: Icon(Icons.edit),
+                      color: Colors.white,
+                      onPressed: () async {
+                        print(user.getFullName());
+                        await Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => EditProfile()));
+                        setState(() {
+                        });
+                      },
                     ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => EditProfile()));
-                    },
                   ),
                 ),
               ),
@@ -97,7 +92,7 @@ class _ProfileState extends State<Profile> {
             Align(
               alignment: Alignment(0.0, -0.8),
               child: ProfileWidget(
-                imagePath: imagePath,
+                imagePath: user.imagePath,
               ),
             ),
             Align(
@@ -114,7 +109,7 @@ class _ProfileState extends State<Profile> {
                 width: 93,
                 height: 16,
                 child: Text(
-                  email,
+                  user.email,
                   style: TextStyle(color: Colors.deepOrange, fontWeight: FontWeight.normal, fontSize: 12),
                 ),
               ),
@@ -162,7 +157,7 @@ class _ProfileState extends State<Profile> {
             size: 50,
           ),
           child: SkillRatingWidget(
-            skillValue: skillValue,
+            skillValue: user.skillLevel,
             selectedBall: Icon(Icons.sports_baseball, color: Colors.deepOrange, size: 50,),
             unSelectedBall: Icon(Icons.sports_baseball_outlined, color: Color.fromRGBO(255, 87, 34, 0.5), size: 50,),
           ),
@@ -175,15 +170,15 @@ class _ProfileState extends State<Profile> {
     return Column(
       children: [
         Text(
-          fullName,
+          user.getFullName(),
           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 26),
         ),
         Text(
-          userName,
+          user.userName,
           style: TextStyle(color: Colors.deepOrange, fontWeight: FontWeight.normal, fontSize: 20),
         ),
         Text(
-          '${age}',
+          '${user.age}',
           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
         ),
       ],
@@ -207,7 +202,7 @@ class _ProfileState extends State<Profile> {
           borderRadius: BorderRadius.circular(13.0),
         ),
         child: Text(
-          aboutText,
+          user.aboutInfo,
         ),
       ),
     );

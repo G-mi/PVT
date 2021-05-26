@@ -1,10 +1,15 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'UserPreferences.dart';
 import 'startscreen.dart';
 import 'signin.dart';
 import 'Buttons.dart';
 
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserPreferences.init();
+
   runApp(
     MaterialApp(
       title: 'TennisMatch',
