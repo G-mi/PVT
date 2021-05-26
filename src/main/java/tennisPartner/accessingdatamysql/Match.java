@@ -2,6 +2,8 @@ package tennisPartner.accessingdatamysql;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Time;
+import java.time.DateTimeException;
 import java.time.OffsetDateTime;
 //import com.google.maps.model.LatLng;
 
@@ -14,8 +16,9 @@ public class Match {
     private Integer minSkillLevel;
     private Integer maxSkillLevel;
     private Integer numberOfPlayers;
-    private OffsetDateTime startTime; //not sure if this is the correct time format
-    private OffsetDateTime endTime;
+    private java.sql.Time startTime; //not sure if this is the correct time format
+    private java.sql.Time endTime;
+    private java.sql.Date date;
     private String tennisCourt;
     @ManyToOne
     private User user; //not sure this is correct
@@ -42,13 +45,6 @@ public class Match {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public OffsetDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(OffsetDateTime endTime) {
-        this.endTime = endTime;
-    }
 
     public String getTennisCourt() {
         return tennisCourt;
@@ -58,12 +54,28 @@ public class Match {
         this.tennisCourt = tennisCourt;
     }
 
-    public OffsetDateTime getStartTime() {
+    public Time getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(OffsetDateTime startTime) {
+    public void setStartTime(Time startTime) {
         this.startTime = startTime;
+    }
+
+    public Time getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Integer getMinSkillLevel() {
