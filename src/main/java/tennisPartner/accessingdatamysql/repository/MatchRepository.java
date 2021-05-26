@@ -10,9 +10,9 @@ public interface MatchRepository extends CrudRepository<Match, Integer> {
 
     Match findAllByUserNotIn(User user);
 
-    Match findAllByUser_Gender(String gender);
+    Match findAllByUser_GenderAndUserIsNotIn(String gender);
 
-    Match findAllByMaxSkillLevelAndMinSkillLevel();
+    Match findAllByMaxSkillLevelAndMinSkillLevel(int min, int max);
 
     Match findAllByTennisCourt(String tennisCourt);
 

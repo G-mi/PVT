@@ -51,7 +51,7 @@ public class MatchController {
     //todo:: fix
     public @ResponseBody Iterable<Match> getByGender(String gender) {
 
-        return (Iterable<Match>) matchRepository.findAllByUser_Gender(gender);
+        return (Iterable<Match>) matchRepository.findAllByUser_GenderAndUserIsNotIn(gender);
     }
 
 
