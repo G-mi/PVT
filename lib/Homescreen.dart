@@ -6,6 +6,7 @@ import 'package:frontend/Buttons.dart';
 import 'package:frontend/Plannedmatches.dart';
 import 'package:frontend/Settings.dart';
 import 'package:frontend/Profile.dart';
+import 'package:frontend/Widgets/CreateMatchDialog.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeScreen extends StatefulWidget{
@@ -105,7 +106,30 @@ class _HomeScreenState extends State<HomeScreen> {
             mapType: _currentMapType,
             //markers: _markers,
             onCameraMove: _onCameraMove,
-            )
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              width: 40,
+              height: 40,
+              child: ClipOval(
+                child: Container(
+                  color: Colors.deepOrange,
+                  child:  IconButton(
+                    icon: Icon(Icons.add),
+                    iconSize: 25,
+                    color: Colors.white,
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => CreateMatchDialog()
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
         ]
       ),
 

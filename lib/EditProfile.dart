@@ -35,7 +35,7 @@ class _EditProfileState extends State<EditProfile> {
         icon: Icon(Icons.arrow_back),
         onPressed: () {
           Navigator.push(
-            this.context,
+            context,
             MaterialPageRoute(builder: (_) => Profile())
           );
         },
@@ -161,7 +161,7 @@ class _EditProfileState extends State<EditProfile> {
                                   iconSize: 27,
                                   onPressed: () {
                                     showDialog(
-                                        context: this.context,
+                                        context: context,
                                         builder: (BuildContext context) => NTRPDialog()
                                     );
                                   },
@@ -242,7 +242,7 @@ class _EditProfileState extends State<EditProfile> {
                                   onPressed: () {
                                     UserPreferences.setUser(user);
                                     Navigator.push(
-                                        this.context,
+                                        context,
                                         MaterialPageRoute(builder: (_) => Profile()));
                                   },
                                 ),
