@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Buttons.dart';
@@ -18,7 +19,6 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
 
-  final _formKey = GlobalKey<FormState>();
   final TextEditingController userNameController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
 
@@ -156,7 +156,7 @@ class _SignInState extends State<SignIn> {
         "No account was found matching that username and password");
   }
 
-  getUserdata(String email) async{
+  getUserdata(String username) async{
 
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
@@ -164,16 +164,20 @@ class _SignInState extends State<SignIn> {
     //change url later
     var userdata = await http.get(
         Uri.http("localhost:8080","/user/currentuserinfo",
-            {"name": email }));
+            {"name": username }));
 
     var data = json.decode(userdata.body);
-    User user = User.fromJsonFull(data);
+    User user = User.fromJsonSignin(data);
+    debugPrint(userdata.body);
+
+    //make class for sharedpfres after the right userdata is sent
+   // sharedPreferences.setString('user', userdata.body);
 
     sharedPreferences.setString('email', user.email);
     sharedPreferences.setString('firstname', user.firstName);
     sharedPreferences.setString('lastname', user.lastName);
     sharedPreferences.setString('age', user.age.toString());
-    sharedPreferences.setString('Skillevel', user.skillLevel.toString());
+    sharedPreferences.setString('SkillLevel', user.skillLevel.toString());
 
     Navigator.push(context,
         MaterialPageRoute(

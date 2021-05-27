@@ -19,7 +19,7 @@ class UserPreferences {
     showAge: true,
     showEmail: true,
     showFullName: true,
-    imagePath: '',
+
   );
 
   static Future init() async =>

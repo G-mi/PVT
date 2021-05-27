@@ -9,7 +9,6 @@ class User {
   String userName;
   String email;
   String aboutInfo;
-  String imagePath;
   int skillLevel;
   int age;
   bool showFullName;
@@ -17,7 +16,7 @@ class User {
   bool showEmail;
   List<Friend> friends;
   List<Match> plannedMatches;
-  String profilePicturePath;
+
 
   //String aboutInfo;
   //String gender;
@@ -36,19 +35,29 @@ class User {
       this.userName,
       this.age);
 
+  User.signin(
+    this.firstName,
+    this.lastName,
+    this.userName,
+    this.email,
+    this.age,
+    this.skillLevel,
+   );
+
   User.full({
     this.firstName,
     this.lastName,
     this.userName,
     this.email,
     this.aboutInfo,
-    this.imagePath,
     this.age,
     this.skillLevel,
     this.showEmail,
     this.showFullName,
     this.showAge,
   });
+
+
 
   void getFriends(){
     this.friends = debugFriends; //Debug test
@@ -68,6 +77,9 @@ class User {
     new Friend('Monica')
   ];
 
+
+
+
   User copy({
     String firstName,
     String lastName,
@@ -86,7 +98,6 @@ class User {
     userName: userName ?? this.userName,
     email: email ?? this.email,
     aboutInfo: aboutInfo ?? this.aboutInfo,
-    imagePath: imagePath ?? this.imagePath,
     age: age ?? this.age,
     skillLevel: skillLevel ?? this.skillLevel,
     showEmail: showEmail ?? this.showEmail,
@@ -104,6 +115,17 @@ class User {
         json['userName']);
   }
 
+  factory User.fromJsonSignin(Map<String, dynamic> json){
+    return User.signin(
+        json['firstName'],
+        json['lastName'],
+        json['userName'],
+        json['email'],
+        json['age'],
+        json['skillLevel']);
+  }
+
+
   factory User.fromJsonFull(Map<String, dynamic> json){
     return User.full(
         firstName: json['firstName'],
@@ -111,7 +133,6 @@ class User {
         userName: json['userName'],
         email: json['email'],
         aboutInfo: json['aboutInfo'],
-        imagePath: json['imagePath'],
         age: json['age'],
         skillLevel: json['skillLevel'],
         showFullName: json['showFullName'],
@@ -120,14 +141,16 @@ class User {
     );
   }
 
-  Map<String, dynamic> toJson(){
+
+
+
+Map<String, dynamic> toJson(){
     return {
       'firstName' : firstName,
       'lastName' : lastName,
       'username' : userName,
       'email' : email,
       'aboutInfo' : aboutInfo,
-      'imagePath' : imagePath,
       'age' : age,
       'skillLevel' : skillLevel,
       'showFullName' : showFullName,
