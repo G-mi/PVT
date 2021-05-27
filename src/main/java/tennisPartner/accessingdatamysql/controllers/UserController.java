@@ -2,29 +2,21 @@ package tennisPartner.accessingdatamysql.controllers;
 
 import javax.validation.Valid;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import tennisPartner.accessingdatamysql.UserJsonSerializer;
 import tennisPartner.accessingdatamysql.security.MessageResponse;
 import tennisPartner.accessingdatamysql.User;
 import tennisPartner.accessingdatamysql.repository.UserRepository;
 import tennisPartner.accessingdatamysql.security.*;
 
-import java.io.IOException;
 import java.util.Map;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -78,7 +70,8 @@ public class UserController {
 
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
-                encoder.encode(signUpRequest.getPassword()), signUpRequest.getFirstname(), signUpRequest.getLastname(), signUpRequest.getAge(), signUpRequest.getGender(), signUpRequest.getSkillevel());
+                encoder.encode(signUpRequest.getPassword()), signUpRequest.getFirstname(), signUpRequest.getLastname(), signUpRequest.getAge(),
+                signUpRequest.getGender(), signUpRequest.getSkillLevel(), signUpRequest.getAboutInfo());
 
         userRepository.save(user);
 

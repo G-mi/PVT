@@ -23,7 +23,17 @@ public class SignupRequest {
         private String lastname;
         private int age;
         private String gender;
-        private int skillevel;
+        private int skillLevel;
+
+    public String getAboutInfo() {
+        return aboutInfo;
+    }
+
+    public void setAboutInfo(String aboutInfo) {
+        this.aboutInfo = aboutInfo;
+    }
+
+    private String aboutInfo;
 
 
 
@@ -51,9 +61,9 @@ public class SignupRequest {
             this.password = password;
         }
 
-        public int getSkillevel() {return skillevel; }
+        public int getSkillLevel() {return skillLevel; }
 
-    public void setSkillevel(int skillevel) { this.skillevel = skillevel;    }
+    public void setSkillLevel(int skillevel) { this.skillLevel = skillevel;    }
 
     public int getAge() {  return age;    }
 
