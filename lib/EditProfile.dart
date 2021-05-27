@@ -87,9 +87,7 @@ class _EditProfileState extends State<EditProfile> {
                               alignment: Alignment.topCenter,
                               child: Stack(
                                 children: [
-                                  ProfileWidget(
-
-                                  ),
+                                  ProfileWidget(),
                                 ],
                               ),
                             ),

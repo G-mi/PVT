@@ -133,6 +133,7 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                       onChanged: (int value) {
                         setState(() {
                           _selectedNrOfPlayers = value;
+
                         });
                       },
                     ),
