@@ -59,6 +59,7 @@ class User {
     this.aboutInfo,
     this.age,
     this.skillLevel,
+    this.gender
   });
 
 
@@ -73,6 +74,14 @@ class User {
 
   String getFullName(){
     return firstName + ' ' + lastName;
+  }
+
+  void setSkillLevel(int skillLevel){
+    this.skillLevel = skillLevel;
+  }
+
+  void setInfo(String info){
+    this.aboutInfo = info;
   }
 
   final List<Friend> debugFriends = [
@@ -90,7 +99,6 @@ class User {
     String userName,
     String email,
     String aboutInfo,
-    String imagePath,
     String gender,
     int age,
     int skillLevel,
@@ -100,6 +108,7 @@ class User {
     userName: userName ?? this.userName,
     email: email ?? this.email,
     aboutInfo: aboutInfo ?? this.aboutInfo,
+    gender: gender ?? this.gender,
     age: age ?? this.age,
     skillLevel: skillLevel ?? this.skillLevel,
   );
@@ -136,9 +145,6 @@ class User {
         skillLevel: json['skillLevel'],
     );
   }
-
-
-
 
 Map<String, dynamic> toJson(){
     return {

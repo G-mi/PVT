@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Homescreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'User.dart';
 import 'UserPreferences.dart';
 
@@ -17,13 +18,12 @@ class NewSignUp extends StatefulWidget {
 
 class _NewSignUpState extends State<NewSignUp> {
   double _currentSlideValue = 0.0;
-  User user;
-
+  String userInfo;
+  int skillLevel;
 
   @override // lite osäker på vad den här metoden faktiskt gör. Men den får vara här sålänge.
   void initState() {
     super.initState();
-    user = UserPreferences.getUser();
   }
 
   @override
@@ -85,6 +85,8 @@ class _NewSignUpState extends State<NewSignUp> {
                                         color: Colors.white,
                                         child: TextFormField(
                                           keyboardType: TextInputType.multiline,
+                                          onChanged: (newValue) =>
+                                              setState(() => userInfo = newValue),
                                           maxLines: 5,
                                         ),
                                       ),
@@ -107,6 +109,7 @@ class _NewSignUpState extends State<NewSignUp> {
                                 onChanged: (double value) {
                                   setState(() {
                                     _currentSlideValue = value;
+                                    skillLevel = _currentSlideValue.round();
                                   });
                                 },
                                 activeColor: Colors.green,
@@ -131,7 +134,11 @@ class _NewSignUpState extends State<NewSignUp> {
                       padding: const EdgeInsets.only(
                           left: 15.0, right: 15.0, top: 100, bottom: 260),
                       child: CustomIconButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            User user = UserPreferences.getUser();
+                            user.setInfo(userInfo);
+                            user.setSkillLevel(skillLevel);
+                            await UserPreferences.setUser(user);
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (_) => HomeScreen()));
                           },

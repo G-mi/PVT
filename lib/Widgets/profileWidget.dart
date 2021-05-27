@@ -15,7 +15,7 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildImage() {
-    if (imagePath.length == 0){
+    if (imagePath == null || imagePath.length == 0 ){
       return ClipOval(
         child: Material(
           color: Colors.transparent,

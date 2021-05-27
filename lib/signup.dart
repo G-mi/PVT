@@ -70,32 +70,36 @@ class _SignUpState extends State<SignUp> {
                               children: <Widget>[
                                 DropdownButton(
                                   hint: Text('Gender'),
-                                  value: _gender, //_gender
-                                  onChanged: (newValue) => setState(() => _gender = newValue),
-                                 // onChanged: (newValue) => setState(() => user = user.copy(gender: newValue)), //fields are final in user, this applies value. new copy becomes user
+                                  value: _gender,
+                                  //_gender
+                                  onChanged: (newValue) =>
+                                      setState(() => _gender = newValue),
+                                  // onChanged: (newValue) => setState(() => user = user.copy(gender: newValue)), //fields are final in user, this applies value. new copy becomes user
                                   items: <String>[
                                     'Male',
                                     'Female',
                                   ].map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
                                 ),
                                 Text('Age:     '),
-                                Container(width: 35,
+                                Container(
+                                  width: 35,
                                   height: 30,
                                   padding: const EdgeInsets.only(
                                       left: 5.0, right: 5.0, top: 0, bottom: 0),
                                   color: Colors.white,
                                   child: TextFormField(
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: <TextInputFormatter>[
-                                        FilteringTextInputFormatter.digitsOnly
-                                      ],
-                                    onChanged: (newValue) => setState(() => user = user.copy(age: int.parse(newValue))),
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    onChanged: (newValue) => setState(() =>
+                                    age = int.parse(newValue)),
                                   ),
                                 )
                               ],
@@ -110,16 +114,20 @@ class _SignUpState extends State<SignUp> {
                                       left: 5.0, right: 5.0, top: 0, bottom: 0),
                                   color: Colors.white,
                                   child: TextFormField(
-                                    validator: (val) => val.isEmpty ? 'Enter your first name': null,
+                                    validator: (val) =>
+                                    val.isEmpty
+                                        ? 'Enter your first name'
+                                        : null,
                                     decoration: InputDecoration(
                                         labelText: ' First name '),
-                                    onChanged: (newValue) => setState(() => user = user.copy(firstName: newValue)),
+                                    onChanged: (newValue) =>
+                                        setState(() => firstName = newValue),
                                   ),
                                 ),
                                 Expanded(
                                     child: SizedBox(
-                                  height: 40,
-                                )),
+                                      height: 40,
+                                    )),
                                 Container(
                                   width: 150,
                                   height: 50,
@@ -127,7 +135,12 @@ class _SignUpState extends State<SignUp> {
                                       left: 5.0, right: 5.0, top: 0, bottom: 0),
                                   color: Colors.white,
                                   child: TextFormField(
-                                    validator: (val) => val.isEmpty ? 'Enter your last name': null,
+                                    validator: (val) =>
+                                    val.isEmpty
+                                        ? 'Enter your last name'
+                                        : null,
+                                    onChanged: (newValue) =>
+                                        setState(() => lastName = newValue),
                                     decoration: const InputDecoration(
                                         labelText: ' Last name '),
                                   ),
@@ -136,45 +149,60 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Expanded(
                                 child: SizedBox(
-                              height: 40,
-                            )),
+                                  height: 40,
+                                )),
                             Container(
                               color: Colors.white,
                               padding: const EdgeInsets.only(
                                   left: 5.0, right: 5.0, top: 0, bottom: 0),
                               height: 50,
                               child: TextFormField(
-                                validator: (val) => val.isEmpty ? 'Enter a user name': null,
+                                onChanged: (newValue) =>
+                                    setState(() => userName = newValue),
+                                validator: (val) =>
+                                val.isEmpty
+                                    ? 'Enter a user name'
+                                    : null,
                                 decoration: const InputDecoration(
                                     labelText: ' User Name '),
                               ),
                             ),
                             Expanded(
                                 child: SizedBox(
-                              height: 40,
-                            )),
+                                  height: 40,
+                                )),
                             Container(
                               color: Colors.white,
                               padding: const EdgeInsets.only(
                                   left: 5.0, right: 5.0, top: 0, bottom: 0),
                               height: 50,
                               child: TextFormField(
-                                validator: (val) => val.isEmpty ? 'Enter your email adress': null,
+                                validator: (val) =>
+                                val.isEmpty
+                                    ? 'Enter your email adress'
+                                    : null,
+                                onChanged: (newValue) =>
+                                    setState(() => email = newValue),
                                 decoration:
-                                    const InputDecoration(labelText: ' Email '),
+                                const InputDecoration(labelText: ' Email '),
                               ),
                             ),
                             Expanded(
                                 child: SizedBox(
-                              height: 40,
-                            )),
+                                  height: 40,
+                                )),
                             Container(
                               color: Colors.white,
                               padding: const EdgeInsets.only(
                                   left: 5.0, right: 5.0, top: 0, bottom: 0),
                               height: 50,
                               child: TextFormField(
-                                validator: (val) => val.isEmpty ? 'Enter a password': null,
+                                validator: (val) =>
+                                val.isEmpty
+                                    ? 'Enter a password'
+                                    : null,
+                                onChanged: (newValue) =>
+                                    setState(() => firstPassword = newValue),
                                 decoration: const InputDecoration(
                                     labelText: ' Password'),
                                 obscureText: true,
@@ -183,15 +211,21 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Expanded(
                                 child: SizedBox(
-                              height: 40,
-                            )),
+                                  height: 40,
+                                )),
                             Container(
                               color: Colors.white,
                               padding: const EdgeInsets.only(
                                   left: 5.0, right: 5.0, top: 0, bottom: 0),
                               height: 50,
                               child: TextFormField(
-                                validator: (val) => val.isEmpty ? 'Enter a password': null,
+                                validator: (val) =>
+                                val.isEmpty
+                                    ? 'Enter a password'
+                                    : null,
+                                onChanged: (newValue) =>
+                                firstPassword == newValue ? setState(() =>
+                                password = newValue) : 'not a match', // generate an error?
                                 //TODO: onChanged: set password. and validate same password
                                 decoration: const InputDecoration(
                                     labelText: ' Confirm password '),
@@ -201,8 +235,8 @@ class _SignUpState extends State<SignUp> {
                             ),
                             Expanded(
                                 child: SizedBox(
-                              height: 0,
-                            )),
+                                  height: 0,
+                                )),
                           ],
                         ),
                       ),
@@ -215,13 +249,20 @@ class _SignUpState extends State<SignUp> {
                       padding: const EdgeInsets.only(
                           left: 15.0, right: 15.0, top: 100, bottom: 260),
                       child: CustomIconButton(
-                          onPressed: () async{
+                          onPressed: () async {
                             if (_formKey.currentState.validate()) {
-                              user = new User.signUp(firstName, lastName, email, userName, password, _gender, age);
+                              user = new User.signUp(
+                                  firstName,
+                                  lastName,
+                                  email,
+                                  userName,
+                                  password,
+                                  _gender,
+                                  age);
+                              print(password);
                               await UserPreferences.setUser(user);
-                              print(user.lastName.toString());
                               Navigator.push(context, MaterialPageRoute(
-                                      builder: (_) => NewSignUp()));
+                                  builder: (_) => NewSignUp()));
                             }
                           },
                           title: 'Continue',
