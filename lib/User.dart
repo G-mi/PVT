@@ -1,4 +1,4 @@
-import 'dart:html';
+
 import 'dart:io';
 
 import 'Friend.dart';
@@ -11,9 +11,6 @@ class User {
   String aboutInfo;
   int skillLevel;
   int age;
-  bool showFullName;
-  bool showAge;
-  bool showEmail;
   List<Friend> friends;
   List<Match> plannedMatches;
 
@@ -52,9 +49,6 @@ class User {
     this.aboutInfo,
     this.age,
     this.skillLevel,
-    this.showEmail,
-    this.showFullName,
-    this.showAge,
   });
 
 
@@ -89,9 +83,6 @@ class User {
     String imagePath,
     int age,
     int skillLevel,
-    bool showEmail,
-    bool showFullName,
-    bool showAge,
   }) => User.full(
     firstName: firstName ?? this.firstName,
     lastName: lastName ?? this.lastName,
@@ -100,9 +91,6 @@ class User {
     aboutInfo: aboutInfo ?? this.aboutInfo,
     age: age ?? this.age,
     skillLevel: skillLevel ?? this.skillLevel,
-    showEmail: showEmail ?? this.showEmail,
-    showFullName: showFullName ?? this.showFullName,
-    showAge: showAge ?? this.showAge,
   );
 
 
@@ -135,9 +123,6 @@ class User {
         aboutInfo: json['aboutInfo'],
         age: json['age'],
         skillLevel: json['skillLevel'],
-        showFullName: json['showFullName'],
-        showAge: json['showAge'],
-        showEmail: json['showEmail']
     );
   }
 
@@ -148,14 +133,11 @@ Map<String, dynamic> toJson(){
     return {
       'firstName' : firstName,
       'lastName' : lastName,
-      'username' : userName,
+      'userName' : userName,
       'email' : email,
       'aboutInfo' : aboutInfo,
       'age' : age,
       'skillLevel' : skillLevel,
-      'showFullName' : showFullName,
-      'showAge' : showAge,
-      'showEmail' : showEmail,
     };
   }
 }

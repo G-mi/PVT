@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/EditProfile.dart';
 import 'package:frontend/Homescreen.dart';
+import 'package:frontend/NTRPDialog.dart';
 import 'package:frontend/UserPreferences.dart';
 import 'package:frontend/Widgets/profileWidget.dart';
 import 'package:frontend/Widgets/skillRatingWidget.dart';
@@ -77,7 +78,6 @@ class _ProfileState extends State<Profile> {
                       icon: Icon(Icons.edit),
                       color: Colors.white,
                       onPressed: () async {
-                        print(user.getFullName());
                         await Navigator.push(
                             context,
                             MaterialPageRoute(builder: (_) => EditProfile()));
@@ -92,7 +92,7 @@ class _ProfileState extends State<Profile> {
             Align(
               alignment: Alignment(0.0, -0.8),
               child: ProfileWidget(
-                imagePath: user.imagePath,
+
               ),
             ),
             Align(
@@ -119,24 +119,20 @@ class _ProfileState extends State<Profile> {
               child: buildAboutInfo(),
             ),
             Align(
-              alignment: Alignment(0.35, 0.65),
+              alignment: Alignment(0.0, 0.75),
               child: buildSkillRating(),
             ),
-            Positioned(
-              top: 460,
-              left: 54,
-              child: Row(
-                children: [
-                  Text(
-                    'Beginner',
-                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 13),
-                  ),
-                  SizedBox(width: 145,),
-                  Text(
-                    'Advanced',
-                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 13),
-                  ),
-                ],
+            Align(
+              alignment: Alignment(0.85,0.57),
+              child: IconButton(
+                icon: Icon(Icons.info),
+                iconSize: 27,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => NTRPDialog()
+                  );
+                },
               ),
             ),
           ],
@@ -145,23 +141,18 @@ class _ProfileState extends State<Profile> {
     );
   }
 
+
+
   Widget buildSkillRating() {
-    return SizedBox(
-      width: 280,
-      height: 80,
-      child: Container(
-        color: Colors.transparent,
-        child: IconTheme(
-          data: IconThemeData(
-            color: Colors.deepOrange,
-            size: 50,
-          ),
-          child: SkillRatingWidget(
-            skillValue: user.skillLevel,
-            selectedBall: Icon(Icons.sports_baseball, color: Colors.deepOrange, size: 50,),
-            unSelectedBall: Icon(Icons.sports_baseball_outlined, color: Color.fromRGBO(255, 87, 34, 0.5), size: 50,),
-          ),
-        ),
+    return Container(
+      alignment: Alignment.center,
+      width: 325,
+      height: 70,
+      color: Colors.transparent,
+      child: SkillRatingWidget(
+        skillValue: user.skillLevel,
+        selectedBall: Icon(Icons.sports_baseball, color: Colors.deepOrange, size: 40,),
+        unSelectedBall: Icon(Icons.sports_baseball_outlined, color: Color.fromRGBO(255, 87, 34, 0.5), size: 40,),
       ),
     );
   }
