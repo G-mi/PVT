@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/Homescreen.dart';
 import 'package:frontend/Widgets/skillRatingWidget.dart';
 
 import '../NTRPDialog.dart';
@@ -28,7 +29,7 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
     return Stack(
       children: [
         Container(
-          width: 280,
+          width: 285,
           height: 550,
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
@@ -60,7 +61,12 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                             IconButton(
                               icon: Icon(Icons.close),
                               color: Colors.white,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pop(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => HomeScreen())
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -145,7 +151,7 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                   ),
                 ],
               ),
-              SizedBox(height: 5,),
+              SizedBox(height: 20,),
               Container(
                 width: 280,
                 height: 56,
@@ -156,25 +162,11 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                       selectedBall: Icon(
                         Icons.sports_baseball,
                         color: Colors.deepOrange,
-                        size: 35,),
+                        size: 39,),
                       unSelectedBall: Icon(
                         Icons.sports_baseball_outlined,
                         color: Color.fromRGBO(255, 87, 34, 0.5),
-                        size: 35,),
-                    ),
-                    Positioned(
-                      top: -13,
-                      left: 235,
-                      child: IconButton(
-                        icon: Icon(Icons.info),
-                        iconSize: 27,
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) => NTRPDialog()
-                          );
-                        },
-                      ),
+                        size: 39,),
                     ),
                   ],
                 ),
@@ -196,6 +188,9 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                             setState(() {
                               if (_minSkillLevel > 1){
                                 _minSkillLevel = _minSkillLevel - 1;
+                                if (_minSkillLevel > _maxSkillLevel){
+                                  _maxSkillLevel = _minSkillLevel;
+                                }
                               }
                             });
                           },
@@ -203,9 +198,11 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 5,),
-
-                  SizedBox(width: 5,),
+                  SizedBox(width: 15,),
+                  Text(
+                    'Choose min skill level',
+                  ),
+                  SizedBox(width: 15,),
                   SizedBox(
                     width: 40,
                     height: 40,
@@ -220,6 +217,9 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                             setState(() {
                               if (_minSkillLevel < 7){
                                 _minSkillLevel = _minSkillLevel + 1;
+                                if (_minSkillLevel > _maxSkillLevel){
+                                  _maxSkillLevel = _minSkillLevel;
+                                }
                               }
                             });
                           },
@@ -229,7 +229,133 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                   ),
                 ],
               ),
+              SizedBox(height: 15,),
+              Container(
+                width: 280,
+                height: 56,
+                child: Stack(
+                  children: [
+                    SkillRatingWidget(
+                      skillValue: _maxSkillLevel,
+                      selectedBall: Icon(
+                        Icons.sports_baseball,
+                        color: Colors.deepOrange,
+                        size: 39,),
+                      unSelectedBall: Icon(
+                        Icons.sports_baseball_outlined,
+                        color: Color.fromRGBO(255, 87, 34, 0.5),
+                        size: 39,),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: ClipOval(
+                      child: Container(
+                        color: Colors.deepOrange,
+                        child:  IconButton(
+                          icon: Icon(Icons.remove),
+                          iconSize: 25,
+                          color: Colors.white,
+                          onPressed: () {
+                            setState(() {
+                              if (_maxSkillLevel > _minSkillLevel){
+                                _maxSkillLevel = _maxSkillLevel - 1;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 15,),
+                  Text(
+                    'Choose max skill level',
+                  ),
+                  SizedBox(width: 15,),
+                  SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: ClipOval(
+                      child: Container(
+                        color: Colors.deepOrange,
+                        child:  IconButton(
+                          icon: Icon(Icons.add),
+                          iconSize: 25,
+                          color: Colors.white,
+                          onPressed: () {
+                            setState(() {
+                              if (_maxSkillLevel < 7){
+                                _maxSkillLevel = _maxSkillLevel + 1;
+                              }
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10,),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Text(
+                            'Post',
+                          ),
+                          SizedBox(width: 40,),
+                          Icon(
+                            Icons.arrow_forward,
+                          ),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.deepOrange,
+                        textStyle: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
+          ),
+        ),
+        Positioned(
+          top: 255,
+          left: 245,
+          child: IconButton(
+            icon: Icon(Icons.info),
+            iconSize: 27,
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => NTRPDialog()
+              );
+            },
+          ),
+        ),
+        Positioned(
+          top: 367,
+          left: 245,
+          child: IconButton(
+            icon: Icon(Icons.info),
+            iconSize: 27,
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => NTRPDialog()
+              );
+            },
           ),
         ),
       ],
