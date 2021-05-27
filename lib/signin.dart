@@ -87,9 +87,14 @@ class _SignInState extends State<SignIn> {
                           height: 70,
                           color: Colors.transparent,
                           child: CustomIconButton(
-                            onPressed: () => signin(userNameController.text, passwordController.text) ,
-                            title: text = 'Sign in',
-                            color: Colors.deepOrange,
+                            onPressed: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => HomeScreen()));
+                        }, //
+                            // signin(userNameController.text, passwordController.text) ,
+                           // title: text = 'Sign in',
+                          //  color: Colors.deepOrange,
                           ),
                         ),
                         Container( //Continue with google button
