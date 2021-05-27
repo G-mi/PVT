@@ -1,7 +1,14 @@
 package tennisPartner.accessingdatamysql.controllers;
 
 import javax.validation.Valid;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,11 +18,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import tennisPartner.accessingdatamysql.UserJsonSerializer;
 import tennisPartner.accessingdatamysql.security.MessageResponse;
 import tennisPartner.accessingdatamysql.User;
 import tennisPartner.accessingdatamysql.repository.UserRepository;
 import tennisPartner.accessingdatamysql.security.*;
 
+import java.io.IOException;
 import java.util.Map;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -30,6 +39,8 @@ public class UserController {
     PasswordEncoder encoder;
     @Autowired
     JwtUtils jwtUtils;
+   @Autowired
+    ObjectMapper mapper;
 
     //@CrossOrigin(origins = "http://localhost:50996")
     @PostMapping("/signin")
@@ -75,28 +86,34 @@ public class UserController {
     }
 
 
-    @GetMapping("/userdata")
-    public ResponseEntity<?> getUserDataByEmail(@RequestParam String email) {
+    @GetMapping(path = "/userdata")
+    public ResponseEntity<?> getUserDataByEmail(@RequestParam String username) {
 
-        if (!userRepository.existsByEmail(email)) {
+        if (!userRepository.existsByName(username)) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: No such user"));
         } else {
-            User user = userRepository.findByEmail(email);
+            User user = userRepository.findByName(username);
+
+            ObjectNode objectNode = mapper.createObjectNode();
+            objectNode.put("userName", user.getName());
+            objectNode.put("foo", "bar");
+            objectNode.put("number", 42);
+
             //todo: return user info
-           return ResponseEntity.ok(user.getName());
+           return ResponseEntity.ok(user);
         }
     }
     //@CrossOrigin(origins = "http://localhost:50996")
   //todo: send less info.
-    @GetMapping("/currentuserinfo")
+    @GetMapping(path = "/currentuserinfo")
     public ResponseEntity<?> getUserDataByName(@RequestParam Map nameMap) {
 
             String username = (String) nameMap.get("name");
             User user = userRepository.findByName(username);
             //todo: return user info
-            return ResponseEntity.ok().body(user);
+            return ResponseEntity.ok(user);
 
     }
 
@@ -114,7 +131,11 @@ public class UserController {
         userRepository.deleteAll();
         return "Deleted";
     }
+
+
+
 }
+
 
 
 

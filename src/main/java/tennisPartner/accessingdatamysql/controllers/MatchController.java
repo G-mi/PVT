@@ -20,22 +20,23 @@ public class MatchController {
     MatchRepository matchRepository;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addMatch(@RequestBody Match match){
+    public ResponseEntity<?> addMatch(@RequestBody Match match) {
         //add constructor
-       matchRepository.save(match);
+        matchRepository.save(match);
         return ResponseEntity.ok(new MessageResponse("Request to play added successfully!"));
-
     }
 
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<Match> getAllMatches() {
+    @GetMapping(path = "/all")
+    public @ResponseBody
+    Iterable<Match> getAllMatches() {
         return matchRepository.findAll();
     }
-
-    //todo:: fix
+}
+    /*
+    todo:: fix
     @GetMapping(path="/allnotuser")
     public @ResponseBody Iterable<Match> getAllMatches(User user) {
-        return (Iterable<Match>) matchRepository.findAllByUserNotIn(user);
+        return (Iterable<Match>) matchRepository.findAllByUserNotIn();
     }
 
     //todo:: fix
@@ -44,19 +45,13 @@ public class MatchController {
         return (Iterable<Match>) matchRepository.findAllByUser(user);
     }
 
-
-
-
     @GetMapping("/genderfilter")
     //todo:: fix
     public @ResponseBody Iterable<Match> getByGender(String gender) {
 
-        return (Iterable<Match>) matchRepository.findAllByUser_GenderAndUserIsNotIn(gender);
+        return (Iterable<Match>) matchRepository.findAllByUser_Gender(gender);
     }
 
-
-
-
-
-
 }
+
+     */
