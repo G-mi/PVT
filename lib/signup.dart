@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:frontend/Buttons.dart';
 import 'NewSignUp.dart';
+import 'UserPreferences.dart';
+import 'User.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key key}) : super(key: key);
+
+  //get username => null;
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -16,7 +21,10 @@ class _SignUpState extends State<SignUp> {
   String lastName;
   String userName;
   String email;
+  String firstPassword;
   String password;
+  int age;
+  User user;
   double _currentSlideValue = 16;
   final _formKey = GlobalKey<FormState>();
 
@@ -62,12 +70,9 @@ class _SignUpState extends State<SignUp> {
                               children: <Widget>[
                                 DropdownButton(
                                   hint: Text('Gender'),
-                                  value: _gender,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _gender = newValue;
-                                    });
-                                  },
+                                  value: _gender, //_gender
+                                  onChanged: (newValue) => setState(() => _gender = newValue),
+                                 // onChanged: (newValue) => setState(() => user = user.copy(gender: newValue)), //fields are final in user, this applies value. new copy becomes user
                                   items: <String>[
                                     'Male',
                                     'Female',
@@ -80,21 +85,19 @@ class _SignUpState extends State<SignUp> {
                                   }).toList(),
                                 ),
                                 Text('Age:     '),
-                                Slider(
-
-                                  value: _currentSlideValue,
-                                  min: 16.0,
-                                  max: 100.0,
-                                  divisions: 100,
-                                  label: _currentSlideValue.round().toString(),
-                                  onChanged: (double value) {
-                                    setState(() {
-                                      _currentSlideValue = value;
-                                    });
-                                  },
-                                  activeColor: Colors.green,
-                                  inactiveColor: Colors.lightGreen,
-                                ),
+                                Container(width: 35,
+                                  height: 30,
+                                  padding: const EdgeInsets.only(
+                                      left: 5.0, right: 5.0, top: 0, bottom: 0),
+                                  color: Colors.white,
+                                  child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
+                                    onChanged: (newValue) => setState(() => user = user.copy(age: int.parse(newValue))),
+                                  ),
+                                )
                               ],
                             ),
                             Row(
@@ -110,6 +113,7 @@ class _SignUpState extends State<SignUp> {
                                     validator: (val) => val.isEmpty ? 'Enter your first name': null,
                                     decoration: InputDecoration(
                                         labelText: ' First name '),
+                                    onChanged: (newValue) => setState(() => user = user.copy(firstName: newValue)),
                                   ),
                                 ),
                                 Expanded(
@@ -188,6 +192,7 @@ class _SignUpState extends State<SignUp> {
                               height: 50,
                               child: TextFormField(
                                 validator: (val) => val.isEmpty ? 'Enter a password': null,
+                                //TODO: onChanged: set password. and validate same password
                                 decoration: const InputDecoration(
                                     labelText: ' Confirm password '),
                                 obscureText: true,
@@ -210,14 +215,14 @@ class _SignUpState extends State<SignUp> {
                       padding: const EdgeInsets.only(
                           left: 15.0, right: 15.0, top: 100, bottom: 260),
                       child: CustomIconButton(
-                          onPressed: () {
+                          onPressed: () async{
                             if (_formKey.currentState.validate()) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
+                              user = new User.signUp(firstName, lastName, email, userName, password, _gender, age);
+                              await UserPreferences.setUser(user);
+                              print(user.lastName.toString());
+                              Navigator.push(context, MaterialPageRoute(
                                       builder: (_) => NewSignUp()));
                             }
-                            print(_gender);
                           },
                           title: 'Continue',
                           color: Colors.green)),

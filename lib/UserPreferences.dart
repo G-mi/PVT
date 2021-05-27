@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'User.dart';
@@ -7,6 +8,7 @@ import 'User.dart';
 class UserPreferences {
   static SharedPreferences _preferences;
   static const _keyUser = 'user';
+  static const _keyUserName = 'username';
 
   static final myUser = User.full(
     firstName: 'Sofia',
@@ -31,4 +33,12 @@ class UserPreferences {
     final json = _preferences.getString(_keyUser);
     return json == null ? myUser : User.fromJsonFull(jsonDecode(json));
   }
+  static User getUserFromSignUp (_keyUserName) {
+    final json = _preferences.getString(_keyUserName);
+    return User.fromJson(jsonDecode(json));
+  }
+
+  static Future setUsername(String userName) async =>
+      await _preferences.setString(_keyUserName, userName);
+  static String getUserName() => _preferences.getString(_keyUserName);
 }

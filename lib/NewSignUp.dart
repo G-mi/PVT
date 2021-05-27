@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/Homescreen.dart';
+import 'User.dart';
+import 'UserPreferences.dart';
 
 import 'Buttons.dart';
 
 class NewSignUp extends StatefulWidget {
+
   NewSignUp({Key key}) : super(key: key);
+
 
   @override
   _NewSignUpState createState() => _NewSignUpState();
@@ -12,6 +17,14 @@ class NewSignUp extends StatefulWidget {
 
 class _NewSignUpState extends State<NewSignUp> {
   double _currentSlideValue = 0.0;
+  User user;
+
+
+  @override // lite osäker på vad den här metoden faktiskt gör. Men den får vara här sålänge.
+  void initState() {
+    super.initState();
+    user = UserPreferences.getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +133,7 @@ class _NewSignUpState extends State<NewSignUp> {
                       child: CustomIconButton(
                           onPressed: () {
                             Navigator.push(context,
-                                MaterialPageRoute(builder: (_) => NewSignUp()));
+                                MaterialPageRoute(builder: (_) => HomeScreen()));
                           },
                           title: 'Continue',
                           color: Colors.green)),

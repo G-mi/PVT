@@ -13,11 +13,11 @@ class User {
   int age;
   List<Friend> friends;
   List<Match> plannedMatches;
-
+  String password;
+  String gender;
 
   //String aboutInfo;
   //String gender;
-
 
   User.namesOnly(
       this.firstName,
@@ -33,13 +33,23 @@ class User {
       this.age);
 
   User.signin(
-    this.firstName,
-    this.lastName,
-    this.userName,
-    this.email,
-    this.age,
-    this.skillLevel,
-   );
+      this.firstName,
+      this.lastName,
+      this.userName,
+      this.email,
+      this.age,
+      this.skillLevel,
+      );
+
+  User.signUp(
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.userName,
+      this.password,
+      this.gender,
+      this.age,
+      );
 
   User.full({
     this.firstName,
@@ -81,6 +91,7 @@ class User {
     String email,
     String aboutInfo,
     String imagePath,
+    String gender,
     int age,
     int skillLevel,
   }) => User.full(
