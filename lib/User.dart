@@ -12,9 +12,6 @@ class User {
   String imagePath;
   int skillLevel;
   int age;
-  bool showFullName;
-  bool showAge;
-  bool showEmail;
   List<Friend> friends;
   List<Match> plannedMatches;
   String profilePicturePath;
@@ -45,9 +42,6 @@ class User {
     this.imagePath,
     this.age,
     this.skillLevel,
-    this.showEmail,
-    this.showFullName,
-    this.showAge,
   });
 
   void getFriends(){
@@ -77,9 +71,6 @@ class User {
     String imagePath,
     int age,
     int skillLevel,
-    bool showEmail,
-    bool showFullName,
-    bool showAge,
   }) => User.full(
     firstName: firstName ?? this.firstName,
     lastName: lastName ?? this.lastName,
@@ -89,9 +80,6 @@ class User {
     imagePath: imagePath ?? this.imagePath,
     age: age ?? this.age,
     skillLevel: skillLevel ?? this.skillLevel,
-    showEmail: showEmail ?? this.showEmail,
-    showFullName: showFullName ?? this.showFullName,
-    showAge: showAge ?? this.showAge,
   );
 
 
@@ -114,9 +102,6 @@ class User {
         imagePath: json['imagePath'],
         age: json['age'],
         skillLevel: json['skillLevel'],
-        showFullName: json['showFullName'],
-        showAge: json['showAge'],
-        showEmail: json['showEmail']
     );
   }
 
@@ -124,15 +109,12 @@ class User {
     return {
       'firstName' : firstName,
       'lastName' : lastName,
-      'username' : userName,
+      'userName' : userName,
       'email' : email,
       'aboutInfo' : aboutInfo,
       'imagePath' : imagePath,
       'age' : age,
       'skillLevel' : skillLevel,
-      'showFullName' : showFullName,
-      'showAge' : showAge,
-      'showEmail' : showEmail,
     };
   }
 }

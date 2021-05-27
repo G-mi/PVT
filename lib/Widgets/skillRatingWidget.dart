@@ -10,11 +10,42 @@ class SkillRatingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(5, (index) {
-        return index < skillValue ? selectedBall : unSelectedBall;
-      }),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(7, (index) {
+            return index < skillValue ? selectedBall : unSelectedBall;
+          }),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+                '1.0'
+            ),
+            Text(
+                '2.0'
+            ),
+            Text(
+                '3.0'
+            ),
+            Text(
+                '4.0'
+            ),
+            Text(
+                '5.0'
+            ),
+            Text(
+                '6.0'
+            ),
+            Text(
+                '7.0'
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
