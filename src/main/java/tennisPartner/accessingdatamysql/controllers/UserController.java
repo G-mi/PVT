@@ -98,16 +98,22 @@ public class UserController {
            return ResponseEntity.ok(user);
         }
     }
-    //@CrossOrigin(origins = "http://localhost:50996")
-  //todo: send less info.
+
+
     @GetMapping(path = "/currentuserinfo")
     public ResponseEntity<?> getUserDataByName(@RequestParam Map nameMap) {
 
             String username = (String) nameMap.get("name");
+
+        if (!userRepository.existsByName(username)) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: No such user"));
+        } else {
             User user = userRepository.findByName(username);
             //todo: return user info
             return ResponseEntity.ok(user);
-
+        }
     }
 
     @DeleteMapping("/deleteuser")
