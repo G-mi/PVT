@@ -18,7 +18,7 @@ public class User implements Serializable{
     private int skillLevel;
     private String aboutInfo;
 
-
+    //not sure this is correct
     @OneToMany(cascade=CascadeType.ALL,fetch= FetchType.LAZY,mappedBy = "user")
     private List<Match> plannedMatches;
     private boolean isEnabled; //remove from database
