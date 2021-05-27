@@ -92,7 +92,7 @@ class _ProfileState extends State<Profile> {
             Align(
               alignment: Alignment(0.0, -0.8),
               child: ProfileWidget(
-                imagePath: user.imagePath,
+
               ),
             ),
             Align(

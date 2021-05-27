@@ -88,7 +88,7 @@ class _EditProfileState extends State<EditProfile> {
                               child: Stack(
                                 children: [
                                   ProfileWidget(
-                                    imagePath: user.imagePath,
+
                                   ),
                                 ],
                               ),
