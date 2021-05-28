@@ -10,7 +10,6 @@ import 'package:frontend/UserPreferences.dart';
 import 'package:frontend/Widgets/CreateMatchDialog.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'startscreen.dart';
-
 import 'User.dart';
 
 class HomeScreen extends StatefulWidget{
@@ -20,8 +19,6 @@ class HomeScreen extends StatefulWidget{
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-
-
 class _HomeScreenState extends State<HomeScreen> {
   String text;
   User user = UserPreferences.getUser();
@@ -29,8 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
   static const  LatLng _center = const LatLng(59.286621, 18.088187);
   LatLng _lastMapPosition = _center;
   MapType _currentMapType = MapType.normal;
-
-
 
 
   _onMapCreated(GoogleMapController controller){
@@ -144,7 +139,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _handleSignOut() async {
-
     UserPreferences.deleteUser(user);
      Navigator.push(
       context, MaterialPageRoute(builder: (_) => StartScreen()));

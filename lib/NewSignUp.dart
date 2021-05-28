@@ -4,7 +4,6 @@ import 'package:frontend/Homescreen.dart';
 import 'User.dart';
 import 'UserPreferences.dart';
 import 'package:http/http.dart' as http;
-
 import 'Buttons.dart';
 
 class NewSignUp extends StatefulWidget {

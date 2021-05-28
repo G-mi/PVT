@@ -8,6 +8,7 @@ class UserPreferences {
   static const _keyUser = 'user';
   static const _keyUserName = 'username';
   static const _keyToken= 'token';
+  static String token = 'fdsfs';
 
   static final myUser = User.full(
     firstName: 'Sofia',
@@ -30,7 +31,7 @@ class UserPreferences {
 
   static User getUser() {
     final json = _preferences.getString(_keyUser);
-    return json == null ? myUser : User.fromJsonFull(jsonDecode(json));
+    return json == null ? myUser: User.fromJsonFull(jsonDecode(json));
   }
 
   static User getUserFromSignUp (_keyUserName) {
@@ -38,14 +39,16 @@ class UserPreferences {
     return User.fromJson(jsonDecode(json));
   }
   
-  static void deleteUser(_keyUser) {
-    _preferences.remove(_keyUser);
+  static void deleteUser(User user) {
+    final json = jsonEncode(user.toJson());
+    _preferences.remove(json);
     _preferences.remove(_keyToken);
   }
 
-  static Future setAccessToken(String token) async =>
+  static Future setAccessToken() async =>
     await _preferences.setString(_keyToken, token);
 
+  static String getAccessToken() => _preferences.getString(_keyToken);
 
   static Future setUsername(String userName) async =>
       await _preferences.setString(_keyUserName, userName);

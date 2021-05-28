@@ -1,14 +1,17 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/Loading.dart';
+import 'User.dart';
 import 'UserPreferences.dart';
 import 'startscreen.dart';
 import 'signin.dart';
-import 'Buttons.dart';
+
 
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await UserPreferences.init();
+
+
+
+
 
   runApp(
     MaterialApp(
@@ -18,9 +21,9 @@ void main() async {
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => StartScreen(),
+        '/': (context) => Loading(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/second': (context) => SignIn(),
+
       },
     ),
   );

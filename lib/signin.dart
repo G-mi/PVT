@@ -7,8 +7,6 @@ import 'package:frontend/Homescreen.dart';
 import 'package:frontend/User.dart';
 import 'package:frontend/signup.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'UserPreferences.dart';
 
 class SignIn extends StatefulWidget {
@@ -146,7 +144,7 @@ class _SignInState extends State<SignIn> {
     if (res.statusCode == 200) {
       Map data = json.decode(res.body) as Map;
       //todo: save in safe storage.
-      UserPreferences.setAccessToken(data['accessToken']);
+      //UserPreferences.setAccessToken(data['accessToken']);
       getUserdata(username);
 
         }
