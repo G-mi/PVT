@@ -25,7 +25,6 @@ class _SignUpState extends State<SignUp> {
   String password;
   int age;
   User user;
-  double _currentSlideValue = 16;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -98,8 +97,9 @@ class _SignUpState extends State<SignUp> {
                                     inputFormatters: <TextInputFormatter>[
                                       FilteringTextInputFormatter.digitsOnly
                                     ],
-                                    onChanged: (newValue) => setState(() =>
-                                    age = int.parse(newValue)),
+                                    onChanged: (newValue) =>
+                                        setState(() =>
+                                        age = int.parse(newValue)),
                                   ),
                                 )
                               ],
@@ -225,7 +225,8 @@ class _SignUpState extends State<SignUp> {
                                     : null,
                                 onChanged: (newValue) =>
                                 firstPassword == newValue ? setState(() =>
-                                password = newValue) : 'not a match', // generate an error?
+                                password = newValue) : 'not a match',
+                                // generate an error?
                                 //TODO: onChanged: set password. and validate same password
                                 decoration: const InputDecoration(
                                     labelText: ' Confirm password '),
@@ -251,18 +252,9 @@ class _SignUpState extends State<SignUp> {
                       child: CustomIconButton(
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
-                              user = new User.signUp(
-                                  firstName,
-                                  lastName,
-                                  email,
-                                  userName,
-                                  password,
-                                  _gender,
-                                  age);
-                              print(password);
-                              await UserPreferences.setUser(user);
+
                               Navigator.push(context, MaterialPageRoute(
-                                  builder: (_) => NewSignUp()));
+                                  builder: (_) => NewSignUp(firstName, lastName, email, userName, password, _gender, age)));
                             }
                           },
                           title: 'Continue',
@@ -282,6 +274,4 @@ class _SignUpState extends State<SignUp> {
       MaterialPageRoute(builder: (_) => SignUp()),
     );
   }
-
-  void _handleSignUp() async {}
 }

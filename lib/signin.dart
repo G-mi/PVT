@@ -9,6 +9,8 @@ import 'package:frontend/signup.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'UserPreferences.dart';
+
 class SignIn extends StatefulWidget {
 
   SignIn ({Key key}) : super(key:key);
@@ -87,14 +89,9 @@ class _SignInState extends State<SignIn> {
                           height: 70,
                           color: Colors.transparent,
                           child: CustomIconButton(
-                            onPressed: () {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => HomeScreen()));
-                        }, //
-                            // signin(userNameController.text, passwordController.text) ,
-                           // title: text = 'Sign in',
-                          //  color: Colors.deepOrange,
+                            onPressed: () => signin(userNameController.text, passwordController.text) ,
+                            title: text = 'Sign in',
+                            color: Colors.deepOrange,
                           ),
                         ),
                         Container( //Continue with google button
@@ -173,16 +170,8 @@ class _SignInState extends State<SignIn> {
 
     var data = json.decode(userdata.body);
     User user = User.fromJsonSignin(data);
-    debugPrint(userdata.body);
+    await UserPreferences.setUser(user);
 
-    //make class for sharedpfres after the right userdata is sent
-   // sharedPreferences.setString('user', userdata.body);
-
-    sharedPreferences.setString('email', user.email);
-    sharedPreferences.setString('firstname', user.firstName);
-    sharedPreferences.setString('lastname', user.lastName);
-    sharedPreferences.setString('age', user.age.toString());
-    sharedPreferences.setString('SkillLevel', user.skillLevel.toString());
 
     Navigator.push(context,
         MaterialPageRoute(

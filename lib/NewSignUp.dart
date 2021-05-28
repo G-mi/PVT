@@ -1,15 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Homescreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'User.dart';
 import 'UserPreferences.dart';
+import 'package:http/http.dart' as http;
 
 import 'Buttons.dart';
 
 class NewSignUp extends StatefulWidget {
+  int age;
+  String firstName;
+  String gender;
+  String email;
+  String lastName;
+  String userName;
+  String password;
 
-  NewSignUp({Key key}) : super(key: key);
+  NewSignUp(this.firstName, this.lastName,this.email, this.userName, this.password, this.gender, this.age, {Key key}) : super(key: key);
 
 
   @override
@@ -20,6 +27,7 @@ class _NewSignUpState extends State<NewSignUp> {
   double _currentSlideValue = 0.0;
   String userInfo;
   int skillLevel;
+
 
   @override // lite osäker på vad den här metoden faktiskt gör. Men den får vara här sålänge.
   void initState() {
@@ -64,8 +72,8 @@ class _NewSignUpState extends State<NewSignUp> {
                         children: <Widget>[
                           Expanded(
                               child: SizedBox(
-                            height: 60,
-                          )),
+                                height: 60,
+                              )),
                           Container(
                             padding: const EdgeInsets.only(
                                 left: 5.0, right: 5.0, top: 5.0, bottom: 0),
@@ -86,7 +94,8 @@ class _NewSignUpState extends State<NewSignUp> {
                                         child: TextFormField(
                                           keyboardType: TextInputType.multiline,
                                           onChanged: (newValue) =>
-                                              setState(() => userInfo = newValue),
+                                              setState(() =>
+                                              userInfo = newValue),
                                           maxLines: 5,
                                         ),
                                       ),
@@ -121,8 +130,8 @@ class _NewSignUpState extends State<NewSignUp> {
                               'Link to info about NPTR (https://www.usta.com/content/dam/usta/pdfs/10013_experience_player_ntrp_guidelines.pdf)      TO BE FIXED '),
                           Expanded(
                               child: SizedBox(
-                            height: 0,
-                          )),
+                                height: 0,
+                              )),
                         ],
                       ),
                     ),
@@ -134,14 +143,17 @@ class _NewSignUpState extends State<NewSignUp> {
                       padding: const EdgeInsets.only(
                           left: 15.0, right: 15.0, top: 100, bottom: 260),
                       child: CustomIconButton(
-                          onPressed: () async {
-                            User user = UserPreferences.getUser();
-                            user.setInfo(userInfo);
-                            user.setSkillLevel(skillLevel);
-                            await UserPreferences.setUser(user);
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (_) => HomeScreen()));
-                          },
+                          onPressed: () =>
+                              _handleSignUp(
+                                  widget.firstName,
+                                  widget.lastName,
+                                  widget.email,
+                                  widget.userName,
+                                  widget.password,
+                                  widget.age,
+                                  widget.gender,
+                                  skillLevel,
+                                  userInfo),
                           title: 'Continue',
                           color: Colors.green)),
                 ),
@@ -152,4 +164,47 @@ class _NewSignUpState extends State<NewSignUp> {
       ],
     );
   }
+
+  void _handleSignUp(String firstName, String lastName, String email, String userName, String password, int age,
+      String gender, int skillLevel, String userInfo) async {
+    debugPrint(gender);
+    debugPrint(userName);
+    var res = await http.post(
+        Uri.parse("http://localhost:8080/user/signup"), body:
+    {
+      'username': userName,
+      'password': password,
+      'email': email,
+      'firstname': firstName,
+      'lastname': lastName,
+      'age': age.toString(),
+      'gender': gender,
+      'skillLevel': skillLevel.toString(),
+      'aboutInfo': userInfo
+    });
+
+    if (res.statusCode == 200) {
+
+      User user = User.signUp(
+          firstName,
+          lastName,
+          userName,
+          email,
+          userInfo,
+          age,
+          skillLevel);
+
+      await UserPreferences.setUser(user);
+
+      Navigator.push(context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ));
+
+      //todo:: error message
+    }
+  }
 }
+
+
+

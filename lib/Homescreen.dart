@@ -25,6 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   LatLng _lastMapPosition = _center;
   MapType _currentMapType = MapType.normal;
 
+
+
+
   _onMapCreated(GoogleMapController controller){
     _controller.complete(controller);
   }
@@ -71,7 +74,6 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text('Profile'),
               onTap: () { Navigator.push(
                   context, MaterialPageRoute(builder: (_) => Profile()));
-                
               },
             ),
             ListTile(

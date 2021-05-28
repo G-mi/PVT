@@ -37,6 +37,7 @@ class User {
       this.lastName,
       this.userName,
       this.email,
+      this.aboutInfo,
       this.age,
       this.skillLevel,
       );
@@ -46,9 +47,10 @@ class User {
       this.lastName,
       this.email,
       this.userName,
-      this.password,
-      this.gender,
+      this.aboutInfo,
       this.age,
+      this.skillLevel,
+
       );
 
   User.full({
@@ -130,7 +132,8 @@ class User {
         json['userName'],
         json['email'],
         json['age'],
-        json['skillLevel']);
+        json['skillLevel'],
+        json['aboutInfo']);
   }
 
 
