@@ -9,6 +9,7 @@ class UserPreferences {
   static SharedPreferences _preferences;
   static const _keyUser = 'user';
   static const _keyUserName = 'username';
+  static const _keyToken= 'token';
 
   static final myUser = User.full(
     firstName: 'Sofia',
@@ -33,10 +34,22 @@ class UserPreferences {
     final json = _preferences.getString(_keyUser);
     return json == null ? myUser : User.fromJsonFull(jsonDecode(json));
   }
+
   static User getUserFromSignUp (_keyUserName) {
     final json = _preferences.getString(_keyUserName);
     return User.fromJson(jsonDecode(json));
   }
+  
+  static void deleteUser(_keyUser) {
+    _preferences.remove(_keyUser);
+    _preferences.remove(_keyToken);
+  }
+
+  static Future setAccessToken(String token) async {
+    await _preferences.setString(_keyToken, token);
+  }
+
+
 
   static Future setUsername(String userName) async =>
       await _preferences.setString(_keyUserName, userName);

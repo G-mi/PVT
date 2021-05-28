@@ -139,20 +139,17 @@ class _SignInState extends State<SignIn> {
 
   signin(String username, password) async {
 
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
        var res = await http.post(
         Uri.parse("http://localhost:8080/user/signin"), body:
         {'username': username, 'password': password});
 
     if (res.statusCode == 200) {
       Map data = json.decode(res.body) as Map;
-
-      sharedPreferences.setString('username', data['username']);
-      sharedPreferences.setString("token", data['accessToken']);
       //todo: save in safe storage.
+      UserPreferences.setAccessToken(data['accessToken']);
       getUserdata(username);
-          }
+
+        }
 
     else displayDialog(context, "Something went wrong",
         "No account was found matching that username and password");
@@ -160,9 +157,7 @@ class _SignInState extends State<SignIn> {
 
   getUserdata(String username) async{
 
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    //get data for current user
+       //get data for current user
     //change url later
     var userdata = await http.get(
         Uri.http("localhost:8080","/user/currentuserinfo",

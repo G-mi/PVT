@@ -6,8 +6,12 @@ import 'package:frontend/Buttons.dart';
 import 'package:frontend/Plannedmatches.dart';
 import 'package:frontend/Settings.dart';
 import 'package:frontend/Profile.dart';
+import 'package:frontend/UserPreferences.dart';
 import 'package:frontend/Widgets/CreateMatchDialog.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'startscreen.dart';
+
+import 'User.dart';
 
 class HomeScreen extends StatefulWidget{
   HomeScreen({Key key}) : super(key:key);
@@ -20,6 +24,7 @@ class HomeScreen extends StatefulWidget{
 
 class _HomeScreenState extends State<HomeScreen> {
   String text;
+  User user = UserPreferences.getUser();
   Completer<GoogleMapController> _controller = Completer();
   static const  LatLng _center = const LatLng(59.286621, 18.088187);
   LatLng _lastMapPosition = _center;
@@ -91,9 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.people),
               title: Text('Friends'),
             ),
-             //todo: implement sign out, move to bottom of screen.
-             CustomIconButton(onPressed: () {  Navigator.pop(context);
-             },
+
+             CustomIconButton(  onPressed: () => _handleSignOut(),
                title: text = 'Sign out',
                color: Colors.deepOrange,)
           ],
@@ -137,8 +141,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
       drawerEnableOpenDragGesture: true,
       );
+  }
 
+  void _handleSignOut() async {
 
-
+    UserPreferences.deleteUser(user);
+     Navigator.push(
+      context, MaterialPageRoute(builder: (_) => StartScreen()));
   }
 }
