@@ -1,11 +1,8 @@
 package tennisPartner.accessingdatamysql;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
-import java.time.DateTimeException;
-import java.time.OffsetDateTime;
-//import com.google.maps.model.LatLng;
+import com.google.maps.model.LatLng;
 
 @Entity
 public class Match {
@@ -20,12 +17,10 @@ public class Match {
     private java.sql.Time endTime;
     private java.sql.Date date;
     private String tennisCourt;
-    //private LatLng position;
+    private LatLng position;
 
     @ManyToOne
     private User user; //not sure this is correct
-
-
 
     public User getUser() {
         return user;
@@ -46,7 +41,6 @@ public class Match {
     public void setNumberOfPlayers(Integer numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
     }
-
 
     public String getTennisCourt() {
         return tennisCourt;
@@ -90,6 +84,14 @@ public class Match {
 
     public Integer getMaxSkillLevel() {
         return maxSkillLevel;
+    }
+
+    public LatLng getPosition() {
+        return position;
+    }
+
+    public void setPosition(LatLng position) {
+        this.position = position;
     }
 
     public void setId(Long id) {

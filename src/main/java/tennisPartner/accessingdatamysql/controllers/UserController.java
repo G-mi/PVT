@@ -55,8 +55,8 @@ public class UserController {
                 ));
     }
 
-    @PostMapping(path ="/signup")// , consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
-          
+    @PostMapping(path ="/signup")
+
     public ResponseEntity<?> registerUser(@Valid SignupRequest signUpRequest) {
         if (userRepository.existsByName(signUpRequest.getUsername())) {
             return ResponseEntity
@@ -91,10 +91,6 @@ public class UserController {
         } else {
             User user = userRepository.findByName(username);
 
-            ObjectNode objectNode = mapper.createObjectNode();
-            objectNode.put("userName", user.getName());
-            objectNode.put("foo", "bar");
-            objectNode.put("number", 42);
 
             //todo: return user info
            return ResponseEntity.ok(user);

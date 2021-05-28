@@ -39,6 +39,14 @@
 			<version>0.9.1</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.google.maps/google-maps-services -->
+		<dependency>
+			<groupId>com.google.maps</groupId>
+			<artifactId>google-maps-services</artifactId>
+			<version>0.18.1</version>
+		</dependency>
+
+
 
 		<!-- MySQL Driver -->
 		<dependency>
