@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'User.dart';
 
 class UserPreferences {
@@ -45,13 +43,12 @@ class UserPreferences {
     _preferences.remove(_keyToken);
   }
 
-  static Future setAccessToken(String token) async {
+  static Future setAccessToken(String token) async =>
     await _preferences.setString(_keyToken, token);
-  }
-
 
 
   static Future setUsername(String userName) async =>
       await _preferences.setString(_keyUserName, userName);
+
   static String getUserName() => _preferences.getString(_keyUserName);
 }
