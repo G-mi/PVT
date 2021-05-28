@@ -167,8 +167,7 @@ class _NewSignUpState extends State<NewSignUp> {
 
   void _handleSignUp(String firstName, String lastName, String email, String userName, String password, int age,
       String gender, int skillLevel, String userInfo) async {
-    debugPrint(gender);
-    debugPrint(userName);
+
     var res = await http.post(
         Uri.parse("http://localhost:8080/user/signup"), body:
     {
