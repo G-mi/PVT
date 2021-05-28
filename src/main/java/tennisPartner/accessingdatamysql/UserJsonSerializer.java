@@ -33,7 +33,7 @@ public class UserJsonSerializer extends JsonSerializer<User> {
         jsonGenerator.writeStringField(
                 "gender",
               user.getGender());
-        jsonGenerator.writeStringField("aboutImage", user.getAboutInfo());
+        jsonGenerator.writeStringField("aboutInfo", user.getAboutInfo());
 
         jsonGenerator.writeEndObject();
     }

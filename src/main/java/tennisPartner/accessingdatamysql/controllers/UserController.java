@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,8 +55,9 @@ public class UserController {
                 ));
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    @PostMapping(path ="/signup")// , consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+          
+    public ResponseEntity<?> registerUser(@Valid SignupRequest signUpRequest) {
         if (userRepository.existsByName(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()

@@ -22,7 +22,7 @@ public class User implements Serializable{
     @OneToMany(cascade=CascadeType.ALL,fetch= FetchType.LAZY,mappedBy = "user")
     private List<Match> plannedMatches;
     private boolean isEnabled; //remove from database
-
+    private int skillevel = 1; //remove from database, did not get the refactoring,
     public String getAboutInfo() {
         return aboutInfo;
     }

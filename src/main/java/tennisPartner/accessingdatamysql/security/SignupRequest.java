@@ -17,13 +17,15 @@ public class SignupRequest {
         private String email;
 
 
-        @NotBlank
+
+    @NotBlank
         private String password;
         private String firstname;
         private String lastname;
-        private int age;
+        private String age;
         private String gender;
-        private int skillLevel;
+        private String skillLevel;
+        private String aboutInfo;
 
     public String getAboutInfo() {
         return aboutInfo;
@@ -33,9 +35,13 @@ public class SignupRequest {
         this.aboutInfo = aboutInfo;
     }
 
-    private String aboutInfo;
+    public void setAge(String age) {
+        this.age = age;
+    }
 
-
+    public void setSkillLevel(String skillLevel) {
+        this.skillLevel = skillLevel;
+    }
 
         public String getUsername() {
             return username;
@@ -61,13 +67,14 @@ public class SignupRequest {
             this.password = password;
         }
 
-        public int getSkillLevel() {return skillLevel; }
+        public int getSkillLevel() {return  Integer.parseInt(skillLevel); }
 
-    public void setSkillLevel(int skillevel) { this.skillLevel = skillevel;    }
 
-    public int getAge() {  return age;    }
 
-    public void setAge(int age) {  this.age = age;    }
+    public int getAge() {  return Integer.parseInt(age);    }
+
+
+
 
     public String getLastname() { return lastname;    }
 
