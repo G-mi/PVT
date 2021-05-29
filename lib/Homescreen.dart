@@ -7,9 +7,11 @@ import 'package:frontend/Plannedmatches.dart';
 import 'package:frontend/Settings.dart';
 import 'package:frontend/Profile.dart';
 import 'package:frontend/UserPreferences.dart';
-import 'package:frontend/Widgets/CreateMatchDialog.dart';
+import 'package:frontend/CreateMatchDialog.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'startscreen.dart';
+
 import 'User.dart';
 
 class HomeScreen extends StatefulWidget{
@@ -19,21 +21,20 @@ class HomeScreen extends StatefulWidget{
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+
+
 class _HomeScreenState extends State<HomeScreen> {
   String text;
   User user = UserPreferences.getUser();
   Completer<GoogleMapController> _controller = Completer();
-  static const  LatLng _center = const LatLng(59.286621, 18.088187);
-  LatLng _lastMapPosition = _center;
-  MapType _currentMapType = MapType.normal;
-
+  static const  LatLng _center = const LatLng(59.334591, 18.063240);
+  GoogleMapsPlaces _tennisCourts = GoogleMapsPlaces(apiKey: "AIzaSyBx8eSPRpBYjI2jL5BJNdgFupMUf5cae_Y");
+  Set<Marker> _markers = <Marker>{};
+  List<PlacesSearchResult> places = [];
+  Set<Marker> _matchMarkers = <Marker>{};
 
   _onMapCreated(GoogleMapController controller){
     _controller.complete(controller);
-  }
-
-  _onCameraMove(CameraPosition position){
-    _lastMapPosition = position.target;
   }
 
   @override
@@ -101,15 +102,38 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: <Widget>[
           GoogleMap(
-            onMapCreated: _onMapCreated,
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: false,
+            mapToolbarEnabled: false,
             initialCameraPosition: CameraPosition(
-              target:_center, zoom:12.5),
-            mapType: _currentMapType,
-            //markers: _markers,
-            onCameraMove: _onCameraMove,
+              target: _center,
+              zoom: 12,
+            ),
+            onMapCreated: _onMapCreated,
+            markers: Set<Marker>.of(_markers),
           ),
           Align(
-            alignment: Alignment.center,
+            alignment: Alignment(-0.9, 0.9),
+            child: SizedBox(
+              width: 40,
+              height: 40,
+              child: ClipOval(
+                child: Container(
+                  color: Colors.deepOrange,
+                  child:  IconButton(
+                    icon: Icon(Icons.search),
+                    iconSize: 25,
+                    color: Colors.white,
+                    onPressed: () {
+                      searchTennisCourts(_center);
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment(0.9, 0.9),
             child: SizedBox(
               width: 40,
               height: 40,
@@ -138,7 +162,30 @@ class _HomeScreenState extends State<HomeScreen> {
       );
   }
 
+  void searchTennisCourts(LatLng center) async {
+    setState(() {
+      _markers.clear();
+    });
+
+    final location = Location(lat: _center.latitude, lng: _center.longitude);
+    final result = await _tennisCourts.searchNearbyWithRadius(location, 8000, keyword: "tennisbana");
+
+    setState(() {
+      this.places = result.results;
+      result.results.forEach((f)  {
+        Marker marker = Marker(
+          markerId: MarkerId(f.name),
+          draggable: false,
+          infoWindow: InfoWindow(title: f.name, snippet: f.vicinity),
+          position: LatLng(f.geometry.location.lat, f.geometry.location.lng),
+        );
+        _markers.add(marker);
+      });
+    });
+  }
+
   void _handleSignOut() async {
+
     UserPreferences.deleteUser(user);
      Navigator.push(
       context, MaterialPageRoute(builder: (_) => StartScreen()));

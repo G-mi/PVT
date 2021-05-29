@@ -141,7 +141,7 @@ class _EditProfileState extends State<EditProfile> {
                           Stack(
                             children: [
                               SkillRatingWidget(
-                                skillValue: user.skillLevel,
+                                skillValue: 5,//user.skillLevel,
                                 selectedBall: Icon(
                                   Icons.sports_baseball,
                                   color: Colors.deepOrange,

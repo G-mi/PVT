@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/Homescreen.dart';
-import 'package:frontend/NewSignUp.dart';
-import 'Profile.dart';
 import 'signin.dart';
 import 'signup.dart';
 
@@ -61,7 +58,7 @@ class   _StartScreenState extends State<StartScreen> {
                     left: 15.0, right: 15.0, top: 15, bottom: 20),
                 child: ElevatedButton(
                   onPressed: () {  Navigator.push(
-                     context, MaterialPageRoute(builder: (_) => HomeScreen()));
+                     context, MaterialPageRoute(builder: (_) => SignIn()));
                   },
                   style: ElevatedButton.styleFrom(
                       primary: Colors.deepOrange,
