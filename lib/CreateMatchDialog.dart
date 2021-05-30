@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Homescreen.dart';
+import 'package:frontend/Match.dart';
 import 'package:frontend/Widgets/skillRatingWidget.dart';
 import 'package:frontend/locationPicker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -18,10 +19,11 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
   int _selectedNrOfPlayers;
   int _minSkillLevel = 4;
   int _maxSkillLevel = 4;
-  DateTime date;
-  TimeOfDay startTime;
-  TimeOfDay endTime;
-  LatLng matchLocation;
+  DateTime _date;
+  TimeOfDay _startTime;
+  TimeOfDay _endTime;
+  LatLng _matchLocation;
+  Match match;
 
   @override
   Widget build(BuildContext context) {
@@ -33,40 +35,40 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
   }
 
   String getDateText() {
-    if (date == null){
+    if (_date == null){
       return 'Date';
     }else {
-      return '${date.day}/${date.month}-${date.year}';
+      return '${_date.day}/${_date.month}-${_date.year}';
     }
   }
 
   String getStartTimeText() {
-    if (startTime == null){
+    if (_startTime == null){
       return 'Start Time';
     }else {
-      final hours = startTime.hour.toString().padLeft(2, '0');
-      final minutes = startTime.minute.toString().padLeft(2, '0');
+      final hours = _startTime.hour.toString().padLeft(2, '0');
+      final minutes = _startTime.minute.toString().padLeft(2, '0');
 
       return '$hours:$minutes';
     }
   }
 
   String getEndTimeText() {
-    if (endTime == null){
+    if (_endTime == null){
       return 'End Time';
     }else {
-      final hours = endTime.hour.toString().padLeft(2, '0');
-      final minutes = endTime.minute.toString().padLeft(2, '0');
+      final hours = _endTime.hour.toString().padLeft(2, '0');
+      final minutes = _endTime.minute.toString().padLeft(2, '0');
 
       return '$hours:$minutes';
     }
   }
 
   String getLocationText() {
-    if (matchLocation == null){
+    if (_matchLocation == null){
       return 'Choose the location of the match';
     }else {
-      return matchLocation.toString();
+      return _matchLocation.toString();
     }
   }
 
@@ -107,10 +109,8 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                               icon: Icon(Icons.close),
                               color: Colors.white,
                               onPressed: () {
-                                Navigator.pop(
-                                  context,
-                                  MaterialPageRoute(builder: (_) => HomeScreen())
-                                );
+                                match = null;
+                                Navigator.pop(context, match);
                               },
                             ),
                           ],
@@ -128,7 +128,7 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                                     builder: (context) => LocationPicker()),
                               );
                               setState(() {
-                                matchLocation = location;
+                                _matchLocation = location;
                               });
                             },
                             child: Text(getLocationText()),
@@ -370,7 +370,40 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (_date != null && _startTime != null && _endTime != null
+                        && _selectedNrOfPlayers != null && _matchLocation != null){
+                          match = Match(
+                            date: _date,
+                            startTime: _startTime,
+                            endTime: _endTime,
+                            numberOfPlayers: _selectedNrOfPlayers,
+                            minSkillLevel: _minSkillLevel,
+                            maxSkillLevel: _maxSkillLevel,
+                            matchLocation: _matchLocation,
+                          );
+                          Navigator.pop(context, match);
+                        }else{
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text('Error!'),
+                              content: Text('All field need to be assigned'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(
+                                          context,
+                                          MaterialPageRoute(builder: (_) => HomeScreen())
+                                      );
+                                    },
+                                    child: Text('Ok')
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
                       child: Row(
                         children: [
                           Text(
@@ -429,7 +462,7 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
     final startDate = DateTime.now();
     final pickedDate = await showDatePicker(
         context: context,
-        initialDate: date ?? startDate,
+        initialDate: _date ?? startDate,
         firstDate: startDate,
         lastDate: DateTime(DateTime.now().year + 5),
     );
@@ -437,7 +470,7 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
     if (pickedDate == null) return;
 
     setState(() {
-      date = pickedDate;
+      _date = pickedDate;
     });
   }
 
@@ -445,66 +478,63 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
     final initialTime = TimeOfDay.now();
     final pickedStartTime = await showTimePicker(
         context: context,
-        initialTime: startTime ?? initialTime,
+        initialTime: _startTime ?? initialTime,
     );
 
     if (pickedStartTime == null) return;
     setState(() {
-      startTime = pickedStartTime;
+      _startTime = pickedStartTime;
     });
   }
 
+  void _showErrorDialog(String msg){
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Error!'),
+        content: Text(msg),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.pop(
+                    context,
+                    MaterialPageRoute(builder: (_) => HomeScreen())
+                );
+              },
+              child: Text('Ok')
+          ),
+        ],
+      ),
+    );
+  }
+
   Future pickEndTime(BuildContext context) async {
-    if (startTime != null) {
+    if (_startTime != null) {
       final initialTime = TimeOfDay.now();
       final pickedEndTime = await showTimePicker(
         context: context,
-        initialTime: endTime ?? startTime ?? initialTime,
+        initialTime: _endTime ?? _startTime ?? initialTime,
       );
       if (pickedEndTime == null) return;
-      if (pickedEndTime.hour > startTime.hour){
-        setState(() {
-          endTime = pickedEndTime;
-        });
+      if (pickedEndTime.hour >= _startTime.hour){
+        if (pickedEndTime.hour == _startTime.hour){
+          if (pickedEndTime.minute > _startTime.minute){
+            setState(() {
+              _endTime = pickedEndTime;
+            });
+          }else {
+            _showErrorDialog('Minute : End time can not be before the start time');
+          }
+        }else{
+          setState(() {
+            _endTime = pickedEndTime;
+          });
+        }
       }else{
-        showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text('Error!'),
-            content: Text('End time can not be before the start time'),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(
-                        context,
-                        MaterialPageRoute(builder: (_) => HomeScreen())
-                    );
-                  },
-                  child: Text('Ok')
-              ),
-            ],
-          ),
-        );
+        _showErrorDialog('End time can not be before the start time');
       }
     }else{
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text('Error!'),
-            content: Text('Start time needs to be assigned!'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(
-                      context,
-                      MaterialPageRoute(builder: (_) => HomeScreen())
-                  );
-                },
-                child: Text('Ok')
-              ),
-            ],
-          ),
-      );
+      _showErrorDialog('Pick a start time first');
     }
   }
 }

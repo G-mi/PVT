@@ -14,14 +14,13 @@ class Match{
   LatLng matchLocation;
   //List<String> participants;
 
-  Match(
-      {
-        this.date,
-        this.startTime,
-        this.endTime,
-        this.numberOfPlayers,
-        this.minSkillLevel,
-        this.maxSkillLevel,
-        this.matchLocation
-      });
+  Match({
+    this.date,
+    this.startTime,
+    this.endTime,
+    this.numberOfPlayers,
+    this.minSkillLevel,
+    this.maxSkillLevel,
+    this.matchLocation
+  });
 }

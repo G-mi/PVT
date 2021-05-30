@@ -74,35 +74,17 @@ class _LocationPickerState extends State<LocationPicker> {
 
   void _handleTap(LatLng location){
     setState(() {
-      if(pickedLocation == null){
-        _markers.add(
-            Marker(
-              markerId: MarkerId(location.toString()),
-              position: location,
-              icon: BitmapDescriptor.defaultMarkerWithHue(120.0),
-            )
-        );
-        setState(() {
-          pickedLocation = location;
-        });
-      }
-    });
-  }
-
-  void _handleMarkerTap(LatLng location){
-    setState(() {
-      if(pickedLocation == null){
-        _markers.add(
-            Marker(
-              markerId: MarkerId(location.toString()),
-              position: location,
-              icon: BitmapDescriptor.defaultMarkerWithHue(120.0),
-            )
-        );
-        setState(() {
-          pickedLocation = location;
-        });
-      }
+      searchTennisCourts(_center);
+      _markers.add(
+          Marker(
+            markerId: MarkerId(location.toString()),
+            position: location,
+            icon: BitmapDescriptor.defaultMarkerWithHue(120.0),
+          )
+      );
+      setState(() {
+        pickedLocation = location;
+      });
     });
   }
 
@@ -122,10 +104,11 @@ class _LocationPickerState extends State<LocationPicker> {
           draggable: false,
           infoWindow: InfoWindow(
               title: f.name,
-              snippet: f.vicinity,),
-            position: LatLng(f.geometry.location.lat, f.geometry.location.lng),
+              snippet: f.vicinity,
+          ),
+          position: LatLng(f.geometry.location.lat, f.geometry.location.lng),
           onTap: (){
-            _handleMarkerTap(LatLng(f.geometry.location.lat, f.geometry.location.lng));
+            _handleTap(LatLng(f.geometry.location.lat, f.geometry.location.lng));
           }
         );
         _markers.add(marker);
