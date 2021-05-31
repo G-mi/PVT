@@ -1,19 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Homescreen.dart';
+import 'package:frontend/Widgets/skillRatingWidget.dart';
+import 'NTRPDialog.dart';
 import 'User.dart';
 import 'UserPreferences.dart';
 import 'package:http/http.dart' as http;
 import 'Buttons.dart';
 
 class NewSignUp extends StatefulWidget {
-  int age;
-  String firstName;
-  String gender;
-  String email;
-  String lastName;
-  String userName;
-  String password;
+  final int age;
+  final String firstName;
+  final String gender;
+  final String email;
+  final String lastName;
+  final String userName;
+  final String password;
 
   NewSignUp(this.firstName, this.lastName,this.email, this.userName, this.password, this.gender, this.age, {Key key}) : super(key: key);
 
@@ -23,140 +25,232 @@ class NewSignUp extends StatefulWidget {
 }
 
 class _NewSignUpState extends State<NewSignUp> {
-  double _currentSlideValue = 0.0;
   String userInfo;
-  int skillLevel;
-
-
-  @override // lite osäker på vad den här metoden faktiskt gör. Men den får vara här sålänge.
-  void initState() {
-    super.initState();
-  }
+  int skillLevel = 2;
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildAppBar() {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      backgroundColor: Colors.green,
+      centerTitle: true,
+      title: Text(
+        'Sign up 2/2',
+      ),
+    );
+  }
+
+  Widget _buildBody() {
     return Stack(
       children: [
         Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/background.jpg'),
-              fit: BoxFit.cover,
+              image: DecorationImage(
+                image: AssetImage('images/background.jpg'),
+                fit: BoxFit.cover,
+              )
+          ),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            width: 360,
+            height: 500,
+            child: FractionallySizedBox(
+              widthFactor: 0.9,
+              heightFactor: 0.9,
+              child: Container(
+                color: Color.fromRGBO(255, 255, 255, 0.5),
+              ),
             ),
           ),
         ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text('Sign up 2/2'),
-            backgroundColor: Colors.green,
-          ),
-          body: Center(
-            child: Stack(
-              alignment: Alignment(0.0, -0.95),
-              children: [
-                FractionallySizedBox(
-                  //Bakgrundsruta
-                  widthFactor: 0.9,
-                  heightFactor: 0.5,
-                  child: Container(
-                    color: Color.fromRGBO(255, 255, 255, 0.6),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 15.0, right: 15.0, top: 10, bottom: 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                              child: SizedBox(
-                                height: 60,
-                              )),
-                          Container(
-                            padding: const EdgeInsets.only(
-                                left: 5.0, right: 5.0, top: 5.0, bottom: 0),
-                            color: Colors.white,
-                            child: (Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    children: <Widget>[
-                                      SizedBox(
-                                          child: Text(
-                                              'Write a few words about yourself. This will be visible to other users on your profile:')),
-                                      Divider(color: Colors.black),
-                                      Container(
-                                        width: 323.2,
-                                        height: 120,
-                                        color: Colors.white,
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.multiline,
-                                          onChanged: (newValue) =>
-                                              setState(() =>
-                                              userInfo = newValue),
-                                          maxLines: 5,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text('Skill level (NPTR) :'),
-                              Slider(
-                                value: _currentSlideValue,
-                                min: 0.0,
-                                max: 7.0,
-                                divisions: 7,
-                                label: _currentSlideValue.round().toString(),
-                                onChanged: (double value) {
-                                  setState(() {
-                                    _currentSlideValue = value;
-                                    skillLevel = _currentSlideValue.round();
-                                  });
-                                },
-                                activeColor: Colors.green,
-                                inactiveColor: Colors.lightGreen,
-                              ),
-                            ],
-                          ),
-                          Text(
-                              'Link to info about NPTR (https://www.usta.com/content/dam/usta/pdfs/10013_experience_player_ntrp_guidelines.pdf)      TO BE FIXED '),
-                          Expanded(
-                              child: SizedBox(
-                                height: 0,
-                              )),
-                        ],
+        Align(
+          alignment: Alignment(-0.02, -0.55),
+          child: Container(
+            width: 325,
+            height: 450,
+            color: Colors.transparent,
+            child: SingleChildScrollView (
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.account_circle,
+                        size: 100,
                       ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Hi! ${widget.firstName} ${widget.lastName}',
+                        style: TextStyle(
+                          color: Colors.deepOrange,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 250,
+                        height: 50,
+                        child: Text(
+                          'Write a few words about yourself. This will be visible to other users on your profile:',
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 300,
+                        height: 130,
+                        color: Colors.transparent,
+                        child: TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.done,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          onChanged: (newValue) =>
+                              setState(() =>
+                              userInfo = newValue),
+                          maxLines: 5,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10,),
+                  SkillRatingWidget(
+                    skillValue: skillLevel,
+                    selectedBall: Icon(
+                      Icons.sports_baseball,
+                      color: Colors.green,
+                      size: 40,
+                    ),
+                    unSelectedBall: Icon(
+                      Icons.sports_baseball_outlined,
+                      color: Color.fromRGBO(76, 175, 80, 0.5),
+                      size: 40,
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter, // Signupbutton
-                  child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 15.0, right: 15.0, top: 100, bottom: 260),
-                      child: CustomIconButton(
-                          onPressed: () =>
-                              _handleSignUp(
-                                  widget.firstName,
-                                  widget.lastName,
-                                  widget.email,
-                                  widget.userName,
-                                  widget.password,
-                                  widget.age,
-                                  widget.gender,
-                                  skillLevel,
-                                  userInfo),
-                          title: 'Continue',
-                          color: Colors.green)),
-                ),
-              ],
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: ClipOval(
+                          child: Container(
+                            color: Colors.green,
+                            child:  IconButton(
+                              icon: Icon(Icons.remove),
+                              iconSize: 25,
+                              color: Colors.white,
+                              onPressed: () {
+                                setState(() {
+                                  if (skillLevel > 1){
+                                    skillLevel = skillLevel - 1;
+                                  }
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 40,),
+                      Text(
+                        'Choose your skill rating',
+                      ),
+                      SizedBox(width: 40,),
+                      SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: ClipOval(
+                          child: Container(
+                            color: Colors.green,
+                            child:  IconButton(
+                              icon: Icon(Icons.add),
+                              iconSize: 25,
+                              color: Colors.white,
+                              onPressed: () {
+                                setState(() {
+                                  if (skillLevel < 7) {
+                                    skillLevel = skillLevel + 1;
+                                  }
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 360,
+          left: 290,
+          child: IconButton(
+            icon: Icon(Icons.info),
+            iconSize: 27,
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => NTRPDialog()
+              );
+            },
+          ),
+        ),
+        Align(
+          alignment: Alignment(0.0, 4.85),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 100, bottom: 260),
+            child: CustomIconButton(
+              onPressed: () =>
+                  _handleSignUp(
+                      widget.firstName,
+                      widget.lastName,
+                      widget.email,
+                      widget.userName,
+                      widget.password,
+                      widget.age,
+                      widget.gender,
+                      skillLevel,
+                      userInfo),
+              title: 'Continue',
+              color: Colors.green,
             ),
           ),
         ),
