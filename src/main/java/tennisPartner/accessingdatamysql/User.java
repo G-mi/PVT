@@ -1,13 +1,14 @@
 package tennisPartner.accessingdatamysql;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User implements Serializable{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    public Integer id;
     private String name;
     private String email;
     private String password;
@@ -18,18 +19,10 @@ public class User implements Serializable{
     private int skillLevel;
     private String aboutInfo;
 
-    //not sure this is correct
-    @OneToMany(cascade=CascadeType.ALL,fetch= FetchType.LAZY,mappedBy = "user")
-    private List<Match> plannedMatches;
-    private boolean isEnabled; //remove from database
-    private int skillevel = 1; //remove from database, did not get the refactoring,
-    public String getAboutInfo() {
-        return aboutInfo;
-    }
 
-    public void setAboutInfo(String aboutInfo) {
-        this.aboutInfo = aboutInfo;
-    }
+   @OneToMany(cascade=CascadeType.ALL,fetch= FetchType.LAZY,mappedBy = "user")
+    private List<Matches> plannedMatches;
+
 
     public User() {
     }
@@ -44,7 +37,10 @@ public class User implements Serializable{
         this.gender = gender;
         this.skillLevel = skillLevel;
         this.aboutInfo = aboutInfo;
-    }
+        this.plannedMatches = new ArrayList<Matches>();
+
+            }
+
 
 
     public Integer getId() {
@@ -97,9 +93,21 @@ public class User implements Serializable{
 
     public int getSkillLevel() { return skillLevel; }
 
-    public void setSkillLevel(int skillevel) { this.skillLevel = skillevel; }
+    public void setSkillLevel(int skillLevel) { this.skillLevel = skillLevel; }
 
-    public boolean isEnabled() {
-        return isEnabled;
+    public String getAboutInfo() {
+        return aboutInfo;
+    }
+
+    public void setAboutInfo(String aboutInfo) {
+        this.aboutInfo = aboutInfo;
+    }
+
+    public List<Matches> getPlannedMatches() {
+        return plannedMatches;
+    }
+
+    public void setPlannedMatches(List<Matches> plannedMatches) {
+        this.plannedMatches = plannedMatches;
     }
 }
