@@ -318,7 +318,7 @@ class _NewSignUpState extends State<NewSignUp> {
     });
     var res = await http.post(uri, body: jsonbody);
 
-    if (res.statusCode == 200) {
+    if (res.statusCode == 200) { */
 
       User user = User.signUp(
           firstName,
@@ -338,7 +338,7 @@ class _NewSignUpState extends State<NewSignUp> {
           ));
 
       //todo:: error message
-    }
+   // }
   }
 }
 
