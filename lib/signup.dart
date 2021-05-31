@@ -277,27 +277,38 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 20,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState.validate()) {
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (_) => NewSignUp(firstName, lastName, email, userName, password, _gender, age)));
+                            }
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                'Continue'
+                              ),
+                              SizedBox(width: 40,),
+                              Icon(
+                                Icons.arrow_forward,
+                              ),
+                            ],
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.green,
+                            textStyle: TextStyle(fontSize: 30),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
-            ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.only(
-                left: 15.0, right: 15.0, top: 100, bottom: 260),
-            child: CustomIconButton(
-              onPressed: () async {
-                if (_formKey.currentState.validate()) {
-
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (_) => NewSignUp(firstName, lastName, email, userName, password, _gender, age)));
-                }
-              },
-              title: 'Continue',
-              color: Colors.green,
             ),
           ),
         ),

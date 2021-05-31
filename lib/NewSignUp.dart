@@ -30,6 +30,11 @@ class _NewSignUpState extends State<NewSignUp> {
   int skillLevel = 2;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
@@ -65,7 +70,7 @@ class _NewSignUpState extends State<NewSignUp> {
           ),
         ),
         Align(
-          alignment: Alignment.topCenter,
+          alignment: Alignment.center,
           child: Container(
             width: 360,
             height: 500,
@@ -79,10 +84,10 @@ class _NewSignUpState extends State<NewSignUp> {
           ),
         ),
         Align(
-          alignment: Alignment(-0.02, -0.55),
+          alignment: Alignment(-0.02, -0.2),
           child: Container(
             width: 325,
-            height: 450,
+            height: 500,
             color: Colors.transparent,
             child: SingleChildScrollView (
               child: Column(
@@ -214,6 +219,40 @@ class _NewSignUpState extends State<NewSignUp> {
                       ),
                     ],
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () =>
+                            _handleSignUp(
+                                widget.firstName,
+                                widget.lastName,
+                                widget.email,
+                                widget.userName,
+                                widget.password,
+                                widget.age,
+                                widget.gender,
+                                skillLevel,
+                                userInfo
+                            ),
+                        child: Row(
+                          children: [
+                            Text(
+                                'Continue'
+                            ),
+                            SizedBox(width: 40,),
+                            Icon(
+                              Icons.arrow_forward,
+                            ),
+                          ],
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                          textStyle: TextStyle(fontSize: 30),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -231,28 +270,6 @@ class _NewSignUpState extends State<NewSignUp> {
                   builder: (BuildContext context) => NTRPDialog()
               );
             },
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.only(
-                left: 15.0, right: 15.0, top: 100, bottom: 260),
-            child: CustomIconButton(
-              onPressed: () =>
-                  _handleSignUp(
-                      widget.firstName,
-                      widget.lastName,
-                      widget.email,
-                      widget.userName,
-                      widget.password,
-                      widget.age,
-                      widget.gender,
-                      skillLevel,
-                      userInfo),
-              title: 'Continue',
-              color: Colors.green,
-            ),
           ),
         ),
       ],
@@ -301,7 +318,7 @@ class _NewSignUpState extends State<NewSignUp> {
     });
     var res = await http.post(uri, body: jsonbody);
 
-    if (res.statusCode == 200 || res2.statusCode==200) { */
+    if (res.statusCode == 200) {
 
       User user = User.signUp(
           firstName,
@@ -323,7 +340,7 @@ class _NewSignUpState extends State<NewSignUp> {
       //todo:: error message
     }
   }
-//}
+}
 
 
 
