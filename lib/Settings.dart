@@ -1,15 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/startscreen.dart';
 import 'Homescreen.dart';
 
 class Settings extends StatefulWidget{
   Settings ({Key key}) : super(key:key);
+
 
   @override
   _SettingsState createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
+
+  List<String> settingsList = [
+    "About",
+    "Contact",
+    "Send Feedback",
+    "Version",
+    "Sign Out"
+  ];
 
 
   @override
@@ -60,10 +70,19 @@ class _SettingsState extends State<Settings> {
                       child: Container(
                           color: Color.fromRGBO(255, 255, 255, 0.5),
                           //Todo: add list of matches.
+                        child: FractionallySizedBox(
+                          alignment: Alignment.bottomCenter,
+                          heightFactor: 0.66,
+                          child: Container(
+                            color: Color.fromRGBO(255, 255, 255, 0),
+                            child: buildSettingsListView(),
+                          ),
+                        ),
 
                       ),
 
                   ),
+
               ],
           ),
           ),
@@ -71,4 +90,29 @@ class _SettingsState extends State<Settings> {
         ]
     );
   }
+
+  Widget buildSettingsListView() {
+    return ListView.builder(
+      itemCount: settingsList.length,
+      itemBuilder: (context, index){
+        return Card(
+          child: ListTile(
+            onTap: (){
+              if(settingsList[index] == "Sign Out") {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) => StartScreen(),
+                ));
+              }
+
+            },
+            title: Text(settingsList[index])
+          ),
+        );
+      }
+
+    );
+  }
+
 }
