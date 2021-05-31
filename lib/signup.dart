@@ -284,7 +284,7 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
         Align(
-          alignment: Alignment(0.0, 4.85),
+          alignment: Alignment.bottomCenter,
           child: Padding(
             padding: const EdgeInsets.only(
                 left: 15.0, right: 15.0, top: 100, bottom: 260),

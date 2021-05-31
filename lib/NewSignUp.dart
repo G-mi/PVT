@@ -7,6 +7,7 @@ import 'User.dart';
 import 'UserPreferences.dart';
 import 'package:http/http.dart' as http;
 import 'Buttons.dart';
+import 'dart:convert';
 
 class NewSignUp extends StatefulWidget {
   final int age;
@@ -233,7 +234,7 @@ class _NewSignUpState extends State<NewSignUp> {
           ),
         ),
         Align(
-          alignment: Alignment(0.0, 4.85),
+          alignment: Alignment.bottomCenter,
           child: Padding(
             padding: const EdgeInsets.only(
                 left: 15.0, right: 15.0, top: 100, bottom: 260),
@@ -261,9 +262,33 @@ class _NewSignUpState extends State<NewSignUp> {
   void _handleSignUp(String firstName, String lastName, String email, String userName, String password, int age,
       String gender, int skillLevel, String userInfo) async {
 
-    var res = await http.post(
-        Uri.parse("http://localhost:8080/user/signup"), body:
-    {
+   /* Map<String, dynamic> body = {
+      'username': userName,
+      'password': password,
+      'email': email,
+      'firstname': firstName,
+      'lastname': lastName,
+      'age': age.toString(),
+      'gender': gender,
+      'skillLevel': skillLevel.toString(),
+      'aboutInfo': userInfo
+    };
+
+    print(firstName);
+    print(userName);
+    print(password);
+    print(email);
+    print(lastName);
+    print(age);
+    print(gender);
+    print(skillLevel);
+    print(userInfo);
+
+    String jsonbody = json.encode(body);
+    final String _baseUrl = "group4-75.pvt.dsv.su.se";
+    var uri = Uri.https(_baseUrl,'/user/signup');
+    print(uri.toString());
+    var res2 = await http.post(Uri.parse('https://group4-75.pvt.dsv.su.se/user/signup'), body: {
       'username': userName,
       'password': password,
       'email': email,
@@ -274,8 +299,9 @@ class _NewSignUpState extends State<NewSignUp> {
       'skillLevel': skillLevel.toString(),
       'aboutInfo': userInfo
     });
+    var res = await http.post(uri, body: jsonbody);
 
-    if (res.statusCode == 200) {
+    if (res.statusCode == 200 || res2.statusCode==200) { */
 
       User user = User.signUp(
           firstName,
@@ -287,6 +313,7 @@ class _NewSignUpState extends State<NewSignUp> {
           skillLevel);
 
       await UserPreferences.setUser(user);
+      await UserPreferences.setAccessToken();
 
       Navigator.push(context,
           MaterialPageRoute(
@@ -296,7 +323,7 @@ class _NewSignUpState extends State<NewSignUp> {
       //todo:: error message
     }
   }
-}
+//}
 
 
 

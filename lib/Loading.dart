@@ -25,7 +25,7 @@ class _LoadingState extends State<Loading > {
   _loadUser() async {
     WidgetsFlutterBinding.ensureInitialized();
     await UserPreferences.init();
-    UserPreferences.setAccessToken();
+   // UserPreferences.setAccessToken();
 
     _token = UserPreferences.getAccessToken() ?? "";
 

@@ -372,7 +372,42 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: ()  =>
+
+                      onPressed: () {
+                        if (_date != null && _startTime != null && _endTime != null
+                            && _selectedNrOfPlayers != null && _matchLocation != null){
+                          match = Match(
+                            date: _date,
+                            startTime: _startTime,
+                            endTime: _endTime,
+                            numberOfPlayers: _selectedNrOfPlayers,
+                            minSkillLevel: _minSkillLevel,
+                            maxSkillLevel: _maxSkillLevel,
+                            matchLocation: _matchLocation,
+                          );
+                          Navigator.pop(context, match);
+                        }else{
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text('Error!'),
+                              content: Text('All field need to be assigned'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(
+                                          context,
+                                          MaterialPageRoute(builder: (_) => HomeScreen())
+                                      );
+                                    },
+                                    child: Text('Ok')
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
+                     /* onPressed: ()  =>
                              _addMatch(
                            _selectedNrOfPlayers,
                             _minSkillLevel,
@@ -380,7 +415,7 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                                   _date,
                             _startTime,
                             _endTime
-                            ),
+                            ),*/
 
 
 
