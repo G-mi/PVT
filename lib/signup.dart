@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/Buttons.dart';
 import 'package:frontend/startscreen.dart';
 import 'NewSignUp.dart';
 import 'UserPreferences.dart';
@@ -275,20 +274,32 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomIconButton(
+                        ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
-
                               Navigator.push(context, MaterialPageRoute(
                                   builder: (_) => NewSignUp(firstName, lastName, email, userName, password, _gender, age)));
                             }
                           },
-                          title: 'Continue',
-                          color: Colors.green,
+                          child: Row(
+                            children: [
+                              Text(
+                                'Continue'
+                              ),
+                              SizedBox(width: 40,),
+                              Icon(
+                                Icons.arrow_forward,
+                              ),
+                            ],
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.green,
+                            textStyle: TextStyle(fontSize: 30),
+                          ),
                         ),
                       ],
                     ),
