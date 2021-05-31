@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Buttons.dart';
-import 'package:frontend/Match.dart';
 import 'package:frontend/Plannedmatches.dart';
 import 'package:frontend/Settings.dart';
 import 'package:frontend/Profile.dart';
@@ -10,9 +9,7 @@ import 'package:frontend/UserPreferences.dart';
 import 'package:frontend/CreateMatchDialog.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'MatchInfo.dart';
 import 'startscreen.dart';
-
 import 'User.dart';
 
 class HomeScreen extends StatefulWidget{
@@ -21,6 +18,8 @@ class HomeScreen extends StatefulWidget{
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
+
+
 
 class _HomeScreenState extends State<HomeScreen> {
   String text;
@@ -31,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Set<Marker> _markers = <Marker>{};
   List<PlacesSearchResult> places = [];
   Set<Marker> _matchMarkers = <Marker>{};
-  Map<LatLng, Match> matches;
 
   _onMapCreated(GoogleMapController controller){
     _controller.complete(controller);
@@ -144,16 +142,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.add),
                     iconSize: 25,
                     color: Colors.white,
-                    onPressed: () async {
-                      final Match newMatch = await showDialog(
+                    onPressed: () {
+                      showDialog(
                         context: context,
                         builder: (BuildContext context) => CreateMatchDialog()
                       );
-                      if (newMatch != null){
-                        setState(() {
-                          _updateMarker(newMatch);
-                        });
-                      }
                     },
                   ),
                 ),
@@ -165,12 +158,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
       drawerEnableOpenDragGesture: true,
       );
-  }
-
-  void _handleTap(Match match) {
-    showDialog(
-        context: context,
-        builder: (_) => MatchInfo(match: match,));
   }
 
   void searchTennisCourts(LatLng center) async {
@@ -192,28 +179,6 @@ class _HomeScreenState extends State<HomeScreen> {
         );
         _markers.add(marker);
       });
-      _markers.addAll(_matchMarkers);
-    });
-  }
-
-  void _updateMarker(Match match) {
-    setState(() {
-      Marker marker = Marker(
-        markerId: MarkerId(match.matchLocation.toString()),
-        draggable: false,
-        infoWindow: InfoWindow(
-          title: 'Match',
-          snippet: match.matchLocation.toString(),
-        ),
-        position: LatLng(match.matchLocation.latitude + 0.00001, match.matchLocation.longitude + 0.00001),
-        icon: BitmapDescriptor.defaultMarkerWithHue(300.0),
-        onTap: () {
-          _handleTap(match);
-        }
-      );
-
-      _matchMarkers.add(marker);
-      _markers.addAll(_matchMarkers);
     });
   }
 

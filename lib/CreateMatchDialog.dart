@@ -1,5 +1,7 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:frontend/UserPreferences.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Homescreen.dart';
@@ -370,40 +372,18 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        if (_date != null && _startTime != null && _endTime != null
-                        && _selectedNrOfPlayers != null && _matchLocation != null){
-                          match = Match(
-                            date: _date,
-                            startTime: _startTime,
-                            endTime: _endTime,
-                            numberOfPlayers: _selectedNrOfPlayers,
-                            minSkillLevel: _minSkillLevel,
-                            maxSkillLevel: _maxSkillLevel,
-                            matchLocation: _matchLocation,
-                          );
-                          Navigator.pop(context, match);
-                        }else{
-                          showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: Text('Error!'),
-                              content: Text('All field need to be assigned'),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(
-                                          context,
-                                          MaterialPageRoute(builder: (_) => HomeScreen())
-                                      );
-                                    },
-                                    child: Text('Ok')
-                                ),
-                              ],
+                      onPressed: ()  =>
+                             _addMatch(
+                           _selectedNrOfPlayers,
+                            _minSkillLevel,
+                           _maxSkillLevel,
+                                  _date,
+                            _startTime,
+                            _endTime
                             ),
-                          );
-                        }
-                      },
+
+
+
                       child: Row(
                         children: [
                           Text(
@@ -537,4 +517,54 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
       _showErrorDialog('Pick a start time first');
     }
   }
+
+  Future<Match> _addMatch(_selectedNrOfPlayers, _minSkillLevel, _maxSkillLevel, date,
+      startTime, endTime) async {
+    String userName = UserPreferences.getUserName();
+    String matchlocation = "59.3536164,18.041846";
+    var reqBody = new Map();
+
+    reqBody['minSkillLevel'] = _minSkillLevel;
+    reqBody['maxSkillLevel'] =_maxSkillLevel;
+    reqBody['numberOfPlayers'] =_selectedNrOfPlayers;
+    reqBody['startTime'] = startTime.toString();
+    reqBody['endTime'] = endTime.toString();
+    reqBody['date'] = date.toString();
+    reqBody['position'] = matchlocation;
+    reqBody['username'] =  userName;
+
+    var res = await http.post(
+        Uri.parse("http://localhost:8080/match/add"), body:
+    jsonEncode(reqBody)
+
+    );
+
+    if (res.statusCode == 200) {
+
+      match = Match(
+        date: _date,
+        startTime: _startTime,
+        endTime: _endTime,
+        numberOfPlayers: _selectedNrOfPlayers,
+        minSkillLevel: _minSkillLevel,
+        maxSkillLevel: _maxSkillLevel,
+        matchLocation: _matchLocation,
+      );
+
+
+      Navigator.pop(context, match);
+
+
+    } else
+    displayDialog(context, "Something went wrong",
+    "Unable to add match");
+
+  }
+
+  void displayDialog(context, title, text) => showDialog(
+    context: context,
+    builder: (context) =>
+        AlertDialog(title: Text(title), content: Text(text)),
+  );
+
 }
