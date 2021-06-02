@@ -279,7 +279,7 @@ class _NewSignUpState extends State<NewSignUp> {
 
 
     var res = await http.post(
-        Uri.parse("http://localhost:8080/user/signup"), body:
+        Uri.parse("http://10.0.2.2:8080/user/signup"), body:
     {
       'username': userName,
       'password': password,
@@ -342,7 +342,7 @@ class _NewSignUpState extends State<NewSignUp> {
             builder: (context) => HomeScreen(),
           ));
 
-      //todo:: error message
+      //TODO: breakout in methods to structure
     }
   }
 }

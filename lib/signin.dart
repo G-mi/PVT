@@ -158,7 +158,7 @@ class _SignInState extends State<SignIn> {
        //get data for current user
     //change url later
     var userdata = await http.get(
-        Uri.http("localhost:8080","/user/currentuserinfo",
+        Uri.http("10.0.2.2:8080","/user/currentuserinfo",
             {"name": username }));
 
     var data = json.decode(userdata.body);

@@ -15,6 +15,7 @@ void main() async {
 
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'TennisMatch',
       // Start the app with the "/" named route. In this case, the app starts
       // on the FirstScreen widget.

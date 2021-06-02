@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:frontend/Buttons.dart';
 import 'package:frontend/startscreen.dart';
 import 'NewSignUp.dart';
-import 'UserPreferences.dart';
 import 'User.dart';
 
 class SignUp extends StatefulWidget {
@@ -61,10 +60,9 @@ class _SignUpState extends State<SignUp> {
         Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/background.jpg'),
-                fit: BoxFit.cover,
-              )
-          ),
+            image: AssetImage('images/background.jpg'),
+            fit: BoxFit.cover,
+          )),
         ),
         Align(
           alignment: Alignment.center,
@@ -99,7 +97,9 @@ class _SignUpState extends State<SignUp> {
                     ),
                     Row(
                       children: [
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         DropdownButton(
                           hint: Text('Gender'),
                           value: _gender,
@@ -108,15 +108,16 @@ class _SignUpState extends State<SignUp> {
                           items: <String>[
                             'Male',
                             'Female',
-                          ].map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
                         ),
-                        SizedBox(width: 30,),
+                        SizedBox(
+                          width: 30,
+                        ),
                         Text('Age:     '),
                         Container(
                           width: 35,
@@ -130,15 +131,16 @@ class _SignUpState extends State<SignUp> {
                               FilteringTextInputFormatter.digitsOnly
                             ],
                             onChanged: (newValue) =>
-                                setState(() =>
-                                age = int.parse(newValue)),
+                                setState(() => age = int.parse(newValue)),
                           ),
                         )
                       ],
                     ),
                     Row(
                       children: [
-                        SizedBox(width: 15,),
+                        SizedBox(
+                          width: 15,
+                        ),
                         Container(
                           width: 130,
                           height: 50,
@@ -147,16 +149,16 @@ class _SignUpState extends State<SignUp> {
                           color: Colors.white,
                           child: TextFormField(
                             validator: (val) =>
-                            val.isEmpty
-                                ? 'Enter your first name'
-                                : null,
-                            decoration: InputDecoration(
-                                labelText: ' First name '),
+                                val.isEmpty ? 'Enter your first name' : null,
+                            decoration:
+                                InputDecoration(labelText: ' First name '),
                             onChanged: (newValue) =>
                                 setState(() => firstName = newValue),
                           ),
                         ),
-                        SizedBox(width: 30,),
+                        SizedBox(
+                          width: 30,
+                        ),
                         Container(
                           width: 130,
                           height: 50,
@@ -165,21 +167,23 @@ class _SignUpState extends State<SignUp> {
                           color: Colors.white,
                           child: TextFormField(
                             validator: (val) =>
-                            val.isEmpty
-                                ? 'Enter your last name'
-                                : null,
+                                val.isEmpty ? 'Enter your last name' : null,
                             onChanged: (newValue) =>
                                 setState(() => lastName = newValue),
-                            decoration: const InputDecoration(
-                                labelText: ' Last name '),
+                            decoration:
+                                const InputDecoration(labelText: ' Last name '),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       children: [
-                        SizedBox(width: 15,),
+                        SizedBox(
+                          width: 15,
+                        ),
                         Container(
                           width: 290,
                           height: 50,
@@ -190,19 +194,21 @@ class _SignUpState extends State<SignUp> {
                             onChanged: (newValue) =>
                                 setState(() => userName = newValue),
                             validator: (val) =>
-                            val.isEmpty
-                                ? 'Enter a user name'
-                                : null,
-                            decoration: const InputDecoration(
-                                labelText: ' User Name '),
+                                val.isEmpty ? 'Enter a user name' : null,
+                            decoration:
+                                const InputDecoration(labelText: ' User Name '),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       children: [
-                        SizedBox(width: 15,),
+                        SizedBox(
+                          width: 15,
+                        ),
                         Container(
                           width: 290,
                           height: 50,
@@ -211,21 +217,23 @@ class _SignUpState extends State<SignUp> {
                               left: 5.0, right: 5.0, top: 0, bottom: 0),
                           child: TextFormField(
                             validator: (val) =>
-                            val.isEmpty
-                                ? 'Enter your email adress'
-                                : null,
+                                val.isEmpty ? 'Enter your email adress' : null,
                             onChanged: (newValue) =>
                                 setState(() => email = newValue),
                             decoration:
-                            const InputDecoration(labelText: ' Email '),
+                                const InputDecoration(labelText: ' Email '),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       children: [
-                        SizedBox(width: 15,),
+                        SizedBox(
+                          width: 15,
+                        ),
                         Container(
                           width: 290,
                           height: 50,
@@ -234,23 +242,25 @@ class _SignUpState extends State<SignUp> {
                               left: 5.0, right: 5.0, top: 0, bottom: 0),
                           child: TextFormField(
                             validator: (val) =>
-                            val.isEmpty
-                                ? 'Enter a password'
-                                : null,
+                                val.isEmpty ? 'Enter a password' : null,
                             onChanged: (newValue) =>
                                 setState(() => firstPassword = newValue),
-                            decoration: const InputDecoration(
-                                labelText: ' Password'),
+                            decoration:
+                                const InputDecoration(labelText: ' Password'),
                             obscureText: true,
                             obscuringCharacter: "*",
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       children: [
-                        SizedBox(width: 15,),
+                        SizedBox(
+                          width: 15,
+                        ),
                         Container(
                           width: 290,
                           height: 50,
@@ -258,13 +268,16 @@ class _SignUpState extends State<SignUp> {
                           padding: const EdgeInsets.only(
                               left: 5.0, right: 5.0, top: 0, bottom: 0),
                           child: TextFormField(
-                            validator: (val) =>
-                            val.isEmpty
-                                ? 'Enter a password'
-                                : null,
+                            validator: (val) {
+                              if (val.isEmpty)
+                                return "enter a value";
+                              else if (val != firstPassword)
+                                return "password does not match";
+                              else
+                                return null;
+                            },
                             onChanged: (newValue) =>
-                            firstPassword == newValue ? setState(() =>
-                            password = newValue) : 'not a match',
+                                setState(() => password = newValue),
                             // generate an error?
                             //TODO: onChanged: set password. and validate same password
                             decoration: const InputDecoration(
@@ -275,23 +288,34 @@ class _SignUpState extends State<SignUp> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (_) => NewSignUp(firstName, lastName, email, userName, password, _gender, age)));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => NewSignUp(
+                                          firstName,
+                                          lastName,
+                                          email,
+                                          userName,
+                                          password,
+                                          _gender,
+                                          age)));
                             }
                           },
                           child: Row(
                             children: [
-                              Text(
-                                'Continue'
+                              Text('Continue'),
+                              SizedBox(
+                                width: 40,
                               ),
-                              SizedBox(width: 40,),
                               Icon(
                                 Icons.arrow_forward,
                               ),
