@@ -230,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context, MaterialPageRoute(builder: (_) => StartScreen()));
   }
 
-  Future<List<Match>> getMatches() async {
+  void getMatches() async {
     List<Match> matches = [];
 
     var res = await http.get(
@@ -242,24 +242,25 @@ class _HomeScreenState extends State<HomeScreen> {
       matches.add(Match.fromJsonFull(m));
     }
 
-    return matches;
+
+    _addMatches(matches);
+
 
 
 
   }
 
-  void _addMatches() async {
+  void _addMatches(List<Match> matches) async {
 
-    getMatches().then((matches) {
+
       for(Match m in matches ) {
-          print(m);
         _updateMarker(m);
 
 
       }
-    });
+    }
   }
 
-}
+
 
 
