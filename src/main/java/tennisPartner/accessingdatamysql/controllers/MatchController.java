@@ -28,7 +28,7 @@ public class MatchController {
 
         Matches matches = new Matches(addMatchRequest.getMinSkillLevel(), addMatchRequest.getMaxSkillLevel(),
                 addMatchRequest.getNumberOfPlayers(), addMatchRequest.getStartTime(), addMatchRequest.getEndTime(),
-                addMatchRequest.getDate(), addMatchRequest.getPosition(), user );
+                addMatchRequest.getDate(), addMatchRequest.getLatitude(), addMatchRequest.getLongitude(), user );
 
         matchesRepository.save(matches);
         return ResponseEntity.ok(new MessageResponse("Request to play added successfully!"));
@@ -45,6 +45,14 @@ public class MatchController {
     public ArrayList findByUser(@RequestBody String userName) {
         User user = userRepository.findByName(userName);
         return (ArrayList) matchesRepository.findAllByUser(user);
+    }
+
+
+
+    @DeleteMapping("/deleteAll")
+    public String deleteUsers() {
+        matchesRepository.deleteAll();
+        return "Deleted";
     }
 }
 

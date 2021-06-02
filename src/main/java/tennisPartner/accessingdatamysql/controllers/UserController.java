@@ -35,7 +35,7 @@ public class UserController {
    @Autowired
     ObjectMapper mapper;
 
-    //@CrossOrigin(origins = "http://localhost:50996")
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestParam Map loginRequest) {
         String username = (String) loginRequest.get("username");
@@ -81,22 +81,6 @@ public class UserController {
     }
 
 
-    @GetMapping(path = "/userdata")
-    public ResponseEntity<?> getUserDataByEmail(@RequestParam String username) {
-
-        if (!userRepository.existsByName(username)) {
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: No such user"));
-        } else {
-            User user = userRepository.findByName(username);
-
-
-            //todo: return user info
-           return ResponseEntity.ok(user);
-        }
-    }
-
 
     @GetMapping(path = "/currentuserinfo")
     public ResponseEntity<?> getUserDataByName(@RequestParam Map nameMap) {
@@ -112,6 +96,26 @@ public class UserController {
             //todo: return user info
             return ResponseEntity.ok(user);
         }
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> updateUserInfo(@RequestParam Map userInfo){
+        String userName = (String) userInfo.get("name");
+        String email = (String) userInfo.get("email");
+        String firstName = (String) userInfo.get("firstName");
+        String lastName = (String) userInfo.get("lastName");
+        int skillLevel = (Integer) userInfo.get("skillLevel");
+        String aboutInfo = (String) userInfo.get("aboutInfo");
+
+        User user = userRepository.findByName(userName);
+
+        user.setName(userName);
+        user.setAboutInfo(aboutInfo);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setSkillLevel(skillLevel);
+
+        return ResponseEntity.ok("Saved updated info");
     }
 
     @DeleteMapping("/deleteuser")

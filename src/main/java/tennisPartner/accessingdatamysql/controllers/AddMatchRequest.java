@@ -6,11 +6,12 @@ public class AddMatchRequest {
     private Integer minSkillLevel;
     private Integer maxSkillLevel;
     private Integer numberOfPlayers;
-    private String startTime; //not sure if this is the correct time format
+    private String startTime;
     private String endTime;
     private String date;
     //private String tennisCourt;
-    private String position;
+    private String latitude;
+    private String longitude;
     private String username;
 
     public String getUsername() {
@@ -69,13 +70,19 @@ public class AddMatchRequest {
         this.date = date;
     }
 
-
-
-    public String getPosition() {
-        return position;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

@@ -7,22 +7,23 @@ import java.io.Serializable;
 @Entity
 public class Matches implements Serializable {
 
-        @Id
-        @GeneratedValue(strategy= GenerationType.AUTO)
-        private Long id;
-        private Integer minSkillLevel;
-        private Integer maxSkillLevel;
-        private Integer numberOfPlayers;
-        private String startTime; //not sure if this is the correct time format
-        private String endTime;
-        private String date;
-        private String tennisCourt;
-        private String position;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private Integer minSkillLevel;
+    private Integer maxSkillLevel;
+    private Integer numberOfPlayers;
+    private String startTime; //not sure if this is the correct time format
+    private String endTime;
+    private String date;
+    private String tennisCourt;
+    private String latitude;
+    private String longitude;
 
-      @ManyToOne()
-       private User user;
+    @ManyToOne()
+    private User user;
 
-    public Matches(Integer minSkillLevel, Integer maxSkillLevel, Integer numberOfPlayers, String startTime, String endTime, String date, String position, User user) {
+    public Matches(Integer minSkillLevel, Integer maxSkillLevel, Integer numberOfPlayers, String startTime, String endTime, String date, String latitude, String longitude, User user) {
         this.minSkillLevel = minSkillLevel;
         this.maxSkillLevel = maxSkillLevel;
         this.numberOfPlayers = numberOfPlayers;
@@ -31,7 +32,8 @@ public class Matches implements Serializable {
         this.endTime = endTime;
         //should be date format to be able to search by date
         this.date = date;
-        this.position = position;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.user = user;
     }
 
@@ -104,18 +106,21 @@ public class Matches implements Serializable {
         this.tennisCourt = tennisCourt;
     }
 
-    public String getPosition() {
-        return position;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setLatitude(String position) {
+        this.latitude = position;
     }
 
+    public String getLongitude() {
+        return longitude;
+    }
 
-
-
-
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
 }
 
 
