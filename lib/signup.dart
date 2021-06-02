@@ -67,10 +67,8 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
         Align(
-          alignment: Alignment.topCenter,
+          alignment: Alignment.center,
           child: Container(
-            width: 360,
-            height: 500,
             child: FractionallySizedBox(
               widthFactor: 0.9,
               heightFactor: 0.9,
@@ -81,10 +79,10 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
         Align(
-          alignment: Alignment(-0.02, -0.55),
+          alignment: Alignment(-0.02, -0.3),
           child: Container(
             width: 325,
-            height: 450,
+            height: 500,
             color: Colors.transparent,
             child: SingleChildScrollView(
               child: Form(

@@ -72,8 +72,6 @@ class _NewSignUpState extends State<NewSignUp> {
         Align(
           alignment: Alignment.center,
           child: Container(
-            width: 360,
-            height: 500,
             child: FractionallySizedBox(
               widthFactor: 0.9,
               heightFactor: 0.9,

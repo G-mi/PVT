@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Map<LatLng, Match> matches;
 
 
-  _onMapCreated(GoogleMapController controller) {
+  _onMapCreated(GoogleMapController controller){
     _controller.complete(controller);
   }
 
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     iconSize: 25,
                     color: Colors.white,
                     onPressed: () {
-                      getMatches();
+                      searchTennisCourts(_center);
                     },
                   ),
                 ),
@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
       _markers.clear();
     });
 
-   final location = Location(lat: _center.latitude, lng: _center.longitude);
+    final location = Location(lat: _center.latitude, lng: _center.longitude);
     final result = await _tennisCourts.searchNearbyWithRadius(location, 8000, keyword: "tennisbana");
 
     setState(() {
@@ -197,6 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
           position: LatLng(f.geometry.location.lat, f.geometry.location.lng),
         );
         _markers.add(marker);
+        _markers.addAll(_matchMarkers);
       });
     });
   }

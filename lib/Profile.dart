@@ -193,7 +193,7 @@ class _ProfileState extends State<Profile> {
           borderRadius: BorderRadius.circular(13.0),
         ),
         child: Text(
-          user.aboutInfo,
+          user.aboutInfo ?? '',
         ),
       ),
     );

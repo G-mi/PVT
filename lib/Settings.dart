@@ -22,6 +22,7 @@ class _SettingsState extends State<Settings> {
   ];
 
 
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -91,6 +92,58 @@ class _SettingsState extends State<Settings> {
     );
   }
 
+  Widget buildPopupAbout(BuildContext context) {
+    return new AlertDialog(
+      title: const Text('About'),
+      content: const Text("This is a tennis matching app made by group 74 for the course PVT vt21"),
+      actions: <Widget>[
+        TextButton(onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+        ),
+      ],
+    );
+  }
+
+  Widget buildPopupVersion(BuildContext context) {
+    return new AlertDialog(
+      title: const Text('Version'),
+      content: const Text("Current version: 0.1"),
+      actions: <Widget>[
+        TextButton(onPressed: () => Navigator.pop(context, 'OK'),
+          child: const Text('OK'),
+        ),
+      ],
+    );
+  }
+
+  Widget buildPopupContact(BuildContext context) {
+    return new AlertDialog(
+      title: const Text('Contact'),
+      content: const Text("You can contact us through iLearn"),
+      actions: <Widget>[
+        TextButton(onPressed: () => Navigator.pop(context, 'OK'),
+          child: const Text('OK'),
+        ),
+      ],
+    );
+  }
+
+  Widget buildPopupSendFeedback(BuildContext context) {
+    return new AlertDialog(
+      title: const Text('Send Feedback'),
+      content: TextField(
+      ),
+      actions: <Widget>[
+        TextButton(onPressed: () => Navigator.pop(context, 'cancel'),
+          child: const Text('Cancel'),
+        ),
+        TextButton(onPressed: () => Navigator.pop(context, 'Send'),
+          child: const Text('Send'),
+        ),
+      ],
+    );
+  }
+
   Widget buildSettingsListView() {
     return ListView.builder(
       itemCount: settingsList.length,
@@ -104,6 +157,14 @@ class _SettingsState extends State<Settings> {
                     MaterialPageRoute(
                     builder: (context) => StartScreen(),
                 ));
+              } else if(settingsList[index] == "About") {
+                showDialog(context: context, builder: buildPopupAbout,);
+              } else if(settingsList[index] == "Version") {
+                showDialog(context: context, builder: buildPopupVersion);
+              } else if(settingsList[index] == "Contact") {
+                showDialog(context: context, builder: buildPopupContact);
+              } else if(settingsList[index] == "Send Feedback") {
+                showDialog(context: context, builder: buildPopupSendFeedback);
               }
 
             },
