@@ -38,7 +38,6 @@ class Match{
       numberOfPlayers: json['numberOfPayers'],
       minSkillLevel: json['minSkillLevel'],
       maxSkillLevel: json['maxSkillLevel'],
-      //todo:: parse to latlng
       matchLocation: LatLng(double.parse(json['latitude']), double.parse(json['longitude'])),
     );
   }

@@ -372,15 +372,8 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-
-
                       onPressed: ()  =>
-                             _addMatch(
-
-                            ),
-
-
-
+                             _addMatch(),
                       child: Row(
                         children: [
                           Text(
@@ -524,6 +517,8 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
     var res = await http.post(
         Uri.parse("http://localhost:8080/match/add"), body:
 
+
+    //todo:remove hardcoded data
   {
     'minSkillLevel':  _minSkillLevel.toString(),
     'maxSkillLevel': _maxSkillLevel.toString(),

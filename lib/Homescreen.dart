@@ -238,11 +238,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     var data = jsonDecode(res.body);
 
-    print(res.body);
-
-
-
-    print(res.statusCode);
     for (Map m in data) {
       matches.add(Match.fromJsonFull(m));
     }
