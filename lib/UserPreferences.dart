@@ -8,7 +8,7 @@ class UserPreferences {
   static const _keyUser = 'user';
   static const _keyUserName = 'username';
   static const _keyToken= 'token';
-  static String token = 'fdsfs';
+
 
   static final myUser = User.full(
     firstName: 'Sofia',
@@ -44,7 +44,7 @@ class UserPreferences {
     _preferences.remove(_keyToken);
   }
 
-  static Future setAccessToken() async =>
+  static Future setAccessToken(String token) async =>
     await _preferences.setString(_keyToken, token);
 
   static String getAccessToken() => _preferences.getString(_keyToken);

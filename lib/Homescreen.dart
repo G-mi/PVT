@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/Buttons.dart';
+import 'package:frontend/Match.dart';
+import 'dart:convert';
 import 'package:frontend/Plannedmatches.dart';
 import 'package:frontend/Settings.dart';
 import 'package:frontend/Profile.dart';
@@ -9,8 +11,10 @@ import 'package:frontend/UserPreferences.dart';
 import 'package:frontend/CreateMatchDialog.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'MatchInfo.dart';
 import 'startscreen.dart';
 import 'User.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget{
   HomeScreen({Key key}) : super(key:key);
@@ -30,10 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
   Set<Marker> _markers = <Marker>{};
   List<PlacesSearchResult> places = [];
   Set<Marker> _matchMarkers = <Marker>{};
+  Map<LatLng, Match> matches;
 
-  _onMapCreated(GoogleMapController controller){
+
+  _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     iconSize: 25,
                     color: Colors.white,
                     onPressed: () {
-                      searchTennisCourts(_center);
+                      getMatches();
                     },
                   ),
                 ),
@@ -142,11 +150,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.add),
                     iconSize: 25,
                     color: Colors.white,
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => CreateMatchDialog()
-                      );
+                    onPressed: () async {
+                      final Match newMatch = await showDialog(
+                      context: context,
+                      builder: (BuildContext context) => CreateMatchDialog()
+                        );
+                    /* if (newMatch != null) {
+                       setState(() {
+                         _updateMarker(newMatch);
+                       });
+                     }*/
                     },
                   ),
                 ),
@@ -160,12 +173,18 @@ class _HomeScreenState extends State<HomeScreen> {
       );
   }
 
+  void _handleTap(Match match) {
+    showDialog(
+        context: context,
+        builder: (_) => MatchInfo(match: match,));
+  }
+
   void searchTennisCourts(LatLng center) async {
     setState(() {
       _markers.clear();
     });
 
-    final location = Location(lat: _center.latitude, lng: _center.longitude);
+   final location = Location(lat: _center.latitude, lng: _center.longitude);
     final result = await _tennisCourts.searchNearbyWithRadius(location, 8000, keyword: "tennisbana");
 
     setState(() {
@@ -182,10 +201,69 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _updateMarker(Match match) {
+    setState(() {
+      Marker marker = Marker(
+          markerId: MarkerId(match.matchLocation.toString()),
+          draggable: false,
+          infoWindow: InfoWindow(
+            title: 'Match',
+            snippet: match.matchLocation.toString(),
+          ),
+          position: LatLng(match.matchLocation.latitude + 0.00001, match.matchLocation.longitude + 0.00001),
+          icon: BitmapDescriptor.defaultMarkerWithHue(300.0),
+          onTap: () {
+            _handleTap(match);
+          }
+      );
+
+      _matchMarkers.add(marker);
+      _markers.addAll(_matchMarkers);
+    });
+  }
+
   void _handleSignOut() async {
 
     UserPreferences.deleteUser(user);
      Navigator.push(
       context, MaterialPageRoute(builder: (_) => StartScreen()));
   }
+
+  Future<List<Match>> getMatches() async {
+    List<Match> matches = [];
+
+    var res = await http.get(
+        Uri.parse('http://localhost:8080/match/all'));
+
+    var data = jsonDecode(res.body);
+
+    print(res.body);
+
+
+
+    print(res.statusCode);
+    for (Map m in data) {
+      matches.add(Match.fromJsonFull(m));
+    }
+
+    return matches;
+
+
+
+  }
+
+  void _addMatches() async {
+
+    getMatches().then((matches) {
+      for(Match m in matches ) {
+          print(m);
+        _updateMarker(m);
+
+
+      }
+    });
+  }
+
 }
+
+

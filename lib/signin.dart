@@ -87,7 +87,7 @@ class _SignInState extends State<SignIn> {
                           height: 70,
                           color: Colors.transparent,
                           child: CustomIconButton(
-                            onPressed: () => signin(userNameController.text, passwordController.text) ,
+                            onPressed: () => signIn(userNameController.text, passwordController.text) ,
                             title: text = 'Sign in',
                             color: Colors.deepOrange,
                           ),
@@ -135,7 +135,7 @@ class _SignInState extends State<SignIn> {
   }
 
 
-  signin(String username, password) async {
+  signIn(String username, password) async {
 
        var res = await http.post(
         Uri.parse("http://localhost:8080/user/signin"), body:
@@ -144,7 +144,7 @@ class _SignInState extends State<SignIn> {
     if (res.statusCode == 200) {
       Map data = json.decode(res.body) as Map;
       //todo: save in safe storage.
-      //UserPreferences.setAccessToken(data['accessToken']);
+      UserPreferences.setAccessToken(data['accessToken']);
       getUserdata(username);
 
         }
@@ -164,6 +164,7 @@ class _SignInState extends State<SignIn> {
     var data = json.decode(userdata.body);
     User user = User.fromJsonSignin(data);
     await UserPreferences.setUser(user);
+    await UserPreferences.setUsername(username);
 
 
     Navigator.push(context,
@@ -180,7 +181,7 @@ class _SignInState extends State<SignIn> {
   );
 }
 
-//Todo:: Implement. Verify email, send mail
+//Todo:: Implement.
 class ResetPassword extends StatefulWidget {
   ResetPassword({Key key}) : super(key:key);
 

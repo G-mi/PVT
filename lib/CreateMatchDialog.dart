@@ -373,49 +373,11 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
                   children: [
                     ElevatedButton(
 
-                      onPressed: () {
-                        if (_date != null && _startTime != null && _endTime != null
-                            && _selectedNrOfPlayers != null && _matchLocation != null){
-                          match = Match(
-                            date: _date,
-                            startTime: _startTime,
-                            endTime: _endTime,
-                            numberOfPlayers: _selectedNrOfPlayers,
-                            minSkillLevel: _minSkillLevel,
-                            maxSkillLevel: _maxSkillLevel,
-                            matchLocation: _matchLocation,
-                          );
-                          Navigator.pop(context, match);
-                        }else{
-                          showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: Text('Error!'),
-                              content: Text('All field need to be assigned'),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(
-                                          context,
-                                          MaterialPageRoute(builder: (_) => HomeScreen())
-                                      );
-                                    },
-                                    child: Text('Ok')
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      },
-                     /* onPressed: ()  =>
+
+                      onPressed: ()  =>
                              _addMatch(
-                           _selectedNrOfPlayers,
-                            _minSkillLevel,
-                           _maxSkillLevel,
-                                  _date,
-                            _startTime,
-                            _endTime
-                            ),*/
+
+                            ),
 
 
 
@@ -553,24 +515,26 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
     }
   }
 
-  Future<Match> _addMatch(_selectedNrOfPlayers, _minSkillLevel, _maxSkillLevel, date,
-      startTime, endTime) async {
-    String userName = UserPreferences.getUserName();
-    String matchlocation = "59.3536164,18.041846";
-    var reqBody = new Map();
 
-    reqBody['minSkillLevel'] = _minSkillLevel;
-    reqBody['maxSkillLevel'] =_maxSkillLevel;
-    reqBody['numberOfPlayers'] =_selectedNrOfPlayers;
-    reqBody['startTime'] = startTime.toString();
-    reqBody['endTime'] = endTime.toString();
-    reqBody['date'] = date.toString();
-    reqBody['position'] = matchlocation;
-    reqBody['username'] =  userName;
+   _addMatch( ) async {
+
+   var startTime = convertTimeOfDay(_startTime);
+   var endTime = convertTimeOfDay(_endTime);
 
     var res = await http.post(
         Uri.parse("http://localhost:8080/match/add"), body:
-    jsonEncode(reqBody)
+
+  {
+    'minSkillLevel':  _minSkillLevel.toString(),
+    'maxSkillLevel': _maxSkillLevel.toString(),
+    'numberOfPlayers':_selectedNrOfPlayers.toString(),
+   'startTime':  startTime.toString(),
+    'endTime': endTime.toString(),
+    'date':  _date.toString(),
+    'longitude': "59.3375350000001",
+    'latitude':  "18.002607600000005",
+    'username':  "AnnaB"
+    }
 
     );
 
@@ -586,14 +550,11 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
         matchLocation: _matchLocation,
       );
 
-
       Navigator.pop(context, match);
-
 
     } else
     displayDialog(context, "Something went wrong",
     "Unable to add match");
-
   }
 
   void displayDialog(context, title, text) => showDialog(
@@ -601,5 +562,10 @@ class _CreateMatchDialogState extends State<CreateMatchDialog> {
     builder: (context) =>
         AlertDialog(title: Text(title), content: Text(text)),
   );
+
+   convertTimeOfDay(TimeOfDay t) {
+    final now = new DateTime.now();
+    return new DateTime(now.year, now.month, now.day, t.hour, t.minute);
+  }
 
 }
